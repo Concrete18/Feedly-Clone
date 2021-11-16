@@ -1,0 +1,12 @@
+.side_bar {
+    background-color: #181818;
+    width: 32rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    color: white;
+}

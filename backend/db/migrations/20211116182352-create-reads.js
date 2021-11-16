@@ -8,11 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      article_id: {
+      articleId: {
+        allowNull: false,
         type: Sequelize.INTEGER
+      },
+      read: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

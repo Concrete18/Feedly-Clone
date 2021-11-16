@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Saved.init({
     userId: DataTypes.INTEGER,
-    articleId: DataTypes.INTEGER
+    articleId: DataTypes.INTEGER,
+    read: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Saved',

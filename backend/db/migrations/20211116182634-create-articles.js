@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       sourceId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       url: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

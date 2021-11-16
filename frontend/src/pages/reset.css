@@ -1,0 +1,151 @@
+/* RESET STYLES */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Whitney Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Medium"), url("./fonts/whitneymedium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Medium Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Medium Italic"),
+    url("./fonts/whitneymediumitalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Bold"), url("./fonts/whitneybold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Semibold Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Semibold Regular"),
+    url("./fonts/whitneysemibold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Book Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Book Regular"),
+    url("./fonts/whitneybook.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Light Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Light Regular"),
+    url("./fonts/whitneylight.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Semibold Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Semibold Italic"),
+    url("./fonts/WhitneySemiboldItalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Book Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Book Italic"),
+    url("./fonts/whitneybookitalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Light Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Light Italic"),
+    url("./fonts/whitneylightitalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Ginto Nord";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Light Italic"),
+    url("./fonts/whitneylightitalic.woff") format("woff");
+}
+
+body {
+  font-family: "Whitney Book Regular", "Open sans", sans-serif;
+}
+/* UTILITY CLASS */
+/* MARGIN */
+.mar-top-s {
+  margin-top: 0.25rem;
+}
+.mar-top-m {
+  margin-top: 0.5rem;
+}
+.mar-top-l {
+  margin-top: 1rem;
+}
+
+.mar-bot-s {
+  margin-bottom: 0.25rem;
+}
+.mar-bot-m {
+  margin-bottom: 0.5rem;
+}
+.mar-bot-l {
+  margin-bottom: 1rem;
+}
+
+.mar-left-s {
+  margin-left: 0.25rem;
+}
+.mar-left-m {
+  margin-left: 0.5rem;
+}
+.mar-left-l {
+  margin-left: 1rem;
+}
+
+.mar-right-s {
+  margin-right: 0.25rem;
+}
+.mar-right-m {
+  margin-right: 0.5rem;
+}
+.mar-right-l {
+  margin-right: 1rem;
+}
+/* DISPLAY */
+/* BASIC FLEX */
+.basic-flex {
+  display: flex;
+  align-items: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
+}

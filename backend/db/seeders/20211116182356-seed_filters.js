@@ -1,12 +1,10 @@
 'use strict';
 
+const filters = []
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
-    await queryInterface.bulkInsert('Filters', [{
-      name: 'John Doe',
-      isBetaMember: false
-    }], {});
+    await queryInterface.bulkInsert('Filters', filters, {});
   },
 
   down: async (queryInterface, Sequelize) => {
