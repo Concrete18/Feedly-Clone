@@ -2,7 +2,7 @@
 
 const feeds = [
   {
-    owner_id: 1,
+    ownerId: 1,
     name: 'Test Feed',
     createdAt: new Date(),
     updatedAt: new Date()

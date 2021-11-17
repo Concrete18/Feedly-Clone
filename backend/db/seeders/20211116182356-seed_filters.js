@@ -2,8 +2,8 @@
 
 const filters = [
   {
-    user_id: 1,
-    filter_string: 'Test',
+    userId: 1,
+    filterString: 'Test',
     createdAt: new Date(),
     updatedAt: new Date()
   }

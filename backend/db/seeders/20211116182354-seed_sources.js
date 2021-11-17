@@ -10,7 +10,7 @@ const sources_urls = [
 let sources = []
 for (let i = 0; i < sources_urls.length; i++) {
   let source_obj = {
-    feed_id: 1,
+    feedId: 1,
     name: `Test Feed ${i+1}`,
     url: sources_urls[i], 
     createdAt: new Date(),
