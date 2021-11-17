@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Feed.hasMany(models.Source)
+      Feed.hasMany(models.Source, {foreignKey:'feedId'})
     }
   };
   Feed.init({
     name: DataTypes.STRING,
-    owner_id: DataTypes.INTEGER
+    ownerId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Feed',
