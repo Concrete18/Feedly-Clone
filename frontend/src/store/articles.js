@@ -1,52 +1,61 @@
-const SET_USER = 'session/setUser';
-const REMOVE_USER = 'session/removeUser';
+const LOAD = "articles/LOAD";
+const ADD = "articles/ADD";
+const REMOVE = "articles/REMOVE";
 
-const setUser = (user) => ({
-  type: SET_USER,
-  payload: user,
+const load = (list) => ({
+  type: LOAD,
+  list,
 });
 
-const removeUser = () => ({
-  type: REMOVE_USER,
+const add = (article) => ({
+  type: ADD,
+  article,
 });
 
-
-const RSS_URL = `https://codepen.io/picks/feed/`;
-
-fetch(RSS_URL)
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then(data => console.log(data))
-
+const remove = (articleId) => ({
+  type: REMOVE,
+  articleId,
+});
 
 export const getArticles = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}`, {
+  const response = await fetch(`/api/articles/${userId}/all`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
-    const user = await response.json();
+    const feed = await response.json();
 
-
-
-    dispatch(addPageOwner(user));
+    console.log(feed)
+    
+    for (let source of feed.sources) {
+      await fetch(source.url)
+        .then(response => response.text())
+        .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+        .then(data => console.log(data))
+    }
+    let articles
+    dispatch(load(articles));
+    return articles
   }
 }
 
-const initialState = { user: null };
-
-function reducer(state = initialState, action) {
-  let newState;
+const articleReducer = (state = {}, action) => {
   switch (action.type) {
-    case SET_USER:
-      newState = Object.assign({}, state, { user: action.payload });
+    case LOAD:
+      const newState = {};
+      for (let article of action.list) {
+        newState[article.id] = article;
+      }
       return newState;
-    case REMOVE_USER:
-      newState = Object.assign({}, state, { user: null });
-      return newState;
+    case ADD:
+      return { ...state, [action.article.id]: action.article };
+    case REMOVE:
+      const newArticles = { ...state };
+      delete newArticles[action.articleId];
+      return newArticles;
     default:
       return state;
   }
-}
+};
 
-export default reducer;
+export default articleReducer;
