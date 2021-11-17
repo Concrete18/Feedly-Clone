@@ -3,7 +3,7 @@
 const reads = [
   {
     articleId: 1,
-    userId: 'Test Feed',
+    userId: 1,
     read: false,
     createdAt: new Date(),
     updatedAt: new Date()
