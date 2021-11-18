@@ -1,10 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+// store
+import { getArticles } from "../../store/articles";
+
 
 import './main_content.css';
 
-function MainContent({ isLoaded }){
+function MainContent({ isLoaded }) {
+  const dispatch = useDispatch();
+
   const sessionUser = useSelector(state => state.session.user);
+  // const articles = useSelector(state => state.articles);
 
   // let sessionLinks;
   // if (sessionUser) {
@@ -19,6 +27,11 @@ function MainContent({ isLoaded }){
   //     </>
   //   );
   // }
+
+  useEffect(() => {
+    dispatch(getArticles(1));
+    // dispatch(getArticles(sessionUser.id));
+  }, [dispatch]);
 
   return (
     <div className='main_content'>
