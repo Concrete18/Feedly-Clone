@@ -1,29 +1,32 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+// stores
+import { getFeeds } from '../../store/feeds';
+
+// components
+import FeedsContainer from './Feeds'
 
 import './side_bar.css';
 
 function SideBar({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  const feeds = useSelector(state => Object.values(state.feeds));
 
-  // let sessionLinks;
-  // if (sessionUser) {
-  //   sessionLinks = (
-  //     <ProfileButton user={sessionUser} />
-  //   );
-  // } else {
-  //   sessionLinks = (
-  //     <>
-  //       <LoginFormModal />
-  //       <NavLink to="/signup">Sign Up</NavLink>
-  //     </>
-  //   );
-  // }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userId = sessionUser?.id
+    // dispatch(getFeeds(userId))
+    dispatch(getFeeds(1))
+  }, [dispatch])
 
   return (
     <div className='side_bar'>
-      <p>Side bar</p>
+      <div>Read Later</div>
+      <div>Feeds</div>
+      <div>All</div>
+        <FeedsContainer feeds={feeds}/>
     </div>
   );
 }
