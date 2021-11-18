@@ -3,7 +3,19 @@
 const feeds = [
   {
     ownerId: 1,
-    name: 'Test Feed',
+    name: 'News',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    ownerId: 1,
+    name: 'Gaming',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    ownerId: 1,
+    name: 'Movies',
     createdAt: new Date(),
     updatedAt: new Date()
   }
