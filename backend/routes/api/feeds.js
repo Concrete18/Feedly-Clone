@@ -38,9 +38,11 @@ router.post('/new', asyncHandler(async function(req, res) {
 
 router.put('/update/:id', asyncHandler(async function(req, res) {
 	const { userId, feedName } = req.body
+	console.log(req.body)
 	const feed = await Feed.findByPk(req.params.id);
+	console.log(feed)
 	await feed.update({ userId, feedName });
-	return res.json(comments);
+	return res.json(feed);
 }));
 
 router.delete('/delete/:id', asyncHandler(async function(req, res) {
