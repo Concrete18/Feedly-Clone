@@ -5,10 +5,10 @@ elif [ $1 == 'migrate' ]; then
 elif [ $1 == 'seed' ]; then
     heroku run npm run sequelize db:seed:all
 elif [ $1 == 'reset' ]; then
-    heroku run npx sequelize-cli db:seed:undo:all
-    heroku run npx sequelize-cli db:migrate:undo:all
-    heroku run npx sequelize-cli db:migrate
-    heroku run npx sequelize-cli db:seed:all
+    heroku run npm run sequelize db:seed:undo:all
+    heroku run npm run sequelize db:migrate:undo:all
+    heroku run npm run sequelize db:migrate
+    heroku run npm run sequelize db:seed:all
 else
     echo "Unknown arg given. $1 is invalid."
 fi
