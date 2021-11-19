@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 // stores
 import { deleteFeed, editFeed } from '../../../store/feeds';
 
-function FeedContainer({ isLoaded, feed }) {
+function SingleFeed({ feed }) {
 
   const [showEditFeed, setShowEditFeed] = useState(false);
   const [feedName, setFeedName] = useState('')
@@ -18,7 +18,7 @@ function FeedContainer({ isLoaded, feed }) {
 		const data = {
       // userId:sessionUser.id,
 			userId:1,
-      feedId:feed.id,
+      id:feed.id,
 			name:feedName
 		}
 		let editedFeed = await dispatch(editFeed(data))
@@ -26,22 +26,22 @@ function FeedContainer({ isLoaded, feed }) {
 	};
 
   return (
-    <div>
+    <div className='single_feed'>
       {!showEditFeed && (
-        <div>{feed.name}</div>
+        <div className='feed_name'>{feed.name}</div>
       )}
       {showEditFeed && (
         <form onSubmit={handleSubmit} className='add_feed_form'>
-          <input className='edit_feed_inputs' type="text" onChange={(e) => setFeedName(e.target.value)} placeholder='Type name' required />
+          <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => setFeedName(e.target.value)} placeholder='Type name' required />
         </form>
       )}
       <div className='delete_feed' onClick={ async (e) => {
           e.preventDefault();
           await dispatch(deleteFeed(feed.id))
         }}>Delete</div>
-      <div onClick={() => {setShowEditFeed(!showEditFeed)}}>Edit</div>
+      <div className='edit_feed' onClick={() => {setShowEditFeed(!showEditFeed)}}>Edit</div>
     </div>
   );
 }
 
-export default FeedContainer;
+export default SingleFeed;
