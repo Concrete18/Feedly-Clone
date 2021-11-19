@@ -32,7 +32,7 @@ function SingleFeed({ feed }) {
       )}
       {showEditFeed && (
         <form onSubmit={handleSubmit} className='add_feed_form'>
-          <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => setFeedName(e.target.value)} defaultValue={feed.name} placeholder='Type name' required />
+          <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus defaultValue={feed.name} placeholder='Type name' required />
         </form>
       )}
       <div className='delete_feed' onClick={ async (e) => {
