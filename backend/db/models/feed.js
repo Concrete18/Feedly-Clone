@@ -1,25 +1,22 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Sources extends Model {
+  class Feed extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Feed.hasMany(models.Source, {foreignKey:'feedId'})
     }
   };
-  Sources.init({
-    feed_id: DataTypes.INTEGER,
+  Feed.init({
     name: DataTypes.STRING,
-    url: DataTypes.STRING
+    ownerId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Sources',
+    modelName: 'Feed',
   });
-  return Sources;
+  return Feed;
 };
