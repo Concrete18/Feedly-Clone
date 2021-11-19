@@ -9,13 +9,13 @@ const feeds = [
   },
   {
     ownerId: 1,
-    name: 'Gaming',
+    name: 'Technology',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
     ownerId: 1,
-    name: 'Movies',
+    name: 'Gaming',
     createdAt: new Date(),
     updatedAt: new Date()
   }
