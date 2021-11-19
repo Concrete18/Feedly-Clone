@@ -11,7 +11,7 @@ router.get('user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const feeds = await Feed.findAll(
 		{
-			where: { ownerId: userId },
+			where: { userId: userId },
 			include: Source
 		}
 	);

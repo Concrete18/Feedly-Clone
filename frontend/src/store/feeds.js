@@ -32,7 +32,7 @@ export const getFeeds = (userId) => async (dispatch) => {
 }
 
 export const addFeed = (feed) => async (dispatch) => {
-  const { name, ownerId } = feed;
+  const { name, userId } = feed;
   const response = await csrfFetch("/api/feeds/new", {
     method: "POST",
     headers: {
@@ -40,7 +40,7 @@ export const addFeed = (feed) => async (dispatch) => {
     },
     body: JSON.stringify({
       name,
-      ownerId
+      userId
     }),
   });
   const data = await response.json();
@@ -59,7 +59,7 @@ export const deleteFeed = (feedId) => async (dispatch) => {
 }
 
 export const editFeed = (formData) => async (dispatch) => {
-  const response = await fetch(`/api/feeds/update/${formData.id}`, {
+  const response = await csrfFetch(`/api/feeds/update/${formData.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

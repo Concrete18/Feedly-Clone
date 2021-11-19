@@ -1,6 +1,6 @@
 # npx sequelize model:generate --name User --attributes username:string,email:string,hashedPassword:string
 
-npx sequelize model:generate --name Feeds --attributes name:string,ownerId:integer
+npx sequelize model:generate --name Feeds --attributes name:string,userId:integer
 
 npx sequelize model:generate --name Sources --attributes feedId:integer,name:string,url:string
 
