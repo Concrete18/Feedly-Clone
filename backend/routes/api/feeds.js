@@ -36,13 +36,16 @@ router.post('/new', asyncHandler(async function(req, res) {
   return res.json(newFeed);
 }));
 
+router.put('/update/:id', asyncHandler(async function(req, res) {
+	const { ownerId, feedName } = req.body
+	const feed = await Feed.findByPk(req.params.id);
+	await feed.update({ ownerId, feedName });
+	return res.json(comments);
+}));
+
 router.delete('/delete/:id', asyncHandler(async function(req, res) {
 	const feedId = req.params.id
-	const feed = await Feed.findOne(
-		{
-			where: { id:feedId },
-		}
-	);
+	const feed = await Feed.findByPk(feedId);
 	feed.destroy()
 	return res.json(feed);
 }));
