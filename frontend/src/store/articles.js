@@ -23,7 +23,7 @@ const remove = (articleId) => ({
 let parser = new Parser();
 
 export const getArticles = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/articles/${userId}/all`, {
+  const response = await fetch(`/api/articles/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })
