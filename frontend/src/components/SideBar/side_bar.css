@@ -1,4 +1,7 @@
 .side_bar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     background-color: #181818;
     width: 32rem;
     height: 100%;
@@ -9,4 +12,24 @@
     overflow-x: hidden;
     padding-top: 20px;
     color: white;
+}
+.feeds_container {
+    margin-top: 2rem;
+}
+.single_feed {
+    display: flex;
+    flex-direction: row;
+    padding: .5rem;
+}
+.feed_name {
+    padding-right: .5rem;
+}
+.delete_feed {
+    padding-right: .5rem;
+}
+.edit_feed {
+    padding-right: .5rem;
+}
+.source_container {
+    padding-left: 1rem;
 }

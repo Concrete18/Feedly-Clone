@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   Article.init({
     sourceId: DataTypes.INTEGER,
-    name: DataTypes.STRING,
+    title: DataTypes.STRING,
+    creator: DataTypes.STRING,
+    pubDate: DataTypes.STRING,
+    content: DataTypes.STRING,
+    contentSnippet: DataTypes.STRING,
     url: DataTypes.STRING
   }, {
     sequelize,

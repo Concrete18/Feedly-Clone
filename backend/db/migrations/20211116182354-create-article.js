@@ -13,7 +13,23 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Sources' }
       },
-      name: {
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      creator: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      pubDate: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      content: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      contentSnippet: {
         allowNull: false,
         type: Sequelize.STRING
       },

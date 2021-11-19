@@ -10,7 +10,7 @@ router.get('/user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const feeds = await Feed.findAll(
 		{
-			where: { ownerId: userId },
+			where: { userId: userId },
 			include: Source
 		}
 	);
@@ -37,10 +37,13 @@ router.post('/new', asyncHandler(async function(req, res) {
 }));
 
 router.put('/update/:id', asyncHandler(async function(req, res) {
-	const { ownerId, feedName } = req.body
+	const { name } = req.body
+	console.log('body', req.body)
 	const feed = await Feed.findByPk(req.params.id);
-	await feed.update({ ownerId, feedName });
-	return res.json(comments);
+	console.log('found feed', feed)
+	await feed.update({ name });
+	console.log('updated feed', feed)
+	return res.json(feed);
 }));
 
 router.delete('/delete/:id', asyncHandler(async function(req, res) {

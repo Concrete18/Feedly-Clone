@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFeeds, addFeed } from '../../store/feeds';
 
 // components
-import FeedsContainer from './Feeds'
+import SingleFeed from './Feed'
+import SourceContainer from './Sources'
 
 import './side_bar.css';
 
@@ -28,10 +29,11 @@ function SideBar({ isLoaded }){
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = {
-      // ownerId:sessionUser.id,
-			ownerId:1,
+      // userId:sessionUser.id,
+			userId:1,
 			name:feedName
 		}
+    setShowAddFeed(!showAddFeed)
 		let createdFeed = await dispatch(addFeed(data))
 		if (createdFeed) return
 	};
@@ -41,17 +43,30 @@ function SideBar({ isLoaded }){
       <div>Read Later</div>
       <div>Feeds</div>
       <div>All</div>
-      <FeedsContainer feeds={feeds}/>
+
+      <div className='feeds_container'>
+      {feeds && feeds?.map( feed => (
+          <div className='feed_container' key={`feed${feed?.id}`}>
+      
+            <SingleFeed feed={feed}/>
+
+            <div className='source_container'>
+              <SourceContainer sources={feed.Sources} />
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
       {showAddFeed && (
         <form onSubmit={handleSubmit} className='add_feed_form'>
           <div className='add_feed_inputs'>
             <label>Feed Name
-              <input type="text" onChange={(e) => setFeedName(e.target.value)} defaultValue={feedName} placeholder='Type name' required />
+              <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
             </label>
           </div>
           <div className='add_feed_button'>
-            <button className='button' type="submit">Upload</button>
+            <button className='button' type="submit">Add Feed</button>
           </div>
         </form>
 			)}

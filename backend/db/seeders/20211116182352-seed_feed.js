@@ -2,19 +2,19 @@
 
 const feeds = [
   {
-    ownerId: 1,
+    userId: 1,
     name: 'News',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    ownerId: 1,
+    userId: 1,
     name: 'Technology',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
-    ownerId: 1,
+    userId: 1,
     name: 'Gaming',
     createdAt: new Date(),
     updatedAt: new Date()

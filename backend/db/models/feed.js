@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Feed.init({
     name: DataTypes.STRING,
-    ownerId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Feed',
