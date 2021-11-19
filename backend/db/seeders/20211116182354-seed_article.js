@@ -2,15 +2,15 @@
 
 const articles = []
 for (let i = 0; i <= 10; i++) {
-  obj = {
+  const obj = {
     sourceId: 1,
     name: `Test Article ${i}`,
     url: 'testArticle.com',
     createdAt: new Date(),
     updatedAt: new Date()
   }
+  articles.push(obj)
 }
-articles.push()
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

@@ -1,7 +1,7 @@
 'use strict';
 
 
-seed_data = [
+const seed_data = [
   {
     feedId:1,
     name:'CNN',
