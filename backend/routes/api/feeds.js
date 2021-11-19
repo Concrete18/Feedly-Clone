@@ -31,4 +31,20 @@ router.get('/:feedId', asyncHandler(async (req, res) => {
   }),
 );
 
+router.post('/new', asyncHandler(async function(req, res) {
+	newFeed = await Feed.create(req.body);
+  return res.json(newFeed);
+}));
+
+router.delete('/delete/:id', asyncHandler(async function(req, res) {
+	const feedId = req.params.id
+	const feed = await Feed.findOne(
+		{
+			where: { id:feedId },
+		}
+	);
+	feed.destroy()
+	return res.json(feed);
+}));
+
 module.exports = router;
