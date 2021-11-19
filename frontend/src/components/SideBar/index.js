@@ -33,6 +33,7 @@ function SideBar({ isLoaded }){
 			userId:1,
 			name:feedName
 		}
+    setShowAddFeed(!showAddFeed)
 		let createdFeed = await dispatch(addFeed(data))
 		if (createdFeed) return
 	};
@@ -61,11 +62,11 @@ function SideBar({ isLoaded }){
         <form onSubmit={handleSubmit} className='add_feed_form'>
           <div className='add_feed_inputs'>
             <label>Feed Name
-              <input type="text" onChange={(e) => setFeedName(e.target.value)} defaultValue={feedName} placeholder='Type name' required />
+              <input type="text" onChange={(e) => setFeedName(e.target.value)} placeholder='Type name' required />
             </label>
           </div>
           <div className='add_feed_button'>
-            <button className='button' type="submit">Upload</button>
+            <button className='button' type="submit">Add Feed</button>
           </div>
         </form>
 			)}

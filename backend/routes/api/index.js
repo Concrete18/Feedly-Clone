@@ -51,6 +51,6 @@ router.use("/feeds", feedsRouter);
 
 router.use("/sources", sourcesRouter);
 
-// router.use("/articles", articlesRouter);
+router.use("/articles", articlesRouter);
 
 module.exports = router;
