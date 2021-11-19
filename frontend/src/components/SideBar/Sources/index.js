@@ -1,12 +1,10 @@
 
 function SourceContainer({ isLoaded, sources }){
   
-  console.log(sources)
-
   return (
     <div className='source_container'>
       {sources && sources?.map( source => (
-          <div>{source.name}</div>
+          <div key={`sources${source?.id}`} >{source.name}</div>
         ))}
     </div>
   );
