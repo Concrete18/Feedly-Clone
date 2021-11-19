@@ -28,8 +28,8 @@ function SideBar({ isLoaded }){
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = {
+      // ownerId:sessionUser.id,
 			ownerId:1,
-      // userId:sessionUser.id,
 			name:feedName
 		}
 		let createdFeed = await dispatch(addFeed(data))
@@ -47,7 +47,7 @@ function SideBar({ isLoaded }){
         <form onSubmit={handleSubmit} className='add_feed_form'>
           <div className='add_feed_inputs'>
             <label>Feed Name
-              <input type="text" onChange={(e) => setFeedName(e.target.value)} placeholder='Type name' required />
+              <input type="text" onChange={(e) => setFeedName(e.target.value)} defaultValue={feedName} placeholder='Type name' required />
             </label>
           </div>
           <div className='add_feed_button'>

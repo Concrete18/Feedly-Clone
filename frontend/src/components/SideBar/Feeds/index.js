@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 // stores
@@ -6,24 +7,48 @@ import { deleteFeed, editFeed } from '../../../store/feeds';
 // components
 import SourceContainer from '../Sources'
 
-function FeedsContainer({ isLoaded, feeds }){
+function FeedsContainer({ isLoaded, feeds }) {
+
+  const [showEditFeed, setShowEditFeed] = useState(false);
+  const [feedName, setFeedName] = useState('')
 
   const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
+		e.preventDefault();
+    setShowEditFeed(!showEditFeed)
+		const data = {
+      // ownerId:sessionUser.id,
+			ownerId:1,
+			name:feedName
+		}
+		let editedFeed = await dispatch(editFeed(data))
+		if (editedFeed) return
+	};
 
   return (
     <div className='feeds_container'>
       {feeds && feeds?.map( feed => (
           <div className='feed_container' key={`feed${feed?.id}`}>
             <div>
-              <div>{feed.name}</div>
-              <svg className='x_delete_feed' onClick={ async (e) => {
-                e.preventDefault();
-                await dispatch(deleteFeed(feed.id))
-              }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
-              <svg className='pencil_edit_feed' onClick={ async (e) => {
-                e.preventDefault();
-                await dispatch(editFeed(feed.id))
-              }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+
+              {!showEditFeed && (
+                <div>{feed.name}</div>
+              )}
+
+              {showEditFeed && (
+                <form onSubmit={handleSubmit} className='add_feed_form'>
+                  <input className='edit_feed_inputs' type="text" onChange={(e) => setFeedName(e.target.value)} placeholder='Type name' required />
+                </form>
+			        )}
+              
+              <div className='delete_feed' onClick={ async (e) => {
+                  e.preventDefault();
+                  await dispatch(deleteFeed(feed.id))
+                }}>Delete</div>
+
+              <div onClick={() => {setShowEditFeed(!showEditFeed)}}>Edit</div>
+            
             </div>
             <div className='source_container'>
               <SourceContainer sources={feed.Sources} />
@@ -35,4 +60,3 @@ function FeedsContainer({ isLoaded, feeds }){
 }
 
 export default FeedsContainer;
-  
