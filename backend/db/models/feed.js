@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Feed.hasMany(models.Source, {foreignKey:'feedId'})
+      Feed.belongsToMany(models.Source, {
+        through: 'Source_join',  
+        otherKey: 'feedId',
+        foreignKey: 'sourceId'
+      })
     }
   };
   Feed.init({
