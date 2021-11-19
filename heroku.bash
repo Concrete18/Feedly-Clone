@@ -1,5 +1,5 @@
 if [ $1 == 'push' ]; then
-    git push heroku dev:master
+    git push heroku main:master
 elif [ $1 == 'migrate' ]; then
     heroku run npm run sequelize db:migrate
 elif [ $1 == 'seed' ]; then

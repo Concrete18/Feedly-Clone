@@ -10,7 +10,8 @@ router.get('/user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const articles = await Article.findAll(
 		{
-			where: { userId }
+			where: { userId },
+			include: [ {model: models.Source, include: models.Articles }]
 		}
 	);
 	return res.json(articles);
