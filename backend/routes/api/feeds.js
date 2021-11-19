@@ -37,11 +37,12 @@ router.post('/new', asyncHandler(async function(req, res) {
 }));
 
 router.put('/update/:id', asyncHandler(async function(req, res) {
-	const { userId, feedName } = req.body
-	console.log(req.body)
+	const { name } = req.body
+	console.log('body', req.body)
 	const feed = await Feed.findByPk(req.params.id);
-	console.log(feed)
-	await feed.update({ userId, feedName });
+	console.log('found feed', feed)
+	await feed.update({ name });
+	console.log('updated feed', feed)
 	return res.json(feed);
 }));
 
