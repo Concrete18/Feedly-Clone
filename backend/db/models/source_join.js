@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Source_join',
-    tableName: 'Source_joins',
   });
   return Source_join;
 };

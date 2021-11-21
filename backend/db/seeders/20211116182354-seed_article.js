@@ -1,5 +1,9 @@
 'use strict';
 
+
+seedData
+
+
 const articles = []
 for (let i = 0; i <= 10; i++) {
   const obj = {

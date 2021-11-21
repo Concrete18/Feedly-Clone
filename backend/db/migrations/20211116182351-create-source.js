@@ -8,11 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      feedId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references:{model:'Feeds'}
-      },
       name: {
         allowNull: false,
         type: Sequelize.STRING

@@ -3,29 +3,28 @@
 
 const seed_data = [
   {
-    feedId:1,
     name:'CNN',
     url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
   },
   {
-    feedId:1,
     name:'NY TIMES',
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'
   },
   {
-    feedId:2,
     name:'Github Blog',
     url: 'https://blog.github.com/blog.atom,'
   },
   {
-    feedId:2,
     name:'TechRadar',
     url: 'http://www.techradar.com/rss'
   },
   {
-    feedId:3,
     name:'Polygon',
     url: 'https://www.polygon.com/rss/index.xml'
+  },
+  {
+    name:'PlayStation.Blog',
+    url: 'https://blog.playstation.com/feed/'
   }
 ]
 
