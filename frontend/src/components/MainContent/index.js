@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 // store
-import { getArticles } from "../../store/articles";
+import { getAllArticles, updateUserArticles } from "../../store/articles";
 
 
 import './main_content.css';
@@ -29,8 +29,9 @@ function MainContent({ isLoaded }) {
   // }
 
   useEffect(() => {
-    dispatch(getArticles(sessionUser.id));
-  }, [dispatch]);
+    dispatch(updateUserArticles(sessionUser.id));
+    // dispatch(getAllArticles(sessionUser.id));
+  }, [sessionUser]);
 
   return (
     <div className='main_content'>
