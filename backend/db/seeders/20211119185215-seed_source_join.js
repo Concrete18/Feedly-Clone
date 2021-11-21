@@ -5,22 +5,22 @@ const seedData = [
     sourceId:1,
     feedId:1
   },
-  {
-    sourceId:2,
-    feedId:1
-  },
-  {
-    sourceId:3,
-    feedId:2
-  },
-  {
-    sourceId:4,
-    feedId:2
-  },
-  {
-    sourceId:5,
-    feedId:3
-  }
+  // {
+  //   sourceId:2,
+  //   feedId:1
+  // },
+  // {
+  //   sourceId:3,
+  //   feedId:2
+  // },
+  // {
+  //   sourceId:4,
+  //   feedId:2
+  // },
+  // {
+  //   sourceId:5,
+  //   feedId:3
+  // }
 ]
 
 module.exports = {

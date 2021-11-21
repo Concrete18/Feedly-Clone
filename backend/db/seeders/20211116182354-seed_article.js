@@ -1,19 +1,29 @@
 'use strict';
+// const seedData = require('./articleData.json')
 
-
-seedData
-
+const seedData = [
+  {
+    "sourceId": 1,
+    "title": "title",
+    "creator": "author",
+    "content": "content",
+    "contentSnippet": "content",
+    "url": "url"
+  }
+]
 
 const articles = []
-for (let i = 0; i <= 10; i++) {
+
+
+for (let article of seedData) {
   const obj = {
-    sourceId: 1,
-    title: `Test Article ${i}`,
-    creator: 'Michael Ericson',
+    sourceId: article.sourceId,
+    title: article.title,
+    creator: article.creator,
     pubDate: new Date(),
-    content: 'content',
-    contentSnippet: 'content snippet',
-    url: 'testArticle.com',
+    content: article.content,
+    contentSnippet: article.contentSnippet,
+    url: article.url,
     createdAt: new Date(),
     updatedAt: new Date()
   }

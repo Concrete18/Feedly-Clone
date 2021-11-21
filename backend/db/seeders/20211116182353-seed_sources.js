@@ -11,16 +11,8 @@ const seed_data = [
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'
   },
   {
-    name:'Github Blog',
-    url: 'https://blog.github.com/blog.atom,'
-  },
-  {
     name:'TechRadar',
     url: 'http://www.techradar.com/rss'
-  },
-  {
-    name:'Polygon',
-    url: 'https://www.polygon.com/rss/index.xml'
   },
   {
     name:'PlayStation.Blog',
@@ -31,7 +23,6 @@ const seed_data = [
 let sources = []
 for (const entry of seed_data) {
   let source_obj = {
-    feedId: entry.feedId,
     name: entry.name,
     url: entry.url, 
     createdAt: new Date(),
