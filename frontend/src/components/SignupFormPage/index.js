@@ -13,8 +13,9 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/collection" />;
 
+  // TODO fix signup modal
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {

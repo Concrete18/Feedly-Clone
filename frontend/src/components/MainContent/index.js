@@ -16,7 +16,7 @@ function MainContent({ isLoaded }) {
 
   // let sessionLinks;
   // if (sessionUser) {
-  //   sessionLinks = (
+//   sessionLinks = (
   //     <ProfileButton user={sessionUser} />
   //   );
   // } else {
@@ -29,8 +29,7 @@ function MainContent({ isLoaded }) {
   // }
 
   useEffect(() => {
-    dispatch(getArticles(1));
-    // dispatch(getArticles(sessionUser.id));
+    dispatch(getArticles(sessionUser.id));
   }, [dispatch]);
 
   return (

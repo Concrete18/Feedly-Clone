@@ -22,15 +22,13 @@ function SideBar({ isLoaded }){
 
   useEffect(() => {
     const userId = sessionUser?.id
-    // dispatch(getFeeds(userId))
-    dispatch(getFeeds(1))
+    dispatch(getFeeds(userId))
   }, [dispatch])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = {
-      // userId:sessionUser.id,
-			userId:1,
+      userId:sessionUser.id,
 			name:feedName
 		}
     setShowAddFeed(!showAddFeed)
@@ -51,7 +49,9 @@ function SideBar({ isLoaded }){
             <SingleFeed feed={feed}/>
 
             <div className='source_container'>
+            {/* {showWhatever && ( */}
               <SourceContainer sources={feed.Sources} />
+            {/* )} */}
             </div>
           </div>
         ))}
