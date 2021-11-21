@@ -31,7 +31,7 @@ export const getArticles = (userId) => async (dispatch) => {
     const feed = await response.json();
     const sources = feed[0].Sources
 
-    let articles
+    let articles = []
     for (let source of sources) {
       console.log(source)
       try {
