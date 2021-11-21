@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Source.init({
-    feedId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     url: DataTypes.STRING
   }, {

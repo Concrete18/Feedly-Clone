@@ -15,27 +15,23 @@ module.exports = {
       },
       title: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
       },
       creator: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(200)
       },
       pubDate: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       content: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
       },
       contentSnippet: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
       },
       url: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
       },
       createdAt: {
         allowNull: false,
