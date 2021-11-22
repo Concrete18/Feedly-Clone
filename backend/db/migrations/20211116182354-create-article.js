@@ -24,10 +24,10 @@ module.exports = {
         type: Sequelize.DATE
       },
       content: {
-        type: Sequelize.STRING(600)
+        type: Sequelize.STRING(2000)
       },
       contentSnippet: {
-        type: Sequelize.STRING(600)
+        type: Sequelize.STRING(1000)
       },
       url: {
         allowNull: false,

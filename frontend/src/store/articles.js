@@ -20,14 +20,13 @@ const load = (list) => ({
 // });
 
 export const updateUserArticles = (userId) => async (dispatch) => {
-  console.log('\n\n\n\n\nthis is running in thunk\n\n\n\n')
   // get all sources from backend
   const response = await csrfFetch(`/api/articles/update/user/${userId}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
-    console.log('It worked')
+    // console.log('It worked')
   }
 }
 
@@ -40,21 +39,19 @@ export const getAllArticles = (userId) => async (dispatch) => {
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    console.log(articles)
     dispatch(load(articles))
   }
 }
 
 export const getArticlesByFeed = (feedId) => async (dispatch) => {
   // get all sources from backend
-  const response = await fetch(`/api/feeds/${feedId}`, {
+  const response = await fetch(`/api/articles/feed/${feedId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    console.log(articles)
     dispatch(load(articles))
   }
 }
@@ -68,7 +65,6 @@ export const getArticlesBySource = (sourceId) => async (dispatch) => {
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    console.log(articles)
     dispatch(load(articles))
   }
 }

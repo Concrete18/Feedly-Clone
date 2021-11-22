@@ -17,6 +17,10 @@ const seed_data = [
   {
     name:'PlayStation.Blog',
     url: 'https://blog.playstation.com/feed/'
+  },
+  {
+    name:'VALVE News Feed',
+    url: 'https://store.steampowered.com/feeds/news.xml'
   }
 ]
 
