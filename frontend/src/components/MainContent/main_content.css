@@ -1,8 +1,9 @@
 .main_content {
     color: white;
     background-color: #121212;
-    /* margin-left: 31.5rem;
-    position: fixed; */
     height: 100%;
-    width: 100%;
+    width: calc(100% - 32rem);
+    position: fixed;
+    top: 0;
+    right: 0;
 }

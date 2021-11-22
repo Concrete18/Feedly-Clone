@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { getFeeds, addFeed } from '../../store/feeds';
+import { getSourcesByUser } from '../../store/sources';
 
 // components
 import SingleFeed from './Feed'
-import SourceContainer from './Sources'
+import SingleSource from './Sources'
 
 import './side_bar.css';
 
 function SideBar({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const feeds = useSelector(state => Object.values(state.feeds));
+  const sources = useSelector(state => Object.values(state.sources));
 
   // useStates
   const [showAddFeed, setShowAddFeed] = useState(false);
@@ -23,6 +25,7 @@ function SideBar({ isLoaded }){
   useEffect(() => {
     const userId = sessionUser?.id
     dispatch(getFeeds(userId))
+    dispatch(getSourcesByUser(userId))
   }, [dispatch])
 
 	const handleSubmit = async (e) => {
@@ -30,10 +33,10 @@ function SideBar({ isLoaded }){
 		const data = {
       userId:sessionUser.id,
 			name:feedName
-		}
-    setShowAddFeed(!showAddFeed)
-		let createdFeed = await dispatch(addFeed(data))
-		if (createdFeed) return
+		};
+    setShowAddFeed(!showAddFeed);
+		let createdFeed = await dispatch(addFeed(data));
+		if (createdFeed) return;
 	};
 
   return (
@@ -45,13 +48,19 @@ function SideBar({ isLoaded }){
       <div className='feeds_container'>
       {feeds && feeds?.map( feed => (
           <div className='feed_container' key={`feed${feed?.id}`}>
-      
             <SingleFeed feed={feed}/>
-
             <div className='source_container'>
-            {/* {showWhatever && ( */}
-              <SourceContainer sources={feed.Sources} />
-            {/* )} */}
+              {/* maps out the sources */}
+              {sources && sources.filter(source => source.feedId === feed?.id)?.map( source => (
+                <div key={`sources${source?.id}`} >
+                  <SingleSource source={source} />
+                </div>
+              ))}
+              {/* shows text saying now sources exist */}
+              {!sources.filter(source => source.feedId === feed?.id).length && (
+                <div>No sources exist</div>
+              )}
+              <button className='button add_source_button' type="submit">Add Source</button>
             </div>
           </div>
         ))}
@@ -65,9 +74,7 @@ function SideBar({ isLoaded }){
               <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
             </label>
           </div>
-          <div className='add_feed_button'>
-            <button className='button' type="submit">Add Feed</button>
-          </div>
+          <button className='button add_feed_button' type="submit">Add Feed</button>
         </form>
 			)}
     </div>
