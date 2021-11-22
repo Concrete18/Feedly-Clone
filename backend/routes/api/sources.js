@@ -2,34 +2,53 @@ const express = require("express");
 const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
-const { Feed, Source } = require("../../db/models");
+const { Source } = require("../../db/models");
 
 const router = express.Router();
 
-// Get all sources
-router.get('user/:userId', asyncHandler(async (req, res) => {
-	const userId = req.params.userId
-	const feeds = await Feed.findAll(
+// Get all sources by userId
+router.get('/user/:userId', asyncHandler(async (req, res) => {
+	console.log('yay')
+	const sources = await Source.findAll(
 		{
-			where: { userId: userId },
-			include: Source
+			where: { userId: req.params.userId }
 		}
 	);
-	return res.json(feeds);
+	return res.json(sources);
   }),
 );
 
-// Get by sources by feed
-router.get('feed/:feedId', asyncHandler(async (req, res) => {
-	const feedId = req.params.feedId
-	const feeds = await Feed.findAll(
+// Get by sources by feedId
+router.get('/feed/:feedId', asyncHandler(async (req, res) => {
+	const sources = await Source.findAll(
 		{
-			where: { feedId },
-			include: Source
+			where: { feedId: req.params.feedId }
 		}
 	);
-	return res.json(feeds);
+	return res.json(sources);
   }),
 );
+
+// create new source
+router.post('/new', asyncHandler(async function(req, res) {
+	const { name, url, userId } = req.body
+	newSource = await Source.create({ name, url, userId });
+  return res.json(newSource);
+}));
+
+// update source name by sourceId
+router.put('/update/:id', asyncHandler(async function(req, res) {
+	const { name } = req.body
+	const source = await Source.findByPk(req.params.id);
+	await source.update({ name });
+	return res.json(source);
+}));
+
+// delete source name by sourceId
+router.delete('/delete/:id', asyncHandler(async function(req, res) {
+	const source = await Source.findByPk(req.params.id);
+	source.destroy()
+	return res.json(source);
+}));
 
 module.exports = router;
