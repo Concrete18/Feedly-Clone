@@ -8,11 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sourceId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Sources' }
-      },
       title: {
         allowNull: false,
         type: Sequelize.STRING(600)

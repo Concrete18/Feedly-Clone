@@ -18,7 +18,13 @@ const feeds = [
     name: 'Gaming',
     createdAt: new Date(),
     updatedAt: new Date()
-  }
+  },
+  {
+    userId: 1,
+    name: 'Sports',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
 ]
 
 module.exports = {

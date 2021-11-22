@@ -1,52 +1,67 @@
 'use strict';
 
-
-const seed_data = [
+const seedData = [
   {
-    name:'CNN',
-    url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
+    name: 'CNN',
+    url: 'http://rss.cnn.com/rss/cnn_topstories.rss',
+    feedId: 1,
+    userId: 1
   },
   {
-    name:'NY TIMES',
-    url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'
+    name: 'NY Times',
+    url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+    feedId: 1,
+    userId: 1
   },
   {
-    name:'TechRadar',
-    url: 'http://www.techradar.com/rss'
+    name: 'TechRadar',
+    url: 'http://www.techradar.com/rss',
+    feedId: 2,
+    userId: 1
   },
   {
-    name:'PlayStation.Blog',
-    url: 'https://blog.playstation.com/feed/'
+    name: 'Playstation Blog',
+    url: 'https://blog.playstation.com/feed/',
+    feedId: 3,
+    userId: 1
   },
   {
-    name:'VALVE News Feed',
-    url: 'https://store.steampowered.com/feeds/news.xml'
+    name: 'Valve News Feed',
+    url: 'https://store.steampowered.com/feeds/news.xml',
+    feedId: 3,
+    userId: 1
+  },
+  {
+    name: 'Polygon',
+    url: 'https://www.polygon.com/rss/index.xml',
+    feedId: 3,
+    userId: 1
+  },
+  {
+    name: 'ESPN',
+    url: 'http://www.espn.com/espn/rss/news',
+    feedId: 4,
+    userId: 1
+  },
+  {
+    name: 'Wired',
+    url: 'https://www.wired.com/feed/rss',
+    feedId: 2,
+    userId: 1
   }
 ]
 
 let sources = []
-for (const entry of seed_data) {
-  let source_obj = {
+for (const entry of seedData) {
+  const source_obj = {
+    userId: entry.userId,
+    feedId: entry.feedId,
     name: entry.name,
     url: entry.url, 
     createdAt: new Date(),
     updatedAt: new Date()
   }
   sources.push(source_obj);
-}
-
-const sources_urls = {
-  "http://feeds.bbci.co.uk/news/world/rss.xml": 1,
-  "https://www.politico.com/rss/politics08.xml": 1,
-  "https://www.theringer.com/rss/index.xml": 1,
-  "http://www.politico.com/rss/congress.xml": 1,
-  "https://www.polygon.com/rss/index.xml": 1,
-  "http://feeds.feedburner.com/TechCrunch/": 1,
-  'https://www.huffpost.com/section/front-page/feed?x=1': 1,
-  "http://www.espn.com/espn/rss/news": 1,
-  "https://www.boston.com/tag/local-news/feed": 1,
-  "https://feeds.thedailybeast.com/summary/rss/articles": 1,
-  "https://www.wired.com/feed/rss": 1
 }
 
 module.exports = {
