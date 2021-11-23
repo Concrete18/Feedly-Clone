@@ -30,13 +30,14 @@ export const updateUserArticles = (userId) => async (dispatch) => {
   }
 }
 
-export const getAllArticles = (userId) => async (dispatch) => {
+export const getUserArticles = (userId) => async (dispatch) => {
   // get all sources from backend
   const response = await fetch(`/api/articles/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
+    console.log('It worked')
     const articles = await response.json();
     // get articles from the given source id
     dispatch(load(articles))
