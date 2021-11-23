@@ -7,3 +7,18 @@
     top: 0;
     right: 0;
 }
+.article_container {
+    
+}
+.entry_list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content:center;
+    /* justify-content: center; */
+}
+.single_article {
+    width: 15rem;
+    height: 15rem;
+    margin: 4rem;
+}
