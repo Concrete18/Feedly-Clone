@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { deleteFeed, editFeed } from '../../../store/feeds';
 
 function SingleFeed({ feed }) {
+  const sessionUser = useSelector(state => state.session.user);
 
   const [showEditFeed, setShowEditFeed] = useState(false);
   const [feedName, setFeedName] = useState('')
@@ -16,8 +17,7 @@ function SingleFeed({ feed }) {
     setShowEditFeed(!showEditFeed)
     // TODO move edit into its own component
 		const data = {
-      // userId:sessionUser.id,
-			userId:1,
+      userId:sessionUser.id,
       id:feed.id,
 			name:feedName
 		}
@@ -35,11 +35,11 @@ function SingleFeed({ feed }) {
           <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus defaultValue={feed.name} placeholder='Type name' required />
         </form>
       )}
-      <div className='delete_feed' onClick={ async (e) => {
+      <div className='edit_delete_button' onClick={ async (e) => {
           e.preventDefault();
           await dispatch(deleteFeed(feed.id))
         }}>Delete</div>
-      <div className='edit_feed' onClick={() => {setShowEditFeed(!showEditFeed)}}>Edit</div>
+      <div className='edit_delete_button' onClick={() => {setShowEditFeed(!showEditFeed)}}>Edit</div>
     </div>
   );
 }

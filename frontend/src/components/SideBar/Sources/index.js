@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 // stores
 import { deleteSource, editSource } from '../../../store/sources';
 
-function SingleSource({ isLoaded, source }){
+function SingleSource({ source }){
+  const sessionUser = useSelector(state => state.session.user);
   
   const [showEditSource, setShowEditSource] = useState(false);
   const [sourceName, setSourceName] = useState('')
@@ -16,8 +18,7 @@ function SingleSource({ isLoaded, source }){
     setShowEditSource(!showEditSource)
     // TODO move edit into its own component
 		const data = {
-      // userId:sessionUser.id,
-			userId:1,
+      userId:sessionUser.id,
       id:source.id,
 			name:sourceName
 		}
@@ -35,11 +36,11 @@ function SingleSource({ isLoaded, source }){
           <input className='edit_source_inputs source_name' type="text" onChange={(e) => setSourceName(e.target.value)} autoFocus defaultValue={source.name} placeholder='Type name' required />
         </form>
       )}
-      <div className='delete_source' onClick={ async (e) => {
+      <div className='edit_delete_button' onClick={ async (e) => {
           e.preventDefault();
           await dispatch(deleteSource(source.id))
         }}>Delete</div>
-      <div className='edit_source' onClick={() => {setShowEditSource(!showEditSource)}}>Edit</div>
+      <div className='edit_delete_button' onClick={() => {setShowEditSource(!showEditSource)}}>Edit</div>
     </div>
   );
 }

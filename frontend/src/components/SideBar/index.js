@@ -57,10 +57,9 @@ function SideBar({ isLoaded }){
                 </div>
               ))}
               {/* shows text saying now sources exist */}
-              {!sources.filter(source => source.feedId === feed?.id).length && (
+              {!sources.filter(source => source.feedId === feed.id).length && (
                 <div>No sources exist</div>
               )}
-              <button className='button add_source_button' type="submit">Add Source</button>
             </div>
           </div>
         ))}

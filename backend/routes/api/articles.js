@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
 
-const { Article, Feed, Source } = require("../../db/models");
+const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
 const router = express.Router();
 
@@ -30,27 +30,27 @@ async function parseRss(feedUrl) {
 router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 	// find feeds including sources for userId
 	const userId = req.params.userId
-	const feeds = await Feed.findAll(
+	const sources = await Source.findAll(
 		{
-			where: { userId },
-			include: Source
+			where: { userId }
 		}
 	);
 	// gets article data for all sources in found feeds
 	let articleData = []
-	for (let feed of feeds) {
-		// get articles from each source
-		for (let source of feed.Sources) {
-		  const articles = await parseRss(source.url)
-		  articles.sourceId = source.id
-		  articleData.push(...articles)
+	for (let source of sources) {
+		const articles = await parseRss(source.url)
+		for (let article of articles) {
+			article.sourceId = source.id
+			article.feedId = source.feedId
+			article.userId = source.userId
+			articleData.push(article)
 		}
 	}
 	let newArticles = 0
 	let deletedArticles = 0
 	const dbArticles = await Article.findAll();
 	for (let article of dbArticles) {
-		// TODO delete old articles that are too old
+		// TODO delete old articles that are too old and is not saved by anyone
 		// article.destroy()
 		deletedArticles++
 	}
@@ -62,6 +62,7 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 			}
 		);
 		// TODO checks if the article is recent enough
+		// placeholder for date check
 
 		if (true && !articleExists && article.title) {
 			const articleObj = {
@@ -74,7 +75,14 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 				contentSnippet: article.contentSnippet ? article.contentSnippet : "null",
 				url: article.link ? article.link : "null",
 			}
-			await Article.create(articleObj);
+			const newArticle = await Article.create(articleObj);
+			const articleJoinObj = {
+				userId: article.userId,
+				feedId: article.feedId,
+				sourceId: article.sourceId,
+				articleId: newArticle.id
+			}
+			await ArticleJoin.create(articleJoinObj);
 			newArticles++
 		}
 	}
@@ -87,22 +95,18 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
   }),
 );
 
-// get all articles
-router.get('/all', asyncHandler(async (req, res) => {
-	const feeds = await Feed.findAll(
+// get all articles by userId
+router.get('/user/:userId', asyncHandler(async (req, res) => {
+	console.log('yay it works well')
+	const userId = req.params.userId
+	const articles = await ArticleJoin.findAll(
 		{
-			where: { feedId },
-			include: Source
-			// include articles
+			where: { userId },
+			include: Article
 		}
 	);
-	let sources = []
-	for (let feed of feeds) {
-		for (let source of feed.Source) {
-			sources.push(source)
-		}
-	}
-	return res.json(sources);
+	console.log(articles)
+	return res.json(articles);
   }),
 );
 
@@ -112,7 +116,8 @@ router.get('/feed/:feedId', asyncHandler(async (req, res) => {
 	const feeds = await Feed.findOne(
 		{
 			where: { feedId },
-			include: Source
+			include: Source,
+			limit: 20
 		}
 	);
 	return res.json(feeds);
