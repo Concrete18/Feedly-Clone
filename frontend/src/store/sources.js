@@ -44,7 +44,7 @@ export const getSourcesByFeed = (feedId) => async (dispatch) => {
 }
 
 export const addSource = (source) => async (dispatch) => {
-  const { userId, name, url } = source;
+  const { userId, name, url, feedId } = source;
   const response = await csrfFetch("/api/sources/new", {
     method: "POST",
     headers: {
@@ -53,7 +53,8 @@ export const addSource = (source) => async (dispatch) => {
     body: JSON.stringify({
       name,
       url,
-      userId
+      userId,
+      feedId
     }),
   });
   const data = await response.json();

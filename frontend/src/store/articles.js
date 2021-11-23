@@ -37,7 +37,6 @@ export const getUserArticles = (userId) => async (dispatch) => {
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
-    console.log('It worked')
     const articles = await response.json();
     // get articles from the given source id
     dispatch(load(articles))

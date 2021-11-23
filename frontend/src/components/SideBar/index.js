@@ -8,6 +8,7 @@ import { getSourcesByUser } from '../../store/sources';
 // components
 import SingleFeed from './Feed'
 import SingleSource from './Sources'
+import AddSource from './AddSource';
 
 import './side_bar.css';
 
@@ -29,6 +30,7 @@ function SideBar({ isLoaded }){
   }, [dispatch])
 
 	const handleSubmit = async (e) => {
+    console.log(e)
 		e.preventDefault();
 		const data = {
       userId:sessionUser.id,
@@ -60,11 +62,11 @@ function SideBar({ isLoaded }){
               {!sources.filter(source => source.feedId === feed.id).length && (
                 <div>No sources exist</div>
               )}
+              <AddSource feedId={feed.id} userId={sessionUser?.id}/>
             </div>
           </div>
         ))}
       </div>
-
       <div onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
       {showAddFeed && (
         <form onSubmit={handleSubmit} className='add_feed_form'>

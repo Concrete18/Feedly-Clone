@@ -31,8 +31,7 @@ router.get('/feed/:feedId', asyncHandler(async (req, res) => {
 
 // create new source
 router.post('/new', asyncHandler(async function(req, res) {
-	const { name, url, userId } = req.body
-	newSource = await Source.create({ name, url, userId });
+	newSource = await Source.create(req.body);
   return res.json(newSource);
 }));
 
