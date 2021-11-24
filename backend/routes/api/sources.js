@@ -8,7 +8,6 @@ const router = express.Router();
 
 // Get all sources by userId
 router.get('/user/:userId', asyncHandler(async (req, res) => {
-	console.log('yay')
 	const sources = await Source.findAll(
 		{
 			where: { userId: req.params.userId }

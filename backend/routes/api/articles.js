@@ -1,6 +1,8 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
+const {getMetadata} = require('page-metadata-parser');
+const domino = require('domino');
 
 const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
@@ -24,6 +26,14 @@ async function parseRss(feedUrl) {
 		articles.push(entry)
 	});
 	return articles
+}
+
+async function parseMetadata(articleUrl) {
+	const response = await fetch(articleUrl);
+	const html = await response.text();
+	const doc = domino.createWindow(html).document;
+	const metadata = getMetadata(doc, url);
+	console.log(metadata)
 }
 
 // add new articles for user and delete old articles
@@ -50,9 +60,11 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 	let deletedArticles = 0
 	const dbArticles = await Article.findAll();
 	for (let article of dbArticles) {
-		// TODO delete old articles that are too old and is not saved by anyone
-		// article.destroy()
-		deletedArticles++
+		if (article.createdAt) {
+			// TODO delete old articles that are too old and is not saved by anyone
+			// article.destroy()
+			// deletedArticles++
+		}
 	}
 	for (let article of articleData) {
 		// checks if the article is not in the db
@@ -63,16 +75,14 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		);
 		// TODO checks if the article is recent enough
 		// placeholder for date check
+		const recentArticle = true
 
-		if (true && !articleExists && article.title) {
+		if (recentArticle && !articleExists && article.title) {
 			const articleObj = {
-				sourceId: article.sourceId ? article.sourceId : 1,
-				title: article.title ? article.title : "null",
-				creator: article.creator ? article.creator : "null",
-				// pubDate: article.pubDate ? article.pubDate : null,
-				pubDate: article.pubDate ? article.isoDate : null,
-				content: article.content ? article.content : "null",
-				contentSnippet: article.contentSnippet ? article.contentSnippet : "null",
+				title: article.title ? article.title : "No Title",
+				pubDate: article.pubDate ? article.pubDate : null,
+				content: article.content ? article.content : "No Content",
+				contentSnippet: article.contentSnippet ? article.contentSnippet : "No Snippet",
 				url: article.link ? article.link : "null",
 			}
 			const newArticle = await Article.create(articleObj);
@@ -97,7 +107,6 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 
 // get all articles by userId
 router.get('/user/:userId', asyncHandler(async (req, res) => {
-	console.log('yay it works well')
 	const userId = req.params.userId
 	const articles = await ArticleJoin.findAll(
 		{
@@ -105,7 +114,6 @@ router.get('/user/:userId', asyncHandler(async (req, res) => {
 			include: Article
 		}
 	);
-	console.log(articles)
 	return res.json(articles);
   }),
 );
