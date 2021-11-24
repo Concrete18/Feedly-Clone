@@ -1,6 +1,14 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
+const metascraper = require('metascraper')([
+	// require('metascraper-author')(),
+	// require('metascraper-date')(),
+	require('metascraper-image')(),
+	// require('metascraper-logo')(),
+])
+
+const got = require('got')
 
 const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
@@ -26,13 +34,13 @@ async function parseRss(feedUrl) {
 	return articles
 }
 
-async function parseMetadata(articleUrl) {
-	const response = await fetch(articleUrl);
-	const html = await response.text();
-	const doc = domino.createWindow(html).document;
-	const metadata = getMetadata(doc, url);
-	console.log(metadata)
-}
+// async function parseMetadata(articleUrl) {
+// 	;(async () => {
+// 		const { body: html, url } = await got(articleUrl)
+// 		const metadata = await metascraper({ html, url })
+// 		console.log(metadata)
+// 	})()
+// }
 
 // add new articles for user and delete old articles
 router.post('/update/user/:userId', asyncHandler(async (req, res) => {
@@ -76,6 +84,7 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		const recentArticle = true
 
 		if (recentArticle && !articleExists && article.title) {
+			parseMetadata(article.link)
 			const articleObj = {
 				title: article.title ? article.title : "No Title",
 				pubDate: article.pubDate ? article.pubDate : null,
