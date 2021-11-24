@@ -26,12 +26,6 @@ const seedData = [
     userId: 1
   },
   {
-    name: 'Valve News Feed',
-    url: 'https://store.steampowered.com/feeds/news.xml',
-    feedId: 3,
-    userId: 1
-  },
-  {
     name: 'Polygon',
     url: 'https://www.polygon.com/rss/index.xml',
     feedId: 3,
