@@ -19,15 +19,12 @@ const load = (list) => ({
 //   articleId,
 // });
 
-export const updateUserArticles = (userId) => async (dispatch) => {
+export const updateUserArticles = (userId) => async () => {
   // get all sources from backend
-  const response = await csrfFetch(`/api/articles/update/user/${userId}`, {
+  await csrfFetch(`/api/articles/update/user/${userId}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}
   })
-  if (response.ok) {
-    // console.log('It worked')
-  }
 }
 
 export const getUserArticles = (userId) => async (dispatch) => {
