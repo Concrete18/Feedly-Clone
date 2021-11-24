@@ -12,8 +12,6 @@ function AddSource({ feedId, userId }) {
 
   const dispatch = useDispatch();
 
-  console.log(feedId)
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -22,7 +20,6 @@ function AddSource({ feedId, userId }) {
 			name:sourceName,
       url:sourceUrl, 
 		};
-    console.log(data)
     setShowAddSource(!showAddSource);
 		let createdSource = await dispatch(addSource(data));
 		if (createdSource) return;
