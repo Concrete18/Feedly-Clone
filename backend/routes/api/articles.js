@@ -1,8 +1,6 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
-const {getMetadata} = require('page-metadata-parser');
-const domino = require('domino');
 
 const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
