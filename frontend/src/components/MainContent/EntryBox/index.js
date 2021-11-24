@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+const metascraper = require('metascraper')([
+	// require('metascraper-author')(),
+	// require('metascraper-date')(),
+	require('metascraper-image')(),
+	// require('metascraper-logo')(),
+])
+const got = require('got')
+
 
 function EntryBox({ article }) {
-  
+ 
+  async function parseMetadata(articleUrl) {
+    ;(async () => {
+      const { body: html, url } = await got(articleUrl)
+      const metadata = await metascraper({ html, url })
+      console.log(metadata)
+    })()
+  }
+
+  useEffect(() => {
+    parseMetadata(article?.Article?.url)
+  }, [])
+
   return (
     <div className='single_article'>
       {/* <img className='article_image' src={article?.Article.image} alt="article image" /> */}

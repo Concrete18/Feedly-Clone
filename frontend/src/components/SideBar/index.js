@@ -30,7 +30,6 @@ function SideBar({ isLoaded }){
   }, [dispatch])
 
 	const handleSubmit = async (e) => {
-    console.log(e)
 		e.preventDefault();
 		const data = {
       userId:sessionUser.id,

@@ -26,7 +26,6 @@ export const getSourcesByUser = (userId) => async (dispatch) => {
   })
   if (response.ok) {
     const sources = await response.json();
-    console.log('\n\n\n\n\n', sources)
     dispatch(load(sources));
     return sources
   }
