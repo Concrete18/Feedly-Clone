@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Feed.hasMany(models.Source, {foreignKey: 'feedId'})
+      Feed.hasMany(models.Source, {
+        foreignKey: 'feedId',
+        onDelete: 'CASCADE',
+        hooks: true
+      })
       // Feed.belongsToMany(models.Source, {
       //   through: 'ArticleJoin',  
       //   otherKey: 'feedId',

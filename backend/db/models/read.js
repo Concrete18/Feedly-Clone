@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Read.belongsTo(models.Article, {
-        foreignKey:'articleId',
-        onDelete: 'CASCADE'
+        foreignKey:'articleId'
       })
     }
   };

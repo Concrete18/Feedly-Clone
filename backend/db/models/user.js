@@ -38,7 +38,21 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     };
     static associate(models) {
-      User.hasMany(models.Feed, {foreignKey:'userId'})
+      User.hasMany(models.Feed, {
+        foreignKey:'userId',
+        onDelete: 'CASCADE',
+        hooks: true
+    })
+    User.hasMany(models.Source, {
+      foreignKey:'userId',
+      onDelete: 'CASCADE',
+      hooks: true
+    })
+    User.hasMany(models.ArticleJoin, {
+      foreignKey:'userId',
+      onDelete: 'CASCADE',
+      hooks: true
+    })
     }
   };
   User.init(

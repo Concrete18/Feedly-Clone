@@ -10,19 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {   
-      // Source.hasMany(models.Article, {foreignKey:'sourceId'});
-
-      // Source.belongsToMany(models.Article, {
-      //   through: 'ArticleJoin',
-      //   otherKey: 'sourceId',
-      //   foreignKey: 'articleId'
-      // });
+      Source.hasMany(models.ArticleJoin, {
+        foreignKey:'sourceId',
+        onDelete: 'CASCADE',
+        hooks: true
+      });
     }
   };
   Source.init({
-    userId: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Source',
