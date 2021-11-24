@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
 // store
 import { getUserArticles, updateUserArticles } from "../../store/articles";
@@ -15,18 +14,26 @@ function MainContent() {
   const sessionUser = useSelector(state => state.session.user);
   const articles = useSelector(state => Object.values(state.articles));
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(updateUserArticles(sessionUser.id));
-    dispatch(getUserArticles(sessionUser.id));
+    (async () => {
+      await dispatch(updateUserArticles(sessionUser.id));
+      await setIsLoaded(true);
+      await dispatch(getUserArticles(sessionUser.id));
+    })();
   }, [sessionUser]);
 
   return (
     <div className='main_content'>
       <div className='content_container'>
-          <div className='top_container'>
-            <div>Articles</div>
-            <div>Controls</div>
-          </div>
+        <div className='top_container'>
+          <div>Articles</div>
+          <div>Controls</div>
+        </div>
+        {!isLoaded && (
+          <div className='loading_text'>Loading Articles</div>
+        )}
         <div className='entry_list'>
           {articles && articles?.map( article => (
             <EntryBox article={article} key={`article${article?.id}`}/>

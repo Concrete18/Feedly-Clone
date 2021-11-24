@@ -1,14 +1,15 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
-const metascraper = require('metascraper')([
-	// require('metascraper-author')(),
-	// require('metascraper-date')(),
-	require('metascraper-image')(),
-	// require('metascraper-logo')(),
-])
 
-const got = require('got')
+// const metascraper = require('metascraper')([
+// 	// require('metascraper-author')(),
+// 	// require('metascraper-date')(),
+// 	require('metascraper-image')(),
+// 	// require('metascraper-logo')(),
+// ])
+
+// const got = require('got')
 
 const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
@@ -84,7 +85,6 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		const recentArticle = true
 
 		if (recentArticle && !articleExists && article.title) {
-			parseMetadata(article.link)
 			const articleObj = {
 				title: article.title ? article.title : "No Title",
 				pubDate: article.pubDate ? article.pubDate : null,

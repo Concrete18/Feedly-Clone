@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 // stores
 import { addSource } from '../../../store/sources';
+import { updateUserArticles, getUserArticles } from "../../../store/articles";
 
 function AddSource({ feedId, userId }) {
-  // useStates
-  const [showAddSource, setShowAddSource] = useState('')
-  const [sourceName, setSourceName] = useState('')
-  const [sourceUrl, setSourceUrl] = useState('')
-
   const dispatch = useDispatch();
+
+  const sessionUser = useSelector(state => state.session.user);
+  // useStates
+  const [showAddSource, setShowAddSource] = useState('');
+  const [sourceName, setSourceName] = useState('');
+  const [sourceUrl, setSourceUrl] = useState('');
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -22,6 +25,8 @@ function AddSource({ feedId, userId }) {
 		};
     setShowAddSource(!showAddSource);
 		let createdSource = await dispatch(addSource(data));
+    await dispatch(updateUserArticles(sessionUser.id));
+    await dispatch(getUserArticles(sessionUser.id));
 		if (createdSource) return;
 	};
 
