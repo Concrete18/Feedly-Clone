@@ -1,36 +1,39 @@
 'use strict';
 
 const seedData = [
-  {
-    name: 'NY Times',
-    url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
-    feedId: 1,
-    userId: 1
-  },
-  {
-    name: 'TechRadar',
-    url: 'http://www.techradar.com/rss',
-    feedId: 2,
-    userId: 1
-  },
-  {
-    name: 'Playstation Blog',
-    url: 'https://blog.playstation.com/feed/',
-    feedId: 3,
-    userId: 1
-  },
-  {
-    name: 'Polygon',
-    url: 'https://www.polygon.com/rss/index.xml',
-    feedId: 3,
-    userId: 1
-  },
-  {
-    name: 'Wired',
-    url: 'https://www.wired.com/feed/rss',
-    feedId: 2,
-    userId: 1
-  }
+	// gaming
+	{
+		name: 'Polygon',
+		url: 'https://www.polygon.com/rss/index.xml',
+		feedId: 1,
+		userId: 1
+	},
+	{
+		name: 'Playstation Blog',
+		url: 'https://blog.playstation.com/feed/',
+		feedId: 1,
+		userId: 1
+	},
+	// news
+	{
+		name: 'NY Times',
+		url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+		feedId: 2,
+		userId: 1
+	},
+	// tech
+	{
+		name: 'TechRadar',
+		url: 'http://www.techradar.com/rss',
+		feedId: 3,
+		userId: 1
+	},
+	{
+		name: 'Wired',
+		url: 'https://www.wired.com/feed/rss',
+		feedId: 3,
+		userId: 1
+	}
 ]
 
 let sources = []
