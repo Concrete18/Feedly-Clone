@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(600)
       },
+      websiteName: {
+        allowNull: false,
+        type: Sequelize.STRING(600)
+      },
       creator: {
         type: Sequelize.STRING(200)
       },
@@ -22,6 +26,9 @@ module.exports = {
         type: Sequelize.STRING(2000)
       },
       contentSnippet: {
+        type: Sequelize.STRING(1000)
+      },
+      image: {
         type: Sequelize.STRING(1000)
       },
       url: {

@@ -17,8 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   Article.init({
     title: DataTypes.STRING,
+    websiteName: DataTypes.STRING,
     creator: DataTypes.STRING,
     pubDate: DataTypes.STRING,
+    image: DataTypes.STRING,
     content: DataTypes.STRING,
     contentSnippet: DataTypes.STRING,
     url: DataTypes.STRING
