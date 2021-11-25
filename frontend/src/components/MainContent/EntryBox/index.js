@@ -6,7 +6,6 @@ function EntryBox({ article }) {
 
   return (
     <div className='single_article'>
-      {/* <img className='article_image' src={'https://lh3.googleusercontent.com/pxhHGOmNW3SBevC2cHbBQungaguCalKqDmZwsPOSR_dPWc_iw_7HPbNZ2avZAuztx5KWbrjkoCTRFj-WJJmAKUTZ9KA0mw4vz8-VWnc=s324'} alt="article image" /> */}
       {article.Article.image && <img className='article_image' src={article?.Article.image} alt="article image" />}
       {!article.Article.image && <img className='article_image' src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"} alt="placeholder image" />}
       <div className='article article_title'>{article?.Article.title}</div>

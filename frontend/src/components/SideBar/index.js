@@ -2,71 +2,39 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // stores
-import { getFeeds, addFeed } from '../../store/feeds';
-import { getSourcesByUser } from '../../store/sources';
+import { addFeed } from '../../store/feeds';
 
 // components
-import SingleFeed from './Feed'
-import SingleSource from './Sources'
-import AddSource from './AddSource';
+import FeedsComponent from './FeedsComponent'
 
 import './side_bar.css';
 
 function SideBar({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  const feeds = useSelector(state => Object.values(state.feeds));
-  const sources = useSelector(state => Object.values(state.sources));
 
-  // useStates
   const [showAddFeed, setShowAddFeed] = useState(false);
   const [feedName, setFeedName] = useState('')
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const userId = sessionUser?.id
-    dispatch(getFeeds(userId))
-    dispatch(getSourcesByUser(userId))
-  }, [dispatch])
-
-	const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
 		e.preventDefault();
+    setShowAddFeed(!showAddFeed)
 		const data = {
       userId:sessionUser.id,
 			name:feedName
-		};
-    setShowAddFeed(!showAddFeed);
-		let createdFeed = await dispatch(addFeed(data));
-		if (createdFeed) return;
+		}
+		let addedFeed = await dispatch(addFeed(data))
+		if (addedFeed) return
 	};
 
   return (
     <div className='side_bar'>
-      <div>Read Later</div>
+      <div className='read_later_button text_button'>Read Later</div>
       <div>Feeds</div>
-      <div>All</div>
-
-      <div className='feeds_container'>
-      {feeds && feeds?.map( feed => (
-          <div className='feed_container' key={`feed${feed?.id}`}>
-            <SingleFeed feed={feed}/>
-            <div className='source_container'>
-              {/* maps out the sources */}
-              {sources && sources.filter(source => source.feedId === feed?.id)?.map( source => (
-                <div key={`sources${source?.id}`} >
-                  <SingleSource source={source} />
-                </div>
-              ))}
-              {/* shows text saying now sources exist */}
-              {!sources.filter(source => source.feedId === feed.id).length && (
-                <div>No sources exist</div>
-              )}
-              <AddSource feedId={feed.id} userId={sessionUser?.id}/>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
+      <div className='all_feeds_button text_button'>All</div>
+      <FeedsComponent/>
+      <div className='create_feed_button text_button' onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
       {showAddFeed && (
         <form onSubmit={handleSubmit} className='add_feed_form'>
           <div className='add_feed_inputs'>
@@ -76,7 +44,7 @@ function SideBar({ isLoaded }){
           </div>
           <button className='button add_feed_button' type="submit">Add Feed</button>
         </form>
-			)}
+      )}
     </div>
   );
 }
