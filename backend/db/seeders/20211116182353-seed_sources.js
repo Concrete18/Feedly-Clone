@@ -2,12 +2,6 @@
 
 const seedData = [
   {
-    name: 'CNN',
-    url: 'http://rss.cnn.com/rss/cnn_topstories.rss',
-    feedId: 1,
-    userId: 1
-  },
-  {
     name: 'NY Times',
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
     feedId: 1,
@@ -29,12 +23,6 @@ const seedData = [
     name: 'Polygon',
     url: 'https://www.polygon.com/rss/index.xml',
     feedId: 3,
-    userId: 1
-  },
-  {
-    name: 'ESPN',
-    url: 'http://www.espn.com/espn/rss/news',
-    feedId: 4,
     userId: 1
   },
   {
