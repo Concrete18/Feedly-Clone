@@ -40,7 +40,6 @@ async function parseRss(feedUrl) {
 	feed.items.forEach(item => {
 		const setImage = getImages(item.content)
 		const websiteName = (new URL(item.link)).hostname.split('.')[1]
-		console.log(titleCase(websiteName))
 		const entry = {
 			title:item.title,
 			creator:item.creator,
