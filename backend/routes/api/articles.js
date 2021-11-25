@@ -18,15 +18,36 @@ const router = express.Router();
 // parser set for rss feeds
 let parser = new Parser();
 
+function getImages(string) {
+  const imgRex = /<img.*?src="(.*?)"[^>]+>/g;
+  const images = [];
+    let img;
+    while ((img = imgRex.exec(string))) {
+			if (img[1].includes('jpg' || '.png'))
+     	images.push(img[1]);
+    }
+	if (images) return images[0];
+	else return null;
+}
+
+function titleCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 async function parseRss(feedUrl) {
 	let feed = await parser.parseURL(feedUrl);
 	const articles = []
 	feed.items.forEach(item => {
+		const setImage = getImages(item.content)
+		const websiteName = (new URL(item.link)).hostname.split('.')[1]
+		console.log(titleCase(websiteName))
 		const entry = {
 			title:item.title,
 			creator:item.creator,
 			link:item.link,
 			pubDate:item.pubDate,
+			image:setImage,
+			websiteName:titleCase(websiteName),
 			content:item.content,
 			contentSnippet:item.contentSnippet,
 		}
@@ -87,8 +108,10 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		if (recentArticle && !articleExists && article.title) {
 			const articleObj = {
 				title: article.title ? article.title : "No Title",
+				websiteName: article.websiteName,
 				pubDate: article.pubDate ? article.pubDate : null,
 				content: article.content ? article.content : "No Content",
+				image: article.image ? article.image : null,
 				contentSnippet: article.contentSnippet ? article.contentSnippet : "No Snippet",
 				url: article.link ? article.link : "null",
 			}
