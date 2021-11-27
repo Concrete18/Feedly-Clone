@@ -9,7 +9,7 @@ import FeedsComponent from './FeedsComponent'
 
 import './side_bar.css';
 
-function SideBar({ isLoaded }){
+function SideBar(){
   const sessionUser = useSelector(state => state.session.user);
 
   const [showAddFeed, setShowAddFeed] = useState(false);
@@ -28,9 +28,8 @@ function SideBar({ isLoaded }){
 		if (addedFeed) return
 	};
 
-  return (
+	return (
     <div className='side_bar'>
-      <div className='read_later_button text_button'>Read Later</div>
       <div>Feeds</div>
       <div className='all_feeds_button text_button'>All</div>
       <FeedsComponent/>

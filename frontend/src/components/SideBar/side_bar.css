@@ -12,7 +12,6 @@
     padding-top: 20px;
     color: white;
 }
-
 .edit_delete_button {
     padding-right: .5rem;
     color: rgb(206, 206, 206);
@@ -32,6 +31,9 @@
     font-size: .815rem;
     font-weight: 600;
     padding-right: .5rem;
+}
+.arrow_down {
+    transform: rotate(90deg);
 }
 
 /* source css */
