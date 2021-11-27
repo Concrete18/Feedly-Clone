@@ -55,7 +55,7 @@ export const getArticlesByFeed = (feedId) => async (dispatch) => {
 
 export const getArticlesBySource = (sourceId) => async (dispatch) => {
   // get all sources from backend
-  const response = await fetch(`/api/sources/${sourceId}`, {
+  const response = await fetch(`/api/articles/source/${sourceId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })

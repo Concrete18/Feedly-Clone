@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { addFeed } from '../../store/feeds';
+import { getUserArticles } from '../../store/articles';
 
 // components
 import FeedsComponent from './FeedsComponent'
@@ -28,10 +29,21 @@ function SideBar(){
 		if (addedFeed) return
 	};
 
+	const showAll = async (e) => {
+		e.preventDefault();
+		await dispatch(getUserArticles(sessionUser.id))
+	};
+
+	const showSaved = async (e) => {
+		e.preventDefault();
+		await dispatch(getUserArticles(sessionUser.id))
+	};
+
 	return (
     <div className='side_bar'>
+			<div className='read_later_button text_button' onClick={showSaved} >Read Later</div>
       <div>Feeds</div>
-      <div className='all_feeds_button text_button'>All</div>
+      <div className='all_feeds_button text_button' onClick={showAll} >All</div>
       <FeedsComponent/>
       <div className='create_feed_button text_button' onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
       {showAddFeed && (

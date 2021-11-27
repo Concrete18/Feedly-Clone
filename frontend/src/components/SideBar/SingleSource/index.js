@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { deleteSource, editSource } from '../../../store/sources';
+import { getArticlesBySource } from '../../../store/articles';
 
 function SingleSource({ source }){
   const sessionUser = useSelector(state => state.session.user);
@@ -16,7 +17,6 @@ function SingleSource({ source }){
   const handleSubmit = async (e) => {
 		e.preventDefault();
     setShowEditSource(!showEditSource)
-    // TODO move edit into its own component
 		const data = {
       userId:sessionUser.id,
       id:source.id,
@@ -26,10 +26,15 @@ function SingleSource({ source }){
 		if (editedSource) return
 	};
 
+	const showSource = async (e) => {
+		e.preventDefault();
+		await dispatch(getArticlesBySource(source.id))
+	};
+
   return (
     <div className='single_source'>
       {!showEditSource && (
-        <div className='source_name'>{source.name}</div>
+        <div className='source_name text_button' onClick={showSource} >{source.name}</div>
       )}
       {showEditSource && (
         <form onSubmit={handleSubmit} className='add_source_form'>
