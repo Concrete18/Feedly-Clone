@@ -150,27 +150,26 @@ router.get('/user/:userId', asyncHandler(async (req, res) => {
 // get all articles by feed
 router.get('/feed/:feedId', asyncHandler(async (req, res) => {
 	const feedId = req.params.feedId
-	const feeds = await Feed.findOne(
+	const articles = await ArticleJoin.findAll(
 		{
 			where: { feedId },
-			include: Source,
-			limit: 20
+			include: Article
 		}
 	);
-	return res.json(feeds);
+	return res.json(articles);
   }),
 );
 
 // get all articles by source
-router.get('/feed/:feedId', asyncHandler(async (req, res) => {
-	const feedId = req.params.feedId
-	const feeds = await Feed.findOne(
+router.get('/source/:sourceId', asyncHandler(async (req, res) => {
+	const sourceId = req.params.sourceId
+	const articles = await ArticleJoin.findAll(
 		{
-			where: { feedId },
-			include: Source
+			where: { sourceId },
+			include: Article
 		}
 	);
-	return res.json(feeds);
+	return res.json(articles);
   }),
 );
 
