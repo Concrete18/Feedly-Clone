@@ -24,7 +24,7 @@ function SplashPage() {
   return (
     <>
       <div className='splash_nav'>
-        <img src="" alt="website logo" />
+        <img src={process.env.PUBLIC_URL + "/assets/Feedler_Logo.png"} alt="website logo" />
         <LoginFormModal/>
         <SignupFormModal/>
         <button onClick={() => demoLogin()}>Demo User</button>
