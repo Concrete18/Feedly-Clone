@@ -48,9 +48,9 @@
 }
 
 /* feed css */
-.feeds_container {
-	/* margin-top: 2rem; */
-}
+/* .feeds_container {
+	margin-top: 2rem;
+} */
 .single_feed {
 	display: flex;
 	flex-direction: row;
