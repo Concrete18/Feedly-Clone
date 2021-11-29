@@ -13,21 +13,40 @@ function AddSource({ feedId, userId }) {
 	const [showAddSource, setShowAddSource] = useState('');
 	const [sourceName, setSourceName] = useState('');
 	const [sourceUrl, setSourceUrl] = useState('');
+  const [errors, setErrors] = useState([]);
 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = {
-			userId,
-			feedId,
-			name:sourceName,
-			url:sourceUrl, 
-		};
-		setShowAddSource(!showAddSource);
-		let createdSource = await dispatch(addSource(data));
-		await dispatch(updateUserArticles(sessionUser.id));
-		await dispatch(getUserArticles(sessionUser.id));
-		if (createdSource) return;
+    const lengthLimit = 30
+    const regex =
+      /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
+    setErrors([])
+    const newErrors = []
+    let isLink = regex.test(sourceUrl);
+    if (!isLink) {
+      newErrors.push('Text is not a url: Try finding another RSS Url')
+    }
+    if (sourceName.length > lengthLimit) {
+      newErrors.push(`Too long: Make name less then ${lengthLimit}`)
+    }
+    if (sourceName[0] === ' ') {
+      newErrors.push("Can't start with an empty space")
+    }
+    setErrors(newErrors)
+    if (errors.length === 0) {
+      const data = {
+        userId,
+        feedId,
+        name:sourceName,
+        url:sourceUrl, 
+      };
+      setShowAddSource(!showAddSource);
+      let createdSource = await dispatch(addSource(data));
+      await dispatch(updateUserArticles(sessionUser.id));
+      await dispatch(getUserArticles(sessionUser.id));
+      if (createdSource) return;
+    }
 	};
 
 	return (
@@ -35,6 +54,11 @@ function AddSource({ feedId, userId }) {
 			<div className='new_source_button side_bar_text_button' onClick={() => {setShowAddSource(!showAddSource)}}>Follow New Source</div>
 			{showAddSource && (
 				<form onSubmit={handleSubmit} className='add_source_form'>
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
 					<div className='add_source_inputs'>
             <div className='source_name_add'>
               <label className='form_label'>Source Name</label>

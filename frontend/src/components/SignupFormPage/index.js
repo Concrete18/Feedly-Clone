@@ -14,7 +14,6 @@ function SignupFormPage() {
 
   if (sessionUser) return <Redirect to="/collection" />;
 
-  // TODO fix signup modal
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
