@@ -9,6 +9,7 @@ import { getArticlesBySource } from '../../../store/articles';
 function SingleSource({ source }){
   const sessionUser = useSelector(state => state.session.user);
   
+	const [showButton, setShowButton] = useState(false);
   const [showEditSource, setShowEditSource] = useState(false);
   const [sourceName, setSourceName] = useState('')
 
@@ -32,20 +33,26 @@ function SingleSource({ source }){
 	};
 
   return (
-    <div className='single_source'>
+    <div className='single_source'
+			onMouseEnter={() => setShowButton(true)}
+			onMouseLeave={() => setShowButton(false)}>
       {!showEditSource && (
-        <div className='source_name text_button' onClick={showSource} >{source.name}</div>
+        <div className='source_name side_bar_text_button' onClick={showSource} >{source.name}</div>
       )}
       {showEditSource && (
         <form onSubmit={handleSubmit} className='add_source_form'>
           <input className='edit_source_inputs source_name' type="text" onChange={(e) => setSourceName(e.target.value)} autoFocus defaultValue={source.name} placeholder='Type name' required />
         </form>
       )}
-      <div className='edit_delete_button' onClick={ async (e) => {
-          e.preventDefault();
-          await dispatch(deleteSource(source.id))
-        }}>Delete</div>
-      <div className='edit_delete_button' onClick={() => {setShowEditSource(!showEditSource)}}>Edit</div>
+			{showButton && (
+				<>
+            <div className='edit_delete_button side_bar_text_button' onClick={() => {setShowEditSource(!showEditSource)}}>Edit</div>
+					<div className='edit_delete_button side_bar_text_button' onClick={ async (e) => {
+						e.preventDefault();
+						await dispatch(deleteSource(source.id))
+					}}>Delete</div>
+				</>
+			)}
     </div>
   );
 }

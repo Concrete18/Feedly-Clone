@@ -17,7 +17,6 @@ function SingleFeed({ feed }) {
           <SingleSource source={source} />
         </div>
       ))}
-      {!sources.filter(source => source.feedId === feed.id).length && (<div>No sources exist</div>)}
       <AddSource feedId={feed.id} userId={sessionUser?.id}/>
     </div>
   );
