@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // stores
 import { addFeed } from '../../store/feeds';
 import { getUserArticles } from '../../store/articles';
+import * as sessionActions from '../../store/session';
 
 // components
 import FeedsComponent from './FeedsComponent'
@@ -29,33 +30,36 @@ function SideBar(){
 		if (addedFeed) return
 	};
 
-	const showAll = async (e) => {
-		e.preventDefault();
-		await dispatch(getUserArticles(sessionUser.id))
-	};
-
 	const showSaved = async (e) => {
 		e.preventDefault();
 		await dispatch(getUserArticles(sessionUser.id))
 	};
 
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.logout());
+  };
+
 	return (
     <div className='side_bar'>
-			<div className='read_later_button text_button' onClick={showSaved} >Read Later</div>
-      <div>Feeds</div>
-      <div className='all_feeds_button text_button' onClick={showAll} >All</div>
-      <FeedsComponent/>
-      <div className='create_feed_button text_button' onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
-      {showAddFeed && (
-        <form onSubmit={handleSubmit} className='add_feed_form'>
-          <div className='add_feed_inputs'>
-            <label>Feed Name
-              <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
-            </label>
-          </div>
-          <button className='button add_feed_button' type="submit">Add Feed</button>
-        </form>
-      )}
+			<div className='side_bar_contents'>
+				<div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div>
+				<div className='bottom_padding'>Feeds</div>
+				<FeedsComponent/>
+        <div className='options'>
+          <div className='create_feed_button side_bar_text_button bottom_padding' onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
+          {showAddFeed && (
+            <form onSubmit={handleSubmit} className='add_feed_form'>
+              <div className='add_feed_inputs'>
+                <label className='form_label'>Feed Name</label>
+                <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
+              </div>
+              {/* <button className='button add_feed_button' type="submit">Add Feed</button> */}
+            </form>
+          )}
+          <div className='log_out_button side_bar_text_button' onClick={logout}>Logout</div>
+        </div>
+			</div>
     </div>
   );
 }
