@@ -25,6 +25,17 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Articles' }
       },
+      read: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      saved: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      savedAt: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         type: Sequelize.DATE
       },

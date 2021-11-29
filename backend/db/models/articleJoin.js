@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     feedId: DataTypes.INTEGER,
     sourceId: DataTypes.INTEGER,
-    articleId: DataTypes.INTEGER
+    articleId: DataTypes.INTEGER,
+    read: DataTypes.BOOLEAN,
+    saved: DataTypes.BOOLEAN,
+    savedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'ArticleJoin',
