@@ -31,7 +31,9 @@ Here is my [Live Site](https://feedly-clone.herokuapp.com/).
 
 * JavaScript
 * React & Redux
-* PostGres Sequelize 
+* PostgreSQL
+* Sequelize 
+* Express
 
 ## Example RSS Feeds
 

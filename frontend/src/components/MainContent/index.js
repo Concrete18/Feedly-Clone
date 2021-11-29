@@ -22,7 +22,7 @@ function MainContent() {
       await setIsLoaded(true);
       await dispatch(getUserArticles(sessionUser.id));
     })();
-  }, [sessionUser]);
+  }, [dispatch, sessionUser]);
 
   return (
     <div className='main_content'>

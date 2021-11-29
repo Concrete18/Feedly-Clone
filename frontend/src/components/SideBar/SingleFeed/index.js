@@ -41,6 +41,12 @@ function SingleFeed({ feed }) {
 		e.preventDefault();
 		await dispatch(getArticlesByFeed(feed.id))
 	};
+
+  // const handleKeyDown = event => {
+  //   if (event.keyCode === 27) {
+  //     setShowEditFeed(false)
+  //   }
+  // }
   
   return (
     <>

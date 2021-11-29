@@ -10,7 +10,6 @@ function AddSource({ feedId, userId }) {
 
 	const sessionUser = useSelector(state => state.session.user);
 	// useStates
-	const [showButton, setShowButton] = useState(false);
 	const [showAddSource, setShowAddSource] = useState('');
 	const [sourceName, setSourceName] = useState('');
 	const [sourceUrl, setSourceUrl] = useState('');
