@@ -17,16 +17,16 @@ module.exports = {
         type: Sequelize.STRING(600)
       },
       creator: {
-        type: Sequelize.STRING(200)
+        type: Sequelize.STRING(300)
       },
       pubDate: {
         type: Sequelize.DATE
       },
       content: {
-        type: Sequelize.STRING(2000)
+        type: Sequelize.STRING(10000)
       },
       contentSnippet: {
-        type: Sequelize.STRING(1000)
+        type: Sequelize.STRING(10000)
       },
       image: {
         type: Sequelize.STRING(1000)
