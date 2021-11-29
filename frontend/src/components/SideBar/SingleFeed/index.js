@@ -49,10 +49,10 @@ function SingleFeed({ feed }) {
 				onMouseLeave={() => setShowButton(false)}>
         <div className='feed_name side_bar_text_button' onClick={() => {setShowSources(!showSources)}}>
 				{showSources && (
-					<svg transform='rotate(90)' width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="side_bar_icon"><path d="M6.432 3.218a.5.5 0 01.638-.058l.07.058 6.428 6.428a.5.5 0 01.058.638l-.058.07-6.429 6.428a.5.5 0 01-.765-.638l.058-.069 6.075-6.076-6.075-6.074a.5.5 0 01-.058-.638l.058-.07z" fill="currentColor" fill-rule="nonzero"></path></svg>
+					<svg transform='rotate(90)' width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" className="side_bar_icon"><path d="M6.432 3.218a.5.5 0 01.638-.058l.07.058 6.428 6.428a.5.5 0 01.058.638l-.058.07-6.429 6.428a.5.5 0 01-.765-.638l.058-.069 6.075-6.076-6.075-6.074a.5.5 0 01-.058-.638l.058-.07z" fill="currentColor" fillRule="nonzero"></path></svg>
           )}
 				{!showSources && (
-					<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="side_bar_icon"><path d="M6.432 3.218a.5.5 0 01.638-.058l.07.058 6.428 6.428a.5.5 0 01.058.638l-.058.07-6.429 6.428a.5.5 0 01-.765-.638l.058-.069 6.075-6.076-6.075-6.074a.5.5 0 01-.058-.638l.058-.07z" fill="currentColor" fill-rule="nonzero"></path></svg>
+					<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" className="side_bar_icon"><path d="M6.432 3.218a.5.5 0 01.638-.058l.07.058 6.428 6.428a.5.5 0 01.058.638l-.058.07-6.429 6.428a.5.5 0 01-.765-.638l.058-.069 6.075-6.076-6.075-6.074a.5.5 0 01-.058-.638l.058-.07z" fill="currentColor" fillRule="nonzero"></path></svg>
 				)}
 				</div>
         {!showEditFeed && (<div className='feed_name side_bar_text_button' onClick={showFeed} >{feed.name}</div>)}

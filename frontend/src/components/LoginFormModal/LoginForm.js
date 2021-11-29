@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import "./LoginForm.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -22,32 +21,32 @@ function LoginForm() {
 
   return (
     <>
-      <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        <div className='sign_in_modal'>
+          <h1>Log In</h1>
+          <ul>
+            {errors.map((error, idx) => (<li key={idx}>{error}</li>))}
+          </ul>
+          <div className='user_login_form'>
+            <label className='user_form_entry'>Username or Email</label>
+            <input
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className='user_form_entry'>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button className='log_sign_button' type="submit">Log In</button>
+        </div>
       </form>
     </>
   );
