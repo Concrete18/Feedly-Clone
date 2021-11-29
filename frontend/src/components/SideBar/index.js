@@ -43,7 +43,7 @@ function SideBar(){
 	return (
     <div className='side_bar'>
 			<div className='side_bar_contents'>
-				<div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div>
+				{/* <div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div> */}
 				<div className='bottom_padding'>Feeds</div>
 				<FeedsComponent/>
         <div className='options'>

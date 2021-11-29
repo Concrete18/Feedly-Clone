@@ -20,7 +20,7 @@
   width: 28rem;
   position: fixed;
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   padding-top: 20px;
   color: white;
 }

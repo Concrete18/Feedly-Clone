@@ -1,0 +1,25 @@
+.expanded_article {
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  height: 100%;
+  background-color: #121212;
+  color: rgba(255,255,255,.88);
+  padding: 1rem;
+}
+.article_title {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: sans-serif;
+  text-rendering: optimizeLegibility;
+  line-height: 2.3rem;
+  text-transform: none;
+  clear: both;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.04em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.article_website_name {
+  color: #818181;
+}
