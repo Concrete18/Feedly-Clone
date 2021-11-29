@@ -2,74 +2,64 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // stores
-import { getFeeds, addFeed } from '../../store/feeds';
+import { addFeed } from '../../store/feeds';
+import { getUserArticles } from '../../store/articles';
+import * as sessionActions from '../../store/session';
 
 // components
-import SingleFeed from './Feed'
-import SourceContainer from './Sources'
+import FeedsComponent from './FeedsComponent'
 
 import './side_bar.css';
 
-function SideBar({ isLoaded }){
+function SideBar(){
   const sessionUser = useSelector(state => state.session.user);
-  const feeds = useSelector(state => Object.values(state.feeds));
 
-  // useStates
   const [showAddFeed, setShowAddFeed] = useState(false);
   const [feedName, setFeedName] = useState('')
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const userId = sessionUser?.id
-    dispatch(getFeeds(userId))
-  }, [dispatch])
-
-	const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
 		e.preventDefault();
+    setShowAddFeed(!showAddFeed)
 		const data = {
       userId:sessionUser.id,
 			name:feedName
 		}
-    setShowAddFeed(!showAddFeed)
-		let createdFeed = await dispatch(addFeed(data))
-		if (createdFeed) return
+		let addedFeed = await dispatch(addFeed(data))
+		if (addedFeed) return
 	};
 
-  return (
+	const showSaved = async (e) => {
+		e.preventDefault();
+		await dispatch(getUserArticles(sessionUser.id))
+	};
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.logout());
+  };
+
+	return (
     <div className='side_bar'>
-      <div>Read Later</div>
-      <div>Feeds</div>
-      <div>All</div>
-
-      <div className='feeds_container'>
-      {feeds && feeds?.map( feed => (
-          <div className='feed_container' key={`feed${feed?.id}`}>
-      
-            <SingleFeed feed={feed}/>
-
-            <div className='source_container'>
-            {/* {showWhatever && ( */}
-              <SourceContainer sources={feed.Sources} />
-            {/* )} */}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
-      {showAddFeed && (
-        <form onSubmit={handleSubmit} className='add_feed_form'>
-          <div className='add_feed_inputs'>
-            <label>Feed Name
-              <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
-            </label>
-          </div>
-          <div className='add_feed_button'>
-            <button className='button' type="submit">Add Feed</button>
-          </div>
-        </form>
-			)}
+			<div className='side_bar_contents'>
+				{/* <div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div> */}
+				<div className='bottom_padding'>Feeds</div>
+				<FeedsComponent/>
+        <div className='options'>
+          <div className='create_feed_button side_bar_text_button bottom_padding' onClick={() => {setShowAddFeed(!showAddFeed)}}>Create New Feed</div>
+          {showAddFeed && (
+            <form onSubmit={handleSubmit} className='add_feed_form'>
+              <div className='add_feed_inputs'>
+                <label className='form_label'>Feed Name</label>
+                <input type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus placeholder='Type name' required />
+              </div>
+              {/* <button className='button add_feed_button' type="submit">Add Feed</button> */}
+            </form>
+          )}
+          <div className='log_out_button side_bar_text_button' onClick={logout}>Logout</div>
+        </div>
+			</div>
     </div>
   );
 }

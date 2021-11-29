@@ -14,12 +14,10 @@ function Main() {
   if (!sessionUser) return <Redirect to="/" />;
   
   return (
-    <>
       <div className='main_page_container'>
         <SideBar/>
         <MainContent/>
       </div>
-    </>
   );
 }
 

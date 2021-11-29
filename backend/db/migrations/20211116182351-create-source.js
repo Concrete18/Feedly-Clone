@@ -8,13 +8,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'Users' }
+      },
+      feedId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Feeds' }
+      },
       name: {
         allowNull: false,
         type: Sequelize.STRING
       },
       url: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(300)
       },
       createdAt: {
         allowNull: false,

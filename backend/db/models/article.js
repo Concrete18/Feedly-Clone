@@ -8,14 +8,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Article.belongsTo(models.Source, {foreignKey:'sourceId'})
+      // Article.belongsToMany(models.Source, {
+      //   through: 'ArticleJoin',  
+      //   otherKey: 'ArticleId',
+      //   foreignKey: 'sourceId'
+      // })
     }
   };
   Article.init({
-    sourceId: DataTypes.INTEGER,
     title: DataTypes.STRING,
+    websiteName: DataTypes.STRING,
     creator: DataTypes.STRING,
     pubDate: DataTypes.STRING,
+    image: DataTypes.STRING,
     content: DataTypes.STRING,
     contentSnippet: DataTypes.STRING,
     url: DataTypes.STRING

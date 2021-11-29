@@ -20,14 +20,9 @@ const validateLogin = [
 ];
 
 // Log in
-router.post(
-  '/',
-  validateLogin,
-  asyncHandler(async (req, res, next) => {
+router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     const { credential, password } = req.body;
-
     const user = await User.login({ credential, password });
-
     if (!user) {
       const err = new Error('Login failed');
       err.status = 401;
@@ -35,9 +30,7 @@ router.post(
       err.errors = ['The provided credentials were invalid.'];
       return next(err);
     }
-
     await setTokenCookie(res, user);
-
     return res.json({
       user,
     });
@@ -45,19 +38,13 @@ router.post(
 );
 
 // Log out
-router.delete(
-  '/',
-  (_req, res) => {
-    res.clearCookie('token');
+router.delete('/', (_req, res) => {res.clearCookie('token');
     return res.json({ message: 'success' });
   }
 );
 
 // Restore session user
-router.get(
-  '/',
-  restoreUser,
-  (req, res) => {
+router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
       return res.json({

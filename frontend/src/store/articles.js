@@ -1,4 +1,4 @@
-let Parser = require('rss-parser');
+import { csrfFetch } from "./csrf";
 
 const LOAD = "articles/LOAD";
 const ADD = "articles/ADD";
@@ -9,68 +9,60 @@ const load = (list) => ({
   list,
 });
 
-const add = (article) => ({
-  type: ADD,
-  article,
-});
+// const add = (article) => ({
+//   type: ADD,
+//   article,
+// });
 
-const remove = (articleId) => ({
-  type: REMOVE,
-  articleId,
-});
+// const remove = (articleId) => ({
+//   type: REMOVE,
+//   articleId,
+// });
 
+export const updateUserArticles = (userId) => async () => {
+  // get all sources from backend
+  await csrfFetch(`/api/articles/update/user/${userId}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'}
+  })
+}
 
-let parser = new Parser();
-
-export const getArticles = (userId) => async (dispatch) => {
+export const getUserArticles = (userId) => async (dispatch) => {
+  // get all sources from backend
   const response = await fetch(`/api/articles/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   })
   if (response.ok) {
-    const feed = await response.json();
-    const sources = feed[0].Sources
+    const articles = await response.json();
+    // get articles from the given source id
+    dispatch(load(articles))
+  }
+}
 
-    let articles = []
-    for (let source of sources) {
-      console.log(source)
-      try {
-        // const url = `${source.url}`
-        const url = `https://cors-anywhere.herokuapp.com/${source.url}`
-        let feed = await parser.parseURL(url);
-        console.log(feed.title);
-      
-        feed.items.forEach(item => {
-          const entry = {
-            title:item.title,
-            creator:item.creator,
-            link:item.link,
-            pubDate:item.pubDate,
-            content:item.content,
-            contentSnippet:item.contentSnippet,
-          }
-          articles.push(entry)
-        });
-      } catch (typeError) {
-        console.log('Failed to get feed')
-      }
+export const getArticlesByFeed = (feedId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await fetch(`/api/articles/feed/${feedId}`, {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+  })
+  if (response.ok) {
+    const articles = await response.json();
+    // get articles from the given source id
+    dispatch(load(articles))
+  }
+}
 
-      // try {
-      //   let rss_response = await fetch(source.url, { mode: 'o-cors' })
-      //   if (rss_response.ok) {
-      //     rss_response = rss_response.text()
-      //     let data = new window.DOMParser().parseFromString(rss_response, "text/xml")
-      //     const items = data.querySelectorAll("item");
-      //     console.log(items)
-      //     articles.push(data)
-      //   }
-      // } catch (typeError) {
-
-      // }
-    }
-    console.log(articles)
-    dispatch(load(articles));
-    return articles
+export const getArticlesBySource = (sourceId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await fetch(`/api/articles/source/${sourceId}`, {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+  })
+  if (response.ok) {
+    const articles = await response.json();
+    // get articles from the given source id
+    dispatch(load(articles))
   }
 }
 

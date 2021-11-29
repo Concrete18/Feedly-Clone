@@ -8,34 +8,32 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sourceId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Sources' }
-      },
       title: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
+      },
+      websiteName: {
+        allowNull: false,
+        type: Sequelize.STRING(600)
       },
       creator: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(300)
       },
       pubDate: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       content: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(10000)
       },
       contentSnippet: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(10000)
+      },
+      image: {
+        type: Sequelize.STRING(1000)
       },
       url: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(600)
       },
       createdAt: {
         allowNull: false,

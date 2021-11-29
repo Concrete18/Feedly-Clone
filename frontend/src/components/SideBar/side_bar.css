@@ -1,35 +1,125 @@
 .side_bar {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #181818;
-    width: 32rem;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background-color: #181818;
+	width: 32rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+	color: white;
+}
+.side_bar_contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  width: 28rem;
+  position: fixed;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  padding-top: 20px;
+  color: white;
+}
+.bottom_padding {
+	padding-bottom: .8rem;
+}
+.side_bar_text_button {
+	cursor: pointer;
+	color: rgb(206, 206, 206);
+}
+.side_bar_text_button:hover {
     color: white;
 }
-.feeds_container {
-    margin-top: 2rem;
+.edit_delete_button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: .815rem;
+	color: rgb(206, 206, 206);
+	padding-right: .5rem;
+	padding-left: .5rem;
 }
+.side_bar_icon {
+	padding-right: .8rem;
+}
+
+/* feed css */
+/* .feeds_container {
+	margin-top: 2rem;
+} */
 .single_feed {
-    display: flex;
-    flex-direction: row;
-    padding: .5rem;
+	display: flex;
+	flex-direction: row;
+	/* padding: .5rem; */
+	padding-top: .5rem;
 }
 .feed_name {
-    padding-right: .5rem;
+	color: rgba(255,255,255,.68);
+	font-size: .815rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
 }
-.delete_feed {
-    padding-right: .5rem;
+.edit_feed_inputs {
+	color: black;
 }
-.edit_feed {
-    padding-right: .5rem;
+.options {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
 }
+
+/* source css */
 .source_container {
-    padding-left: 1rem;
+	padding-left: 1rem;
+}
+.single_source {
+	display: flex;
+	flex-direction: row;
+	padding: .5rem;
+}
+.source_name {
+	color: rgba(255,255,255,.68);
+	font-size: .815rem;
+	font-weight: 600;
+	padding-left: 1.5rem;
+}
+.edit_source_inputs {
+	color: black;
+}
+.new_source_button {
+	font-weight: 600;
+	color: rgba(255,255,255,.68);
+	font-size: .815rem;
+	padding-left: 2rem;
+	margin-top: .4rem;
+}
+
+/* forms */
+
+form {
+	margin: .5rem;
+	font-size: 13px;
+}
+
+.form_label {
+	padding-right: .8rem;
+	color: rgba(255,255,255,.68);
+}
+
+.add_source_button {
+	margin-top: .5rem;
+	background-color: #4CAF50; /* Green */
+  border: none;
+	border-radius: .41rem;
+  color: white;
+  padding: .4rem 6rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
 }

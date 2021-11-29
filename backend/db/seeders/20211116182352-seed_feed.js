@@ -1,6 +1,12 @@
 'use strict';
 
 const feeds = [
+	{
+		userId: 1,
+		name: 'Gaming',
+		createdAt: new Date(),
+		updatedAt: new Date()
+	},
   {
     userId: 1,
     name: 'News',
@@ -10,12 +16,6 @@ const feeds = [
   {
     userId: 1,
     name: 'Technology',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    userId: 1,
-    name: 'Gaming',
     createdAt: new Date(),
     updatedAt: new Date()
   }
