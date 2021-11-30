@@ -19,8 +19,7 @@ function AddSource({ feedId, userId }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
     const lengthLimit = 30
-    const regex =
-      /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
+    const regex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])/
     setErrors([])
     const newErrors = []
     let isLink = regex.test(sourceUrl);
