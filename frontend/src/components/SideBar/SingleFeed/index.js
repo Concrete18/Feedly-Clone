@@ -17,19 +17,22 @@ function SingleFeed({ feed }) {
 	const [showButton, setShowButton] = useState(false);
   const [showEditFeed, setShowEditFeed] = useState(false);
   const [feedName, setFeedName] = useState(feed.name)
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
 		e.preventDefault();
-    setShowEditFeed(!showEditFeed)
-		const data = {
-      userId:sessionUser.id,
-      id:feed.id,
-			name:feedName
-		}
-		let editedFeed = await dispatch(editFeed(data))
-		if (editedFeed) return
+    if (errors.length === 0) {
+      setShowEditFeed(!showEditFeed)
+      const data = {
+        userId:sessionUser.id,
+        id:feed.id,
+        name:feedName
+      }
+      let editedFeed = await dispatch(editFeed(data))
+      if (editedFeed) return
+    }
 	};
 
 	const handleDelete = async (e) => {
@@ -41,6 +44,12 @@ function SingleFeed({ feed }) {
 		e.preventDefault();
 		await dispatch(getArticlesByFeed(feed.id))
 	};
+
+  // const handleKeyDown = event => {
+  //   if (event.keyCode === 27) {
+  //     setShowEditFeed(false)
+  //   }
+  // }
   
   return (
     <>
@@ -58,7 +67,24 @@ function SingleFeed({ feed }) {
         {!showEditFeed && (<div className='feed_name side_bar_text_button' onClick={showFeed} >{feed.name}</div>)}
         {showEditFeed && (
           <form onSubmit={handleSubmit} className='add_feed_form'>
-            <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => setFeedName(e.target.value)} autoFocus defaultValue={feed.name} placeholder='Type name' required />
+            <ul>
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
+            <input className='edit_feed_inputs feed_name' type="text" onChange={(e) => {
+              setFeedName(e.target.value)
+              setErrors([])
+              const newErrors = []
+              const lengthLimit = 30
+              if (feedName.length > lengthLimit) {
+                newErrors.push(`Too long: Make name less then ${lengthLimit}`)
+              }
+              if (feedName[0] === ' ') {
+                newErrors.push("Can't start with an empty space")
+              }
+              setErrors(newErrors)
+            }} autoFocus defaultValue={feed.name} placeholder='Type name' required />
           </form>
         )}
 				{showButton && !showEditFeed &&(

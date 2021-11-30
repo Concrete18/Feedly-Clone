@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { addFeed } from '../../store/feeds';
-import { getUserArticles } from '../../store/articles';
+// import { getUserArticles } from '../../store/articles';
 import * as sessionActions from '../../store/session';
 
 // components
@@ -30,10 +30,10 @@ function SideBar(){
 		if (addedFeed) return
 	};
 
-	const showSaved = async (e) => {
-		e.preventDefault();
-		await dispatch(getUserArticles(sessionUser.id))
-	};
+	// const showSaved = async (e) => {
+	// 	e.preventDefault();
+	// 	await dispatch(getUserArticles(sessionUser.id))
+	// };
 
   const logout = (e) => {
     e.preventDefault();

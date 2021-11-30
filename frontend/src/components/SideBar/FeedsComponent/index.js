@@ -18,7 +18,7 @@ function FeedsComponent() {
     const userId = sessionUser?.id
     dispatch(getFeeds(userId))
     dispatch(getSourcesByUser(userId))
-  }, [dispatch])
+  }, [dispatch, sessionUser])
 
   const showAll = async (e) => {
     e.preventDefault();
