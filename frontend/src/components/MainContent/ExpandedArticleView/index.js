@@ -22,8 +22,8 @@ function ExpandedArticle({ article }) {
         {/* <div onChange={handleSave}>Read Later</div> */}
         {/* <div onChange={handleSetUnread}>Keep Unread</div> */}
       </div>
-      {article.Article.image && <img className='article_image' src={article?.Article.image} alt="article" />}
-      {!article.Article.image && <img className='article_image' src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"} alt="placeholder in case data is missing" />}
+      {article.Article.image && <img className='expanded_article_image' src={article?.Article.image} alt="article" />}
+      {!article.Article.image && <img className='expanded_article_image' src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"} alt="placeholder in case data is missing" />}
       <div className='article article_snippet'>{article?.Article.contentSnippet}</div>
       <a href={article?.Article?.url} target="_blank" rel="noreferrer">
         <button className='article_link'>Visit Website</button>
