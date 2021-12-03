@@ -8,8 +8,9 @@ With Feedler you can view all your articles easily and get to them with just a s
 
 Here is my [Live Site](https://feedly-clone.herokuapp.com/).
 
-![Articles Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Articles.png)
+![Full Page Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feedler_full_page.png)
 
+![Articles Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Articles.png)
 
 ![Feeds Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feeds.png)
 
