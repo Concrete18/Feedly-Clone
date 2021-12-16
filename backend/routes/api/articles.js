@@ -14,27 +14,31 @@ async function getMetaData(articleUrl) {
   const $ = cheerio.load(res.data);
   const metaObj = {};
   $('head').children('meta').each((idx, meta) => {metaObj[meta.attribs.name] = meta.attribs.content})
-  console.log(metaObj)
   for ([key, val] of Object.entries(metaObj)) {
     // author
     if (key.includes('author') || key.includes('creator')) {
       if (!metaObj.creator) output.creator = val;
+      continue;
     }
     // site name
-    if (key.includes('og:site_name') || key.includes('site')) {
+    if (key.includes('og:site_name')) {
       if (!metaObj.siteName) output.siteName = val;
+      continue;
     }
     // publish date
-    if (key.includes('published_time') || key.includes('pub')) {
+    if (key.includes('published_time') || key.includes('pub_date')) {
       if (!metaObj.pubDate) output.pubDate = val;
+      continue;
     }
     // preview image
-    if (key.includes('og:image') || key.includes('image')) {
+    if (key.includes('og:image')) {
       if (!metaObj.image) output.image = val;
+      continue;
     }
     // description
     if (key.includes('og:description') || key.includes('creator')) {
       if (!metaObj.description)output.description = val;
+      continue;
     }
   }
   return output
@@ -45,22 +49,21 @@ let parser = new Parser();
 async function parseRss(feedUrl) {
 	let feed = await parser.parseURL(feedUrl);
 	const articles = []
-	feed.items.forEach(async item => {
+  for (item of feed.items) {
     const metaData = await getMetaData(item.link)
-		const entry = {
-			title:item.title,
-			creator:metaData.creator? metaData.creator : null,
-			link:item.link,
-			pubDate:metaData.pubDate ? metaData.pubDate : null,
-			image:metaData.image ? metaData.image : null,
-			websiteName:metaData.siteName ? metaData.siteName : null,
+    const entry = {
+      title:item.title,
+      creator:metaData.creator? metaData.creator : null,
+      link:item.link,
+      pubDate:metaData.pubDate ? metaData.pubDate : null,
+      image:metaData.image ? metaData.image : null,
+      websiteName:metaData.siteName ? metaData.siteName : null,
       description:metaData.description ? metaData.description : null,
-			content:item.content,
-			contentSnippet:item.contentSnippet,
-		}
-    // console.log(entry)
-		articles.push(entry)
-	});
+      content:item.content,
+      contentSnippet:item.contentSnippet,
+    }
+    articles.push(entry)
+  }
 	return articles
 }
 
@@ -88,10 +91,10 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 	let deletedArticles = 0
 	const dbArticles = await Article.findAll();
 	for (let article of dbArticles) {
-		if (article.createdAt) {
+		if (article.pubDate) {
 			// TODO delete old articles that are too old and is not saved by anyone
-			// article.destroy()
-			// deletedArticles++
+			article.destroy()
+			deletedArticles++
 		}
 	}
 	for (let article of articleData) {
@@ -131,6 +134,7 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		newArticles,
 		deletedArticles
 	}
+  console.log(result)
 	return res.json({result});
   }),
 );
