@@ -1,52 +1,63 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Parser = require('rss-parser');
-
-// const metascraper = require('metascraper')([
-// 	// require('metascraper-author')(),
-// 	// require('metascraper-date')(),
-// 	require('metascraper-image')(),
-// 	// require('metascraper-logo')(),
-// ])
-
-// const got = require('got')
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
 const router = express.Router();
 
+function getMetaData(articleUrl) {
+  const output = {}
+  axios.get(articleUrl)
+  .then((res) => {
+    const $ = cheerio.load(res.data);
+    const metaObj = {};
+    $('head').children('meta').each((idx, meta) => {metaObj[meta.attribs.name] = meta.attribs.content})
+    for ([key, val] of Object.entries(metaObj)) {
+      // author
+      if (key.includes('author') || key.includes('creator')) {
+        if (!metaObj.creator) output.creator = val;
+      }
+      // site name
+      if (key.includes('og:site_name') || key.includes('site')) {
+        if (!metaObj.siteName) output.siteName = val;
+      }
+      // publish date
+      if (key.includes('published_time') || key.includes('pub')) {
+        if (!metaObj.pubDate) output.pubDate = val;
+      }
+      // preview image
+      if (key.includes('og:image') || key.includes('image')) {
+        if (!metaObj.image) output.image = val;
+      }
+      // description
+      if (key.includes('og:description') || key.includes('creator')) {
+        if (!metaObj.description)output.description = val;
+      }
+    }
+    console.log('output', output)
+    return output
+  })
+}
+
 // parser set for rss feeds
 let parser = new Parser();
-
-function getImages(string) {
-  const imgRex = /<img.*?src="(.*?)"[^>]+>/g;
-  const images = [];
-    let img;
-    while ((img = imgRex.exec(string))) {
-			if (img[1].includes('jpg' || '.png'))
-     	images.push(img[1]);
-    }
-	if (images) return images[0];
-	else return null;
-}
-
-function titleCase(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 async function parseRss(feedUrl) {
 	let feed = await parser.parseURL(feedUrl);
 	const articles = []
 	feed.items.forEach(item => {
-		const setImage = getImages(item.content)
-		const websiteName = (new URL(item.link)).hostname.split('.')[1]
+    const metaData = getMetaData(item.link)
+    console.log('metaData', metaData)
 		const entry = {
 			title:item.title,
-			creator:item.creator,
+			creator:metaData.creator? metaData.creator : null,
 			link:item.link,
-			pubDate:item.pubDate,
-			image:setImage,
-			websiteName:titleCase(websiteName),
+			pubDate:metaData.pubDate,
+			image:metaData.image,
+			websiteName:metaData.siteName,
+      description:metaData.description ? metaData.description : null,
 			content:item.content,
 			contentSnippet:item.contentSnippet,
 		}
@@ -54,14 +65,6 @@ async function parseRss(feedUrl) {
 	});
 	return articles
 }
-
-// async function parseMetadata(articleUrl) {
-// 	;(async () => {
-// 		const { body: html, url } = await got(articleUrl)
-// 		const metadata = await metascraper({ html, url })
-// 		console.log(metadata)
-// 	})()
-// }
 
 // add new articles for user and delete old articles
 router.post('/update/user/:userId', asyncHandler(async (req, res) => {
