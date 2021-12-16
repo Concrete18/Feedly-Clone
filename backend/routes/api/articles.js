@@ -8,38 +8,36 @@ const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
 
 const router = express.Router();
 
-function getMetaData(articleUrl) {
+async function getMetaData(articleUrl) {
   const output = {}
-  axios.get(articleUrl)
-  .then((res) => {
-    const $ = cheerio.load(res.data);
-    const metaObj = {};
-    $('head').children('meta').each((idx, meta) => {metaObj[meta.attribs.name] = meta.attribs.content})
-    for ([key, val] of Object.entries(metaObj)) {
-      // author
-      if (key.includes('author') || key.includes('creator')) {
-        if (!metaObj.creator) output.creator = val;
-      }
-      // site name
-      if (key.includes('og:site_name') || key.includes('site')) {
-        if (!metaObj.siteName) output.siteName = val;
-      }
-      // publish date
-      if (key.includes('published_time') || key.includes('pub')) {
-        if (!metaObj.pubDate) output.pubDate = val;
-      }
-      // preview image
-      if (key.includes('og:image') || key.includes('image')) {
-        if (!metaObj.image) output.image = val;
-      }
-      // description
-      if (key.includes('og:description') || key.includes('creator')) {
-        if (!metaObj.description)output.description = val;
-      }
+  const res = await axios.get(articleUrl)
+  const $ = cheerio.load(res.data);
+  const metaObj = {};
+  $('head').children('meta').each((idx, meta) => {metaObj[meta.attribs.name] = meta.attribs.content})
+  console.log(metaObj)
+  for ([key, val] of Object.entries(metaObj)) {
+    // author
+    if (key.includes('author') || key.includes('creator')) {
+      if (!metaObj.creator) output.creator = val;
     }
-    console.log('output', output)
-    return output
-  })
+    // site name
+    if (key.includes('og:site_name') || key.includes('site')) {
+      if (!metaObj.siteName) output.siteName = val;
+    }
+    // publish date
+    if (key.includes('published_time') || key.includes('pub')) {
+      if (!metaObj.pubDate) output.pubDate = val;
+    }
+    // preview image
+    if (key.includes('og:image') || key.includes('image')) {
+      if (!metaObj.image) output.image = val;
+    }
+    // description
+    if (key.includes('og:description') || key.includes('creator')) {
+      if (!metaObj.description)output.description = val;
+    }
+  }
+  return output
 }
 
 // parser set for rss feeds
@@ -47,20 +45,20 @@ let parser = new Parser();
 async function parseRss(feedUrl) {
 	let feed = await parser.parseURL(feedUrl);
 	const articles = []
-	feed.items.forEach(item => {
-    const metaData = getMetaData(item.link)
-    console.log('metaData', metaData)
+	feed.items.forEach(async item => {
+    const metaData = await getMetaData(item.link)
 		const entry = {
 			title:item.title,
 			creator:metaData.creator? metaData.creator : null,
 			link:item.link,
-			pubDate:metaData.pubDate,
-			image:metaData.image,
-			websiteName:metaData.siteName,
+			pubDate:metaData.pubDate ? metaData.pubDate : null,
+			image:metaData.image ? metaData.image : null,
+			websiteName:metaData.siteName ? metaData.siteName : null,
       description:metaData.description ? metaData.description : null,
 			content:item.content,
 			contentSnippet:item.contentSnippet,
 		}
+    // console.log(entry)
 		articles.push(entry)
 	});
 	return articles
