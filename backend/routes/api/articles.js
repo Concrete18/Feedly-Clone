@@ -4,44 +4,49 @@ const Parser = require('rss-parser');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const { Article, ArticleJoin, Feed, Source } = require("../../db/models");
+const { Article, ArticleJoin, Source } = require("../../db/models");
 
 const router = express.Router();
 
-async function getMetaData(articleUrl) {
-  const output = {}
-  const res = await axios.get(articleUrl)
+async function getMetaData(url) {
+  const res = await axios.get(url);
   const $ = cheerio.load(res.data);
-  const metaObj = {};
-  $('head').children('meta').each((idx, meta) => {metaObj[meta.attribs.name] = meta.attribs.content})
-  for ([key, val] of Object.entries(metaObj)) {
-    // author
-    if (key.includes('author') || key.includes('creator')) {
-      if (!metaObj.creator) output.creator = val;
-      continue;
-    }
-    // site name
-    if (key.includes('og:site_name')) {
-      if (!metaObj.siteName) output.siteName = val;
-      continue;
-    }
-    // publish date
-    if (key.includes('published_time') || key.includes('pub_date')) {
-      if (!metaObj.pubDate) output.pubDate = val;
-      continue;
-    }
-    // preview image
-    if (key.includes('og:image')) {
-      if (!metaObj.image) output.image = val;
-      continue;
-    }
-    // description
-    if (key.includes('og:description') || key.includes('creator')) {
-      if (!metaObj.description)output.description = val;
-      continue;
+  metaData = {
+    'image': [
+      'meta[property="og:image"]',
+      'meta[name="parsely-image-url"]',
+      'meta[name="twitter:image"]',
+      'meta[name="twitter:image:src"]'
+    ],
+    'siteName': [
+      'meta[property="og:site_name"]',
+      'meta[name="twitter:site"]'
+    ],
+    'pubDate': [
+      'meta[property="article:published_time"]',
+      'meta[name="parsely-pub-date"]',
+      'meta[name="publish-date"]',
+      'meta[name="pub_date"]'
+    ],
+    'author': [
+      'meta[name="author"]'
+    ],
+    'description': [
+      'meta[property="og:description"]'
+    ]
+  };
+  let foundMetaData = {};
+  for (const [name, keys] of Object.entries(metaData)) {
+    for (const key of keys) {
+      content = $(key).attr('content');
+      if (content) {
+        foundMetaData[name] = content;
+        continue;
+      }
     }
   }
-  return output
+  console.log(foundMetaData)
+  return foundMetaData;
 }
 
 // parser set for rss feeds
@@ -55,7 +60,7 @@ async function parseRss(feedUrl) {
       title:item.title,
       creator:metaData.creator? metaData.creator : null,
       link:item.link,
-      pubDate:metaData.pubDate ? metaData.pubDate : null,
+      pubDate:metaData.pubDate ? metaData.pubDate : new Date(),
       image:metaData.image ? metaData.image : null,
       websiteName:metaData.siteName ? metaData.siteName : null,
       description:metaData.description ? metaData.description : null,
@@ -93,8 +98,8 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 	for (let article of dbArticles) {
 		if (article.pubDate) {
 			// TODO delete old articles that are too old and is not saved by anyone
-			article.destroy()
-			deletedArticles++
+			// article.destroy()
+			// deletedArticles++
 		}
 	}
 	for (let article of articleData) {
@@ -109,6 +114,7 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		const recentArticle = true
 
 		if (recentArticle && !articleExists && article.title) {
+      
 			const articleObj = {
 				title: article.title ? article.title : "No Title",
 				websiteName: article.websiteName,
