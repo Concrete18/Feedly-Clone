@@ -6,16 +6,20 @@ import ExpandedArticle from '../ExpandedArticleView'
 
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000);
-  if (seconds / 2592000 > 1) {
+  let interval = seconds / 2592000;
+  if (interval > 1) {
     return Math.floor(interval) + "mo";
   }
-  if (seconds / 86400 > 1) {
+  interval = seconds / 86400;
+  if (interval > 1) {
     return Math.floor(interval) + "d";
   }
-  if (seconds / 3600 > 1) {
+  interval = seconds / 3600;
+  if (interval > 1) {
     return Math.floor(interval) + "h";
   }
-  if (seconds / 60 > 1) {
+  interval = seconds / 60;
+  if (interval > 1) {
     return Math.floor(interval) + "min";
   }
   return Math.floor(seconds) + "s";
