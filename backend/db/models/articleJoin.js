@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     feedId: DataTypes.INTEGER,
     sourceId: DataTypes.INTEGER,
     articleId: DataTypes.INTEGER,
+    pubDate: DataTypes.DATE, 
     read: DataTypes.BOOLEAN,
     saved: DataTypes.BOOLEAN,
     savedAt: DataTypes.DATE
