@@ -27,10 +27,6 @@ function MainContent() {
   return (
     <div className='main_content'>
       <div className='content_container'>
-        {/* <div className='top_container'>
-          <div>Articles</div>
-          <div>Controls</div>
-        </div> */}
         {!isLoaded && (
           <div className='loading_text'>Loading Articles</div>
         )}
