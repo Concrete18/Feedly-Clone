@@ -1,8 +1,21 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-async function getMetaData(articleUrl) {
-  const res = await axios.get(articleUrl)
+async function getMetaData(url) {
+  const res = await axios.get(url)
+  .catch(function (error) {
+    if (error.request) {
+      // The request was made but no response was received
+      return false;
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      console.log('Error', error.message);
+    }
+  });
+  if (!res) return false;
   const $ = cheerio.load(res.data);
   metaData = {
     'image': [
@@ -12,7 +25,8 @@ async function getMetaData(articleUrl) {
       'meta[name="twitter:image:src"]'
     ],
     'siteName': [
-      'meta[property="og:site_name"]'
+      'meta[property="og:site_name"]',
+      'meta[name="twitter:site"]'
     ],
     'pubDate': [
       'meta[property="article:published_time"]',
@@ -20,29 +34,24 @@ async function getMetaData(articleUrl) {
       'meta[name="publish-date"]',
       'meta[name="pub_date"]'
     ],
-    'author': [
+    'creator': [
       'meta[name="author"]'
     ],
     'description': [
       'meta[property="og:description"]'
     ]
-  }
-  foundMetaData = {}
+  };
+  let foundMetaData = {};
   for (const [name, keys] of Object.entries(metaData)) {
     for (const key of keys) {
-      content = $(key).attr('content')
+      content = $(key).attr('content');
       if (content) {
-        foundMetaData[name] = content
-        continue
+        foundMetaData[name] = content;
+        continue;
       }
     }
   }
-  if (!metaData.keys().includes('siteName')) {
-    let domain = (new URL(articleUrl));
-    metaData.siteName = domain
-  }
-  console.log(foundMetaData)
-  return foundMetaData
+  return foundMetaData;
 }
 
 // getMetaData('https://blog.playstation.com/2021/12/07/uncharted-legacy-of-thieves-collection-details-on-the-remastered-bundle/')
@@ -51,7 +60,7 @@ async function getMetaData(articleUrl) {
 // getMetaData('https://kotaku.com/xbox-game-pass-pc-gets-a-new-name-and-four-more-day-one-1848181194')
 // getMetaData('https://gizmodo.com/5-predictions-for-the-near-future-from-bill-gates-1848191710')
 // getMetaData('https://www.nytimes.com/2021/12/21/movies/lucille-ball-being-the-ricardos.html')
-// getMetaData('https://www.wired.com/story/face-recognition-banned-but-everywhere/')
+console.log(getMetaData('https://www.wired.com/story/the-quest-to-trap-carbon-in-stone-and-beat-climate-change/'))
 
 
 
@@ -79,11 +88,3 @@ function timeSince(date) {
   }
   return Math.floor(seconds) + "s";
 }
-
-const newDate = new Date()
-
-function test() {
-  console.log(timeSince(newDate))
-}
-
-setTimeout(test, 3000)

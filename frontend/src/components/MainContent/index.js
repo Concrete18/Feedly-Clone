@@ -12,7 +12,12 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
-  const articles = useSelector(state => Object.values(state.articles));
+  let articles = useSelector(state => Object.values(state.articles));
+
+  // TODO change to order by savedAt if it is the read later view
+  articles = articles.sort(function(a,b){
+    return new Date(b.Article.savedAt) - new Date(a.Article.savedAt);
+  });
 
   const [isLoaded, setIsLoaded] = useState(false);
 

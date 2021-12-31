@@ -9,7 +9,22 @@ const { Article, ArticleJoin, Source } = require("../../db/models");
 const router = express.Router();
 
 async function getMetaData(url) {
-  const res = await axios.get(url);
+  const res = await axios.get(url)
+  .catch(function (error) {
+    if (error.response) {
+      // Request made and server responded
+      // console.log(error.response.data);
+      console.log(error.response.status);
+      // console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+  });
+  if (!res) return false;
   const $ = cheerio.load(res.data);
   metaData = {
     'image': [
@@ -45,7 +60,6 @@ async function getMetaData(url) {
       }
     }
   }
-  // console.log(foundMetaData)
   return foundMetaData;
 }
 
@@ -113,6 +127,7 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
     // TODO make sure article joins are created even if the article exists
 		if (!articleExists && article.link) {
       const metaData = await getMetaData(article.link)
+      if (!metaData) continue;
       // creates article entry
       const articleObj = {
         // base article info
@@ -144,7 +159,6 @@ router.post('/update/user/:userId', asyncHandler(async (req, res) => {
 		newArticles,
 		deletedArticles
 	}
-  console.log('\n\n\n', result, '\n\n\n')
 	return res.json({result});
   }),
 );
@@ -154,8 +168,10 @@ router.get('/user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const articles = await ArticleJoin.findAll(
 		{
-			where: { userId },
-      order: [['pubDate', 'DESC']],
+			where: {
+        userId,
+        read:false,
+      },
 			include: Article,
 		}
 	);
@@ -168,8 +184,10 @@ router.get('/feed/:feedId', asyncHandler(async (req, res) => {
 	const feedId = req.params.feedId
 	const articles = await ArticleJoin.findAll(
 		{
-			where: { feedId },
-      order: [['pubDate', 'DESC']],
+			where: {
+        feedId,
+        read:false,
+      },
 			include: Article
 		}
 	);
@@ -182,10 +200,10 @@ router.get('/source/:sourceId', asyncHandler(async (req, res) => {
 	const sourceId = req.params.sourceId
 	const articles = await ArticleJoin.findAll(
 		{
-			where: { sourceId },
-      order: [
-        ['pubDate', 'DESC']
-      ],
+      where: {
+        sourceId,
+        read:false,
+      },
 			include: Article
 		}
 	);
@@ -198,10 +216,10 @@ router.get('saved/user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const articles = await ArticleJoin.findAll(
 		{
-			where: { userId },
-      order: [
-        ['pubDate', 'DESC']
-      ],
+			where: {
+        userId,
+        saved:true
+      },
 			include: Article
 		}
 	);

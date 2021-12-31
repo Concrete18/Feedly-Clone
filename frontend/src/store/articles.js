@@ -28,7 +28,6 @@ export const updateUserArticles = (userId) => async () => {
 }
 
 export const getUserArticles = (userId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -41,7 +40,6 @@ export const getUserArticles = (userId) => async (dispatch) => {
 }
 
 export const getArticlesByFeed = (feedId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/feed/${feedId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -54,7 +52,6 @@ export const getArticlesByFeed = (feedId) => async (dispatch) => {
 }
 
 export const getArticlesBySource = (sourceId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/source/${sourceId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -67,7 +64,6 @@ export const getArticlesBySource = (sourceId) => async (dispatch) => {
 }
 
 export const getSavedArticles = (userId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/saved/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
