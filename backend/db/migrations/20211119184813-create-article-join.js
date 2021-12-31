@@ -25,9 +25,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Articles' }
       },
-      pubDate: {
-        type: Sequelize.DATE
-      },
       read: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
