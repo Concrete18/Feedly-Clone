@@ -35,7 +35,7 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
     (async () => {
       await dispatch(setRead(article.id, sessionUser.id))
     })();
-  }, [dispatch, article]);
+  }, [dispatch, article.id, sessionUser.id]);
 
   return (
     <div className='expanded_article'>

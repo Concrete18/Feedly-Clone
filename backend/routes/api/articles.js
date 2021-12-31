@@ -193,15 +193,33 @@ router.get('/source/:sourceId', asyncHandler(async (req, res) => {
   }),
 );
 
+// get all saved articles for user
+router.get('saved/user/:userId', asyncHandler(async (req, res) => {
+	const userId = req.params.userId
+	const articles = await ArticleJoin.findAll(
+		{
+			where: { userId },
+      order: [
+        ['pubDate', 'DESC']
+      ],
+			include: Article
+		}
+	);
+	return res.json(articles);
+  }),
+);
+
 // mark article as read
 router.put('/:articleId/user/:userId/read', asyncHandler(async function(req, res) {
   const articleId = req.params.articleId
   const userId = req.params.userId
-  const articleJoin = await Feed.findOne(
+  const articleJoin = await ArticleJoin.findOne(
 		{
-			where: { articleId, userId }
+			where: { articleId, userId },
+      include: Article
 		}
-	);	await articleJoin.update({ read:true });
+	);
+  await articleJoin.update({ read:true });
 	return res.json(articleJoin);
 }));
 
@@ -209,9 +227,10 @@ router.put('/:articleId/user/:userId/read', asyncHandler(async function(req, res
 router.put('/:articleId/user/:userId/unread', asyncHandler(async function(req, res) {
   const articleId = req.params.articleId
   const userId = req.params.userId
-  const articleJoin = await Feed.findOne(
+  const articleJoin = await ArticleJoin.findOne(
 		{
-			where: { articleId, userId }
+			where: { articleId, userId },
+      include: Article
 		}
 	);
 	await articleJoin.update({ read:false });
@@ -222,9 +241,10 @@ router.put('/:articleId/user/:userId/unread', asyncHandler(async function(req, r
 router.put('/:articleId/user/:userId/save', asyncHandler(async function(req, res) {
   const articleId = req.params.articleId
   const userId = req.params.userId
-  const articleJoin = await Feed.findOne(
+  const articleJoin = await ArticleJoin.findOne(
 		{
-			where: { articleId, userId }
+			where: { articleId, userId },
+      include: Article
 		}
 	);
 	await articleJoin.update({
@@ -238,9 +258,10 @@ router.put('/:articleId/user/:userId/save', asyncHandler(async function(req, res
 router.put('/:articleId/user/:userId/unsave', asyncHandler(async function(req, res) {
   const articleId = req.params.articleId
   const userId = req.params.userId
-  const articleJoin = await Feed.findOne(
+  const articleJoin = await ArticleJoin.findOne(
 		{
-			where: { articleId, userId }
+			where: { articleId, userId },
+      include: Article
 		}
 	);	await articleJoin.update({
       saved:false,

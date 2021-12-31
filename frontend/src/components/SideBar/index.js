@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // stores
 import { addFeed } from '../../store/feeds';
+import { getSavedArticles } from '../../store/articles'
 // import { getUserArticles } from '../../store/articles';
 import * as sessionActions from '../../store/session';
 
@@ -30,10 +31,10 @@ function SideBar(){
 		if (addedFeed) return
 	};
 
-	// const showSaved = async (e) => {
-	// 	e.preventDefault();
-	// 	await dispatch(getUserArticles(sessionUser.id))
-	// };
+	const showSaved = async (e) => {
+		e.preventDefault();
+		await dispatch(getSavedArticles(sessionUser.id))
+	};
 
   const logout = (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ function SideBar(){
     <div className='side_bar'>
 			<div className='side_bar_contents'>
 				{/* <div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div> */}
+        <div className='bottom_padding side_bar_text_button' onClick={showSaved} >Read Later</div>
 				<div className='bottom_padding'>Feeds</div>
 				<FeedsComponent/>
         <div className='options'>
