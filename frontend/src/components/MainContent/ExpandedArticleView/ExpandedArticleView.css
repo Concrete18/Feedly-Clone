@@ -59,4 +59,12 @@
 }
 .article_info {
     display: flex;
+    align-items: center;
+}
+.article_entry {
+    padding-right: .5rem;
+    color: #818181;
+}
+.article_button:hover {
+    text-decoration: underline;
 }

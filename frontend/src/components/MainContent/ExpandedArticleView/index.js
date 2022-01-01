@@ -41,12 +41,15 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
     <div className='expanded_article'>
       <div className='article article_title'>{article.title}</div>
       <div className='article_info'>
-        <div className='article article_website_name'>{article.websiteName}</div>
-        {saved && (<div onClick={handleUnSave}>Remove from Read Later</div>)}
-        {!saved && (<div onClick={handleSave}>Read Later</div>)}
-        <div className='article article_pub_date'> / {timeSinceCreation}</div>
-        {read && (<div onClick={handleSetUnread}>Keep Unread</div>)}
-        {!read && (<div onClick={handleSetRead}>Mark as Read</div>)}
+        <div className='article article_website_name article_entry'>{article.websiteName}</div>
+        <div className='article_entry'> / </div>
+        <div className='article_pub_date article_entry'>{timeSinceCreation}</div>
+        <div className='article_entry'> // </div>
+        {read && (<div className='article_entry article_button' onClick={handleSetUnread}>Keep Unread</div>)}
+        {!read && (<div className='article_entry article_button' onClick={handleSetRead}>Mark as Read</div>)}
+        <div className='article_entry'> // </div>
+        {saved && (<div className='article_entry article_button' onClick={handleUnSave}>Remove from Read Later</div>)}
+        {!saved && (<div className='article_entry article_button' onClick={handleSave}>Read Later</div>)}
       </div>
       {article.image && <img className='expanded_article_image' src={article.image} alt="article" />}
       {!article.image && <img className='expanded_article_image' src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"} alt="placeholder in case data is missing" />}
