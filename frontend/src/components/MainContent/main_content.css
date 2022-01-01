@@ -2,7 +2,6 @@
 * {
     /* border: 1px solid white; */
 }
-
 .main_content {
     display: flex;
     justify-content: center;
@@ -48,7 +47,6 @@
     padding-top: .3rem;
     padding-bottom: .2rem;
 }
-
 .article_image {
     width: 250px;
     height: 180px;
@@ -72,4 +70,7 @@
     margin-bottom: 0;
     max-height: 54px;
     overflow: hidden;
+}
+.loading_text {
+    margin: 30rem;
 }
