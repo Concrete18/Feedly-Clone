@@ -29,6 +29,7 @@ async function getMetaData(url) {
       'meta[name="twitter:site"]'
     ],
     'pubDate': [
+      'meta[property="article:modified_time"]',
       'meta[property="article:published_time"]',
       'meta[name="parsely-pub-date"]',
       'meta[name="publish-date"]',
