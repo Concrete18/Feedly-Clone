@@ -16,7 +16,7 @@ function MainContent() {
 
   // TODO change to order by savedAt if it is the read later view
   articles = articles.sort(function(a,b){
-    return new Date(b.Article.savedAt) - new Date(a.Article.savedAt);
+    return new Date(b.Article.pubDate) - new Date(a.Article.pubDate);
   });
 
   const [isLoaded, setIsLoaded] = useState(false);

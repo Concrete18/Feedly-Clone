@@ -38,6 +38,7 @@ async function getMetaData(url) {
       'meta[name="twitter:site"]'
     ],
     'pubDate': [
+      'meta[property="article:modified_time"]',
       'meta[property="article:published_time"]',
       'meta[name="parsely-pub-date"]',
       'meta[name="publish-date"]',
@@ -212,7 +213,7 @@ router.get('/source/:sourceId', asyncHandler(async (req, res) => {
 );
 
 // get all saved articles for user
-router.get('saved/user/:userId', asyncHandler(async (req, res) => {
+router.get('/saved/user/:userId', asyncHandler(async (req, res) => {
 	const userId = req.params.userId
 	const articles = await ArticleJoin.findAll(
 		{
