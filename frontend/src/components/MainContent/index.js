@@ -12,7 +12,12 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
-  const articles = useSelector(state => Object.values(state.articles));
+  let articles = useSelector(state => Object.values(state.articles));
+
+  // TODO change to order by savedAt if it is the read later view
+  articles = articles.sort(function(a,b){
+    return new Date(b.Article.pubDate) - new Date(a.Article.pubDate);
+  });
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -27,10 +32,6 @@ function MainContent() {
   return (
     <div className='main_content'>
       <div className='content_container'>
-        {/* <div className='top_container'>
-          <div>Articles</div>
-          <div>Controls</div>
-        </div> */}
         {!isLoaded && (
           <div className='loading_text'>Loading Articles</div>
         )}

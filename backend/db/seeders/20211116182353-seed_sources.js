@@ -1,4 +1,5 @@
 'use strict';
+// TODO remove NY Times
 
 const seedData = [
 	// gaming
@@ -16,6 +17,7 @@ const seedData = [
 	},
 	// news
 	{
+    // TODO replace
 		name: 'NY Times',
 		url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
 		feedId: 2,
@@ -29,12 +31,16 @@ const seedData = [
 		userId: 1
 	},
 	{
+    // TODO replace
 		name: 'Wired',
 		url: 'https://www.wired.com/feed/rss',
 		feedId: 3,
 		userId: 1
 	}
 ]
+// TODO add 
+// https://kotaku.com
+// https://gizmodo.com/rss
 
 let sources = []
 for (const entry of seedData) {

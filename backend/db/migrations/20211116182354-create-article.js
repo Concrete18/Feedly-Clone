@@ -13,7 +13,6 @@ module.exports = {
         type: Sequelize.STRING(600)
       },
       websiteName: {
-        allowNull: false,
         type: Sequelize.STRING(600)
       },
       creator: {

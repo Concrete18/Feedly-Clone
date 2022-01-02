@@ -9,10 +9,10 @@ const load = (list) => ({
   list,
 });
 
-// const add = (article) => ({
-//   type: ADD,
-//   article,
-// });
+const add = (article) => ({
+  type: ADD,
+  article,
+});
 
 // const remove = (articleId) => ({
 //   type: REMOVE,
@@ -28,7 +28,6 @@ export const updateUserArticles = (userId) => async () => {
 }
 
 export const getUserArticles = (userId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/user/${userId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -41,7 +40,6 @@ export const getUserArticles = (userId) => async (dispatch) => {
 }
 
 export const getArticlesByFeed = (feedId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/feed/${feedId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -54,7 +52,6 @@ export const getArticlesByFeed = (feedId) => async (dispatch) => {
 }
 
 export const getArticlesBySource = (sourceId) => async (dispatch) => {
-  // get all sources from backend
   const response = await fetch(`/api/articles/source/${sourceId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
@@ -63,6 +60,61 @@ export const getArticlesBySource = (sourceId) => async (dispatch) => {
     const articles = await response.json();
     // get articles from the given source id
     dispatch(load(articles))
+  }
+}
+
+export const getSavedArticles = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/articles/saved/user/${userId}`, {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+  })
+  if (response.ok) {
+    const articles = await response.json();
+    dispatch(load(articles))
+  }
+}
+
+export const setRead = (articleId, userId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/read`, {
+    method: 'PUT'
+  })
+  if (response.ok) {
+    const articleJoin = await response.json();
+    dispatch(add(articleJoin))
+  }
+}
+
+export const setUnread = (articleId, userId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/unread`, {
+    method: 'PUT'
+  })
+  if (response.ok) {
+    const articleJoin = await response.json();
+    dispatch(add(articleJoin))
+  }
+}
+
+export const saveArticle = (articleId, userId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/save`, {
+    method: 'PUT'
+  })
+  if (response.ok) {
+    const articleJoin = await response.json();
+    dispatch(add(articleJoin))
+  }
+}
+
+export const unSaveArticle = (articleId, userId) => async (dispatch) => {
+  // get all sources from backend
+  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/unsave`, {
+    method: 'PUT'
+  })
+  if (response.ok) {
+    const articleJoin = await response.json();
+    dispatch(add(articleJoin))
   }
 }
 
