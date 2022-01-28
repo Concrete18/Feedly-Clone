@@ -9,8 +9,9 @@
     color: white;
     background-color: #121212;
     height: 100%;
-    width: calc(100% - 32rem);
-    position: fixed;
+    width: 100%;
+    padding-left: 200px;
+    position: relative;
     top: 0;
     right: 0;
     overflow: hidden;
@@ -21,6 +22,7 @@
     overflow-y: scroll;
     position: fixed;
     right: 0;
+    width: 100%;
 }
 .top_container {
     height: 5rem;
@@ -34,6 +36,8 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-content:center;
+    width: 100%;
+    height: 100%;
 }
 .single_article {
     display: flex;
@@ -57,6 +61,7 @@
     cursor: pointer;
     display: block;
     font-family: sans-serif;
+    line-height: 2rem;
     font-size: 16px;
     font-weight: bold;
     line-height: 18px;
@@ -69,7 +74,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0;
     max-height: 54px;
-    overflow: hidden;
+    overflow: ellipsis;
 }
 .loading_text {
     margin: 30rem;
