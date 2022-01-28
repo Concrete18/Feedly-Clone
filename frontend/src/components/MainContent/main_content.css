@@ -9,8 +9,8 @@
     color: white;
     background-color: #121212;
     height: 100%;
-    width: 100%;
-    padding-left: 200px;
+    width: calc(100% - 21rem);
+    padding-left: 21rem;
     position: relative;
     top: 0;
     right: 0;
@@ -18,8 +18,9 @@
 }
 .content_container {
     height: 100%;
-    max-width: 85rem;
-    overflow-y: scroll;
+    /* max-width: 85rem; */
+    /* overflow-y: scroll; */
+    
     position: relative;
     right: 0;
     width: 100%;
@@ -77,5 +78,6 @@
     overflow: ellipsis;
 }
 .loading_text {
-    margin: 30rem;
+    margin: 30rem 0;
+    text-align: center;
 }
