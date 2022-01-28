@@ -20,7 +20,7 @@
     height: 100%;
     max-width: 85rem;
     overflow-y: scroll;
-    position: fixed;
+    position: relative;
     right: 0;
     width: 100%;
 }
