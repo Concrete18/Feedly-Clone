@@ -37,6 +37,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-content:center;
+    justify-content: center;
     width: 100%;
     height: 100%;
 }
