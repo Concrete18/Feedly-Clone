@@ -3,7 +3,7 @@
 	align-items: center;
 	flex-direction: column;
 	background-color: #181818;
-	width: 32rem;
+	width: 21rem;
 	height: 100%;
 	position: fixed;
 	top: 0;
@@ -11,13 +11,14 @@
 	overflow-x: hidden;
 	padding-top: 20px;
 	color: white;
+    z-index: 1;
 }
 .side_bar_contents {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
-  width: 28rem;
+  width: 19rem;
   position: fixed;
   overflow-x: hidden;
   /* overflow-y: scroll; */
@@ -46,7 +47,6 @@
 .side_bar_icon {
 	padding-right: .8rem;
 }
-
 /* feed css */
 /* .feeds_container {
 	margin-top: 2rem;
