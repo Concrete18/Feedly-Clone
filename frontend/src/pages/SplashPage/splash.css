@@ -13,7 +13,8 @@
 .login_button {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2bb24c;
+    color: #ffffff;
+    background: #181818;
     border: 1px solid #2bb24c;
     font-weight: 700;
     text-transform: uppercase;
@@ -40,8 +41,9 @@
     transition: background-color .2s linear,color .2s linear;
 }
 .login_button:hover {
-    color: #25a345;
-    border: 1px solid #25a345;
+    color: #ffffff;
+    border: 1px solid #2aac4a;
+    background: #2c2c2c;
 }
 .sign_up_button {
     -webkit-font-smoothing: antialiased;
