@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // store
 import { getUserArticles, updateUserArticles } from "../../store/articles";
 // components
-import EntryBox from './EntryBox'
+import EntryBox from "./EntryBox";
 
-import './main_content.css';
+import "./main_content.css";
 
 function MainContent() {
   const dispatch = useDispatch();
 
-  const sessionUser = useSelector(state => state.session.user);
-  let articles = useSelector(state => Object.values(state.articles));
+  const sessionUser = useSelector((state) => state.session.user);
+  let articles = useSelector((state) => Object.values(state.articles));
 
   // TODO change to order by savedAt if it is the read later view
-  articles = articles.sort(function(a,b){
+  articles = articles.sort(function (a, b) {
     return new Date(b.Article.pubDate) - new Date(a.Article.pubDate);
   });
 
@@ -30,15 +30,14 @@ function MainContent() {
   }, [dispatch, sessionUser]);
 
   return (
-    <div className='main_content'>
-      <div className='content_container'>
-        {!isLoaded && (
-          <div className='loading_text'>Loading Articles</div>
-        )}
-        <div className='entry_list'>
-          {articles && articles?.map( article => (
-            <EntryBox article={article} key={`article${article?.id}`}/>
-          ))}
+    <div className="main_content">
+      <div className="content_container">
+        {!isLoaded && <div className="loading_text">Loading Articles</div>}
+        <div className="entry_list">
+          {articles &&
+            articles?.map((article) => (
+              <EntryBox article={article} key={`article${article?.id}`} />
+            ))}
         </div>
       </div>
     </div>
