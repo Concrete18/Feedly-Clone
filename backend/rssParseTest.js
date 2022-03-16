@@ -1,9 +1,8 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 async function getMetaData(url) {
-  const res = await axios.get(url)
-  .catch(function (error) {
+  const res = await axios.get(url).catch(function (error) {
     if (error.request) {
       // The request was made but no response was received
       return false;
@@ -12,40 +11,33 @@ async function getMetaData(url) {
       console.log(error.response.data);
       console.log(error.response.status);
       console.log(error.response.headers);
-      console.log('Error', error.message);
+      console.log("Error", error.message);
     }
   });
   if (!res) return false;
   const $ = cheerio.load(res.data);
   metaData = {
-    'image': [
+    image: [
       'meta[property="og:image"]',
       'meta[name="parsely-image-url"]',
       'meta[name="twitter:image"]',
-      'meta[name="twitter:image:src"]'
+      'meta[name="twitter:image:src"]',
     ],
-    'siteName': [
-      'meta[property="og:site_name"]',
-      'meta[name="twitter:site"]'
-    ],
-    'pubDate': [
+    siteName: ['meta[property="og:site_name"]', 'meta[name="twitter:site"]'],
+    pubDate: [
       'meta[property="article:modified_time"]',
       'meta[property="article:published_time"]',
       'meta[name="parsely-pub-date"]',
       'meta[name="publish-date"]',
-      'meta[name="pub_date"]'
+      'meta[name="pub_date"]',
     ],
-    'creator': [
-      'meta[name="author"]'
-    ],
-    'description': [
-      'meta[property="og:description"]'
-    ]
+    creator: ['meta[name="author"]'],
+    description: ['meta[property="og:description"]'],
   };
   let foundMetaData = {};
   for (const [name, keys] of Object.entries(metaData)) {
     for (const key of keys) {
-      content = $(key).attr('content');
+      content = $(key).attr("content");
       if (content) {
         foundMetaData[name] = content;
         continue;
@@ -61,9 +53,11 @@ async function getMetaData(url) {
 // getMetaData('https://kotaku.com/xbox-game-pass-pc-gets-a-new-name-and-four-more-day-one-1848181194')
 // getMetaData('https://gizmodo.com/5-predictions-for-the-near-future-from-bill-gates-1848191710')
 // getMetaData('https://www.nytimes.com/2021/12/21/movies/lucille-ball-being-the-ricardos.html')
-console.log(getMetaData('https://www.wired.com/story/the-quest-to-trap-carbon-in-stone-and-beat-climate-change/'))
-
-
+console.log(
+  getMetaData(
+    "https://www.wired.com/story/the-quest-to-trap-carbon-in-stone-and-beat-climate-change/"
+  )
+);
 
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000);

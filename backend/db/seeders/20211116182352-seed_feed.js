@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 
 const feeds = [
-	{
-		userId: 1,
-		name: 'Gaming',
-		createdAt: new Date(),
-		updatedAt: new Date()
-	},
   {
     userId: 1,
-    name: 'News',
+    name: "Gaming",
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     userId: 1,
-    name: 'Technology',
+    name: "News",
     createdAt: new Date(),
-    updatedAt: new Date()
-  }
-]
+    updatedAt: new Date(),
+  },
+  {
+    userId: 1,
+    name: "Technology",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Feeds', feeds, {});
+    await queryInterface.bulkInsert("Feeds", feeds, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Feeds', null, {});
-  }
+    await queryInterface.bulkDelete("Feeds", null, {});
+  },
 };

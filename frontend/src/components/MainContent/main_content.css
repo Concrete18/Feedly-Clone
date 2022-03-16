@@ -1,7 +1,3 @@
-/* TODO Remove border */
-* {
-  /* border: 1px solid white; */
-}
 .main_content {
   display: flex;
   justify-content: center;

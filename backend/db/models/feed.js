@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Feed extends Model {
     /**
@@ -9,24 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Feed.hasMany(models.Source, {
-        foreignKey: 'feedId',
-        onDelete: 'CASCADE',
-        hooks: true
-      })
+        foreignKey: "feedId",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
       // Feed.belongsToMany(models.Source, {
-      //   through: 'ArticleJoin',  
+      //   through: 'ArticleJoin',
       //   otherKey: 'feedId',
       //   foreignKey: 'sourceId'
       // })
       // Feed.belongsTo(models.Source_join, {foreignKey: 'feedId'})
     }
-  };
-  Feed.init({
-    name: DataTypes.STRING,
-    userId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Feed',
-  });
+  }
+  Feed.init(
+    {
+      name: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Feed",
+    }
+  );
   return Feed;
 };
