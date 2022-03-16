@@ -22,13 +22,15 @@ function LoginForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className='sign_in_modal'>
+        <div className="sign_in_modal">
           <h1>Log In</h1>
           <ul>
-            {errors.map((error, idx) => (<li key={idx}>{error}</li>))}
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
           </ul>
-          <div className='user_login_form'>
-            <label className='user_form_entry'>Username or Email</label>
+          <div className="user_login_form">
+            <label className="user_form_entry">Username or Email</label>
             <input
               type="text"
               value={credential}
@@ -37,7 +39,7 @@ function LoginForm() {
             />
           </div>
           <div>
-            <label className='user_form_entry'>Password</label>
+            <label className="user_form_entry">Password</label>
             <input
               type="password"
               value={password}
@@ -45,7 +47,9 @@ function LoginForm() {
               required
             />
           </div>
-          <button className='log_sign_button' type="submit">Log In</button>
+          <button className="log_sign_button" type="submit">
+            Log In
+          </button>
         </div>
       </form>
     </>
