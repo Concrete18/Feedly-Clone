@@ -19,104 +19,126 @@ const add = (article) => ({
 //   articleId,
 // });
 
-export const updateUserArticles = (userId) => async () => {
+export const updateUserArticles =
+  (userId, max_articles = 200) =>
+  async () => {
+    // get all sources from backend
+    await csrfFetch(`/api/articles/update/user/${userId}/${max_articles}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+
+export const cleanArticles = () => async () => {
   // get all sources from backend
-  await csrfFetch(`/api/articles/update/user/${userId}`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'}
-  })
-}
+  await csrfFetch(`/api/articles/clean`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+};
 
 export const getUserArticles = (userId) => async (dispatch) => {
   const response = await fetch(`/api/articles/user/${userId}`, {
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    dispatch(load(articles))
+    dispatch(load(articles));
   }
-}
+};
 
 export const getArticlesByFeed = (feedId) => async (dispatch) => {
   const response = await fetch(`/api/articles/feed/${feedId}`, {
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    dispatch(load(articles))
+    dispatch(load(articles));
   }
-}
+};
 
 export const getArticlesBySource = (sourceId) => async (dispatch) => {
   const response = await fetch(`/api/articles/source/${sourceId}`, {
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   if (response.ok) {
     const articles = await response.json();
     // get articles from the given source id
-    dispatch(load(articles))
+    dispatch(load(articles));
   }
-}
+};
 
 export const getSavedArticles = (userId) => async (dispatch) => {
   const response = await fetch(`/api/articles/saved/user/${userId}`, {
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   if (response.ok) {
     const articles = await response.json();
-    dispatch(load(articles))
+    dispatch(load(articles));
   }
-}
+};
 
 export const setRead = (articleId, userId) => async (dispatch) => {
   // get all sources from backend
-  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/read`, {
-    method: 'PUT'
-  })
+  const response = await csrfFetch(
+    `/api/articles/${articleId}/user/${userId}/read`,
+    {
+      method: "PUT",
+    }
+  );
   if (response.ok) {
     const articleJoin = await response.json();
-    dispatch(add(articleJoin))
+    dispatch(add(articleJoin));
   }
-}
+};
 
 export const setUnread = (articleId, userId) => async (dispatch) => {
   // get all sources from backend
-  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/unread`, {
-    method: 'PUT'
-  })
+  const response = await csrfFetch(
+    `/api/articles/${articleId}/user/${userId}/unread`,
+    {
+      method: "PUT",
+    }
+  );
   if (response.ok) {
     const articleJoin = await response.json();
-    dispatch(add(articleJoin))
+    dispatch(add(articleJoin));
   }
-}
+};
 
 export const saveArticle = (articleId, userId) => async (dispatch) => {
   // get all sources from backend
-  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/save`, {
-    method: 'PUT'
-  })
+  const response = await csrfFetch(
+    `/api/articles/${articleId}/user/${userId}/save`,
+    {
+      method: "PUT",
+    }
+  );
   if (response.ok) {
     const articleJoin = await response.json();
-    dispatch(add(articleJoin))
+    dispatch(add(articleJoin));
   }
-}
+};
 
 export const unSaveArticle = (articleId, userId) => async (dispatch) => {
   // get all sources from backend
-  const response = await csrfFetch(`/api/articles/${articleId}/user/${userId}/unsave`, {
-    method: 'PUT'
-  })
+  const response = await csrfFetch(
+    `/api/articles/${articleId}/user/${userId}/unsave`,
+    {
+      method: "PUT",
+    }
+  );
   if (response.ok) {
     const articleJoin = await response.json();
-    dispatch(add(articleJoin))
+    dispatch(add(articleJoin));
   }
-}
+};
 
 const articleReducer = (state = {}, action) => {
   switch (action.type) {

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // store
-import { getUserArticles, updateUserArticles } from "../../store/articles";
+import {
+  getUserArticles,
+  updateUserArticles,
+  cleanArticles,
+} from "../../store/articles";
 // components
 import EntryBox from "./EntryBox";
 
@@ -23,9 +27,13 @@ function MainContent() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(updateUserArticles(sessionUser.id));
-      await setIsLoaded(true);
+      await dispatch(updateUserArticles(sessionUser.id, 15));
+      // get 20 latest articles
       await dispatch(getUserArticles(sessionUser.id));
+      await setIsLoaded(true);
+      // await dispatch(cleanArticles());
+      // get all articles
+      await dispatch(updateUserArticles(sessionUser.id));
     })();
   }, [dispatch, sessionUser]);
 
