@@ -17,9 +17,8 @@ const seedData = [
   },
   // news
   {
-    // TODO replace
-    name: "NY Times",
-    url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+    name: "UN News",
+    url: "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
     feedId: 2,
     userId: 1,
   },
