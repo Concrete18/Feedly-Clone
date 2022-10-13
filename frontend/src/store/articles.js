@@ -19,15 +19,13 @@ const add = (article) => ({
 //   articleId,
 // });
 
-export const updateUserArticles =
-  (userId, max_articles = 200) =>
-  async () => {
-    // get all sources from backend
-    await csrfFetch(`/api/articles/update/user/${userId}/${max_articles}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-  };
+export const updateUserArticles = (userId) => async () => {
+  // get all sources from backend
+  await csrfFetch(`/api/articles/update/user/${userId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+};
 
 export const cleanArticles = () => async () => {
   // get all sources from backend

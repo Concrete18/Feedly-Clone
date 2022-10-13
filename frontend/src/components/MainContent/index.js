@@ -27,20 +27,19 @@ function MainContent() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(updateUserArticles(sessionUser.id, 15));
-      // get 20 latest articles
+      await dispatch(updateUserArticles(sessionUser.id));
       await dispatch(getUserArticles(sessionUser.id));
       await setIsLoaded(true);
-      // await dispatch(cleanArticles());
-      // get all articles
-      await dispatch(updateUserArticles(sessionUser.id));
+      await dispatch(cleanArticles());
     })();
   }, [dispatch, sessionUser]);
+
+  // TODO add text for no articles
 
   return (
     <div className="main_content">
       <div className="content_container">
-        {!isLoaded && <div className="loading_text">Loading Articles</div>}
+        {!isLoaded && <div className="loading_text">Loading Feeds...</div>}
         <div className="entry_list">
           {articles &&
             articles?.map((article) => (

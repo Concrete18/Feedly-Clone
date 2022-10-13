@@ -30,6 +30,12 @@ function EntryBox({ article }) {
 
   const timeSinceCreation = timeSince(new Date(article?.Article.pubDate));
 
+  let snippet = article?.Article.contentSnippet;
+  if (snippet.length > 200) {
+    snippet = `${snippet.slice(0, 200)}...`;
+    console.log(snippet);
+  }
+
   return (
     <>
       {showModal && (
@@ -62,9 +68,7 @@ function EntryBox({ article }) {
         <div className="article article_website_name">
           {article?.Article.websiteName}
         </div>
-        <div className="article article_snippet">
-          {article?.Article.contentSnippet}
-        </div>
+        <div className="article article_snippet">{snippet}</div>
       </div>
     </>
   );

@@ -73,37 +73,79 @@ async function parseRss(feedUrl) {
   return articles;
 }
 
+async function getDaysPassed(date) {
+  const then = new Date(Date.parse(date));
+  const now = new Date();
+  const msBetweenDates = Math.abs(then.getTime() - now.getTime());
+  return Math.floor(msBetweenDates / (24 * 60 * 60 * 1000));
+}
+
 router.post(
   "/clean",
   asyncHandler(async (req, res) => {
     const dbArticles = await Article.findAll();
     for (let article of dbArticles) {
-      const oneMonthAgo = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-        new Date().getDate()
-      );
-      // deletes articles if they are over a month old
-      if (article.pubDate < oneMonthAgo) {
-        // TODO delete old articles that are too old and is not saved by anyone
-        console.log(article.title, article.pubDate, "was deleted");
-        article.destroy();
-        deletedArticles++;
+      if (article.pubDate) {
+        // deletes articles if they are over a month old
+        daysPassed = await getDaysPassed(article.pubDate);
+        if (daysPassed > 30) {
+          // TODO delete old articles that are too old and is not saved by anyone
+          console.log("delete me", article.url);
+          // article.destroy();
+        }
       }
     }
   })
 );
 
-// add new articles for user and delete old articles
-router.post(
-  "/update/user/:userId/:max_articles",
-  asyncHandler(async (req, res) => {
-    const start = Date.now(); // TODO delete this
+async function addArticle(article) {
+  daysPassed = await getDaysPassed(article.pubDate);
+  if (daysPassed > 30) {
+    console.log(article.pubDate);
+    return;
+  }
+  // checks if the article is not in the db
+  const articleExists = await Article.findOne({
+    where: { url: article.link },
+  });
+  // TODO make sure article joins are created even if the article exists
+  if (!articleExists && article.link) {
+    const metaData = await getMetaData(article.link);
+    if (!metaData) return;
+    // creates article entry
+    const articleObj = {
+      // base article info
+      title: article.title,
+      url: article.link,
+      content: article.content ? article.content : "No Content",
+      contentSnippet: article.contentSnippet
+        ? article.contentSnippet
+        : "No Snippet",
+      // scraped meta data
+      websiteName: metaData.siteName ? metaData.siteName : null,
+      pubDate: metaData.pubDate ? metaData.pubDate : null,
+      image: metaData.image ? metaData.image : null,
+      creator: metaData.creator ? metaData.creator : null,
+    };
+    const newArticle = await Article.create(articleObj);
+    // creates articleJoin entry
+    const articleJoinObj = {
+      userId: article.userId,
+      feedId: article.feedId,
+      sourceId: article.sourceId,
+      pubDate: metaData.pubDate,
+      articleId: newArticle.id,
+    };
+    await ArticleJoin.create(articleJoinObj);
+  }
+}
 
+// add new articles for user
+router.post(
+  "/update/user/:userId",
+  asyncHandler(async (req, res) => {
     // find feeds including sources for userId
     const userId = req.params.userId;
-    const max = req.params.max_articles;
-    console.log("\n\nStarting Article Update with", max, "articles");
     const sources = await Source.findAll({
       where: { userId },
     });
@@ -119,56 +161,9 @@ router.post(
       }
     }
     // creates new articles in database
-    let newArticles = 0;
-    for (let article of articleData) {
-      // checks if the article is not in the db
-      if (newArticles >= max) {
-        console.log("\nEarly Exit");
-        break;
-      }
-      const articleExists = await Article.findOne({
-        where: { url: article.link },
-      });
-      // TODO make sure article joins are created even if the article exists
-      if (!articleExists && article.link) {
-        const metaData = await getMetaData(article.link);
-        if (!metaData) continue;
-        // creates article entry
-        const articleObj = {
-          // base article info
-          title: article.title,
-          url: article.link,
-          content: article.content ? article.content : "No Content",
-          contentSnippet: article.contentSnippet
-            ? article.contentSnippet
-            : "No Snippet",
-          // scraped meta data
-          websiteName: metaData.siteName ? metaData.siteName : null,
-          pubDate: metaData.pubDate ? metaData.pubDate : null,
-          image: metaData.image ? metaData.image : null,
-          creator: metaData.creator ? metaData.creator : null,
-        };
-        const newArticle = await Article.create(articleObj);
-        // creates articleJoin entry
-        const articleJoinObj = {
-          userId: article.userId,
-          feedId: article.feedId,
-          sourceId: article.sourceId,
-          pubDate: metaData.pubDate,
-          articleId: newArticle.id,
-        };
-        await ArticleJoin.create(articleJoinObj);
-        newArticles++;
-      }
-    }
-    console.log(`\n\nAdded ${newArticles} new articles`);
-    // sends a response back with info on the new articles found and old articles that where deleted
-    console.log("\n\nFinished Article Update");
-
-    const end = Date.now(); // TODO delete this
-
-    console.log(`Execution time: ${(end - start) / 1000} seconds\n`);
-    return res.json(newArticles);
+    const promises = articleData.map((article) => addArticle(article));
+    let data = await Promise.all(promises);
+    return res.json(data);
   })
 );
 
@@ -182,6 +177,7 @@ router.get(
         userId,
         read: false,
       },
+      order: [["Article", "pubDate", "DESC"]],
       limit: 30,
       include: Article,
     });
