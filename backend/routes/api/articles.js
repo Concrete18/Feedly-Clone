@@ -13,14 +13,14 @@ async function getMetaData(url) {
     if (error.response) {
       // Request made and server responded
       // console.log(error.response.data);
-      console.log(error.response.status);
+      console.log(url, error.response.status);
       // console.log(error.response.headers);
-    } else if (error.request) {
+    } else if ((url, error.request)) {
       // The request was made but no response was received
-      console.log(error.request);
+      console.log(url, error.request);
     } else {
       // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
+      console.log(url, "Error", error.message);
     }
   });
   if (!res) return false;
@@ -73,12 +73,37 @@ async function parseRss(feedUrl) {
   return articles;
 }
 
+router.post(
+  "/clean",
+  asyncHandler(async (req, res) => {
+    const dbArticles = await Article.findAll();
+    for (let article of dbArticles) {
+      const oneMonthAgo = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() - 1,
+        new Date().getDate()
+      );
+      // deletes articles if they are over a month old
+      if (article.pubDate < oneMonthAgo) {
+        // TODO delete old articles that are too old and is not saved by anyone
+        console.log(article.title, article.pubDate, "was deleted");
+        article.destroy();
+        deletedArticles++;
+      }
+    }
+  })
+);
+
 // add new articles for user and delete old articles
 router.post(
-  "/update/user/:userId",
+  "/update/user/:userId/:max_articles",
   asyncHandler(async (req, res) => {
+    const start = Date.now(); // TODO delete this
+
     // find feeds including sources for userId
     const userId = req.params.userId;
+    const max = req.params.max_articles;
+    console.log("\n\nStarting Article Update with", max, "articles");
     const sources = await Source.findAll({
       where: { userId },
     });
@@ -93,25 +118,14 @@ router.post(
         articleData.push(article);
       }
     }
+    // creates new articles in database
     let newArticles = 0;
-    let deletedArticles = 0;
-    const dbArticles = await Article.findAll();
-    for (let article of dbArticles) {
-      const oneMonthAgo = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-        new Date().getDate()
-      );
-      // deletes articles if they are over a month old
-      if (article.pubDate < oneMonthAgo) {
-        // TODO delete old articles that are too old and is not saved by anyone
-        // article.destroy()
-        // console.log(article.url, 'should be deleted')
-        deletedArticles++;
-      }
-    }
     for (let article of articleData) {
       // checks if the article is not in the db
+      if (newArticles >= max) {
+        console.log("\nEarly Exit");
+        break;
+      }
       const articleExists = await Article.findOne({
         where: { url: article.link },
       });
@@ -147,12 +161,14 @@ router.post(
         newArticles++;
       }
     }
+    console.log(`\n\nAdded ${newArticles} new articles`);
     // sends a response back with info on the new articles found and old articles that where deleted
-    result = {
-      newArticles,
-      deletedArticles,
-    };
-    return res.json({ result });
+    console.log("\n\nFinished Article Update");
+
+    const end = Date.now(); // TODO delete this
+
+    console.log(`Execution time: ${(end - start) / 1000} seconds\n`);
+    return res.json(newArticles);
   })
 );
 
@@ -166,6 +182,7 @@ router.get(
         userId,
         read: false,
       },
+      limit: 30,
       include: Article,
     });
     return res.json(articles);
