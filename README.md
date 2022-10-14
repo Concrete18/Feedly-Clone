@@ -5,7 +5,7 @@
 This is an RSS Reader website based on [Feedly](https://feedly.com/). It allows you to set up feeds for whatever you want with many sources in each.
 With Feedler you can view all your articles easily and get to them with just a single click from the expanded view.
 
-Here is my [Live Site](https://feedly-clone.herokuapp.com/).
+Here is my [Live Site](https://feedler-rss.herokuapp.com/).
 
 ![Articles Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Articles.png)
 

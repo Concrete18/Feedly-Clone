@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 
-const { Feed, Source, Source_join } = require("../../db/models");
+const { Feed } = require("../../db/models");
 
 const router = express.Router();
 
@@ -16,18 +16,6 @@ router.get(
     return res.json(feeds);
   })
 );
-
-// // Get by sources by feed
-// router.get('/:feedId', asyncHandler(async (req, res) => {
-// 	const feedId = req.params.feedId
-// 	const feeds = await Feed.findAll(
-// 		{
-// 			where: { feedId }
-// 		}
-// 	);
-// 	return res.json(feeds);
-//   }),
-// );
 
 router.post(
   "/new",

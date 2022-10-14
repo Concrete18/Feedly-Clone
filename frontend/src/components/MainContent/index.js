@@ -7,6 +7,7 @@ import {
   updateUserArticles,
   cleanArticles,
 } from "../../store/articles";
+
 // components
 import EntryBox from "./EntryBox";
 
@@ -34,12 +35,12 @@ function MainContent() {
     })();
   }, [dispatch, sessionUser]);
 
-  // TODO add text for no articles
-
   return (
     <div className="main_content">
       <div className="content_container">
         {!isLoaded && <div className="loading_text">Loading Feeds...</div>}
+        {/* TODO fix missing text when no articles are shown */}
+        {/* {!articles.length && <div className="loading_text">No Articles</div>} */}
         <div className="entry_list">
           {articles &&
             articles?.map((article) => (

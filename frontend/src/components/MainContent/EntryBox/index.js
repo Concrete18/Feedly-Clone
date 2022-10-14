@@ -33,7 +33,6 @@ function EntryBox({ article }) {
   let snippet = article?.Article.contentSnippet;
   if (snippet.length > 200) {
     snippet = `${snippet.slice(0, 200)}...`;
-    console.log(snippet);
   }
 
   return (
