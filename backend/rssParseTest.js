@@ -32,7 +32,6 @@ async function getMetaData(url) {
       'meta[name="publish-date"]',
       'meta[name="pub_date"]',
     ],
-    creator: ['meta[name="author"]'],
     description: ['meta[property="og:description"]'],
   };
   let foundMetaData = {};

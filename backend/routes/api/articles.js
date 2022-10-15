@@ -41,7 +41,6 @@ async function getMetaData(url) {
       'meta[name="pub_date"]',
     ],
     // TODO add modDate for when it was modified
-    creator: ['meta[name="author"]'],
     description: ['meta[property="og:description"]'],
   };
   let foundMetaData = {};
@@ -100,17 +99,24 @@ router.post(
 );
 
 async function addArticle(article) {
+  // skip if article is too old
   daysPassed = await getDaysPassed(article.pubDate);
   if (daysPassed > 30) {
     console.log(article.pubDate);
     return;
   }
   // checks if the article is not in the db
-  const articleExists = await Article.findOne({
+  const currentArticle = await Article.findOne({
     where: { url: article.link },
   });
-  // TODO make sure article joins are created even if the article exists
-  if (!articleExists && article.link) {
+  // // sets data needed for ArticleJoin if article already exists
+  let curPubDate = false;
+  let curArticleId = false;
+  if (currentArticle) {
+    curPubDate = currentArticle.pubDate;
+    curArticleId = currentArticle.id;
+  }
+  if (!currentArticle && article.link) {
     const metaData = await getMetaData(article.link);
     if (!metaData) return;
     // creates article entry
@@ -126,16 +132,24 @@ async function addArticle(article) {
       websiteName: metaData.siteName ? metaData.siteName : null,
       pubDate: metaData.pubDate ? metaData.pubDate : null,
       image: metaData.image ? metaData.image : null,
-      creator: metaData.creator ? metaData.creator : null,
     };
-    const newArticle = await Article.create(articleObj);
-    // creates articleJoin entry
+    // sets data needed for ArticleJoin if it does not exist
+    curPubDate = metaData.pubDate ? metaData.pubDate : null;
+    let newArticle = await Article.create(articleObj);
+    curArticleId = newArticle.id;
+  }
+  // creates articleJoin entry
+  // TODO make sure article joins are created even if the article exists
+  const articleJoinExists = await ArticleJoin.findOne({
+    where: { articleId: curArticleId },
+  });
+  if (!articleJoinExists && curPubDate && curArticleId) {
     const articleJoinObj = {
       userId: article.userId,
       feedId: article.feedId,
       sourceId: article.sourceId,
-      pubDate: metaData.pubDate,
-      articleId: newArticle.id,
+      pubDate: curPubDate,
+      articleId: curArticleId,
     };
     await ArticleJoin.create(articleJoinObj);
   }

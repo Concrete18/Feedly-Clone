@@ -15,9 +15,6 @@ module.exports = {
       websiteName: {
         type: Sequelize.STRING(600),
       },
-      creator: {
-        type: Sequelize.STRING(300),
-      },
       pubDate: {
         type: Sequelize.DATE,
       },
