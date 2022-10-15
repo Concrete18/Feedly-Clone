@@ -139,7 +139,6 @@ async function addArticle(article) {
     curArticleId = newArticle.id;
   }
   // creates articleJoin entry
-  // TODO make sure article joins are created even if the article exists
   const articleJoinExists = await ArticleJoin.findOne({
     where: { articleId: curArticleId },
   });

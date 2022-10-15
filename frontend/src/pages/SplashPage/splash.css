@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .splash_logo {
+  padding: .5rem;
   max-width: 15rem;
   height: auto;
 }
@@ -77,12 +79,10 @@
   background-color: #25a345;
 }
 .splash_container {
-  margin: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
 }
 .splash_desc {
   color: #ffffff;
@@ -114,10 +114,10 @@
   width: 20rem;
 }
 .articles_image {
-  width: 40rem;
+  width: 90rem;
 }
 .about_logo {
-  max-width: 8rem;
+  max-width: 4rem;
   height: auto;
   padding: 1.3rem;
 }
