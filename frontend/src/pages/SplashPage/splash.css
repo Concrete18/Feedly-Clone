@@ -85,7 +85,7 @@
   padding: 2rem;
 }
 .splash_desc {
-  color: #333;
+  color: #ffffff;
   font-family: sans-serif;
   font-size: 2.125rem;
   font-weight: 700;
@@ -98,7 +98,7 @@
 }
 .splash_text {
   -webkit-font-smoothing: antialiased;
-  color: #757575;
+  color: #a8a8a8;
   font-family: sans-serif;
   font-size: 1.25rem;
   font-weight: 500;
