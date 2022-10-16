@@ -32,12 +32,11 @@ npx sequelize seed:generate --name seed_feeds
 npx sequelize seed:generate --name seed_sources
 
 npx sequelize seed:generate --name seed_articles
+npx sequelize seed:generate --name seed_articleJoins
 
 npx sequelize seed:generate --name seed_reads
 
 npx sequelize seed:generate --name seed_saved
-
-npx sequelize seed:generate --name seed_filters
 
 npx dotenv sequelize db:migrate
 
