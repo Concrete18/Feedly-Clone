@@ -1,7 +1,5 @@
 "use strict";
 
-// TODO add seeded articleJoins
-
 const seedData = [
   // gaming
   {

@@ -89,7 +89,7 @@ router.post(
         // deletes articles if they are over a month old
         daysPassed = await getDaysPassed(article.pubDate);
         if (daysPassed > 30) {
-          // TODO delete old articles that are too old and is not saved by anyone
+          // TODO delete old articles that are too old and are not saved by anyone
           console.log("delete me", article.url);
           // article.destroy();
         }

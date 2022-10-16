@@ -17,8 +17,8 @@ function MainContent() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
-  let articles = useSelector((state) => Object.values(state.articles));
 
+  let articles = useSelector((state) => Object.values(state.articles));
   // TODO change to order by savedAt if it is the read later view
   articles = articles.sort(function (a, b) {
     return new Date(b.Article.pubDate) - new Date(a.Article.pubDate);
@@ -39,8 +39,9 @@ function MainContent() {
     <div className="main_content">
       <div className="content_container">
         {!isLoaded && <div className="loading_text">Loading Feeds...</div>}
-        {/* TODO fix missing text when no articles are shown */}
-        {/* {!articles.length && <div className="loading_text">No Articles</div>} */}
+        {isLoaded && !articles.length && (
+          <div className="loading_text">There are no Articles to Show.</div>
+        )}
         <div className="entry_list">
           {articles &&
             articles?.map((article) => (

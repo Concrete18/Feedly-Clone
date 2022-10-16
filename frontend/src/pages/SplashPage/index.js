@@ -13,13 +13,6 @@ function SplashPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
-  // const createDemoUser = async () => {
-
-  //   const username = 'Doug_DemoDome'
-  //   const password = 'password'
-  //   return username, password
-  // }
-
   const demoLogin = async () => {
     const username = "Doug_DemoDome";
     const password = "password";
