@@ -65,6 +65,15 @@
   padding-right: 0.5rem;
   color: #818181;
 }
+.article_content {
+  max-width: 647px;
+  font-size: 16px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  word-break: break-word;
+}
+
 .article_button:hover {
   text-decoration: underline;
   cursor: pointer;
