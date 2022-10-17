@@ -19,6 +19,16 @@ function SplashPage() {
     return dispatch(login({ credential: username, password: password }));
   };
 
+  // TODO load demo user data on page load during specific times
+  // useEffect(() => {
+  //   (async () => {
+  //     await dispatch(updateUserArticles(sessionUser.id));
+  //     await dispatch(getUserArticles(sessionUser.id));
+  //     await setIsLoaded(true);
+  //     await dispatch(cleanArticles());
+  //   })();
+  // }, [dispatch, sessionUser]);
+
   if (sessionUser) return <Redirect to="/collection" />;
 
   // TODO add more into middle of splash page so one part is not so narrow

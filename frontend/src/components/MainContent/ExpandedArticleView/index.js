@@ -93,7 +93,7 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
           alt="placeholder in case data is missing"
         />
       )}
-      <div className="article article_content">{article.content}</div>
+      <div className="article article_content">{article.contentSnippet}</div>
       <a href={article.url} target="_blank" rel="noreferrer">
         <button className="article_link">Visit Website</button>
       </a>

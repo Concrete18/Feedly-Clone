@@ -14,11 +14,6 @@ const add = (article) => ({
   article,
 });
 
-// const remove = (articleId) => ({
-//   type: REMOVE,
-//   articleId,
-// });
-
 export const updateUserArticles = (userId) => async () => {
   // get all sources from backend
   await csrfFetch(`/api/articles/update/user/${userId}`, {
