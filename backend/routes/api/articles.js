@@ -80,6 +80,8 @@ async function getDaysPassed(date) {
   return Math.floor(msBetweenDates / (24 * 60 * 60 * 1000));
 }
 
+let day_limit = 30;
+
 router.post(
   "/clean",
   asyncHandler(async (req, res) => {
@@ -88,10 +90,14 @@ router.post(
       if (article.pubDate) {
         // deletes articles if they are over a month old
         daysPassed = await getDaysPassed(article.pubDate);
-        if (daysPassed > 30) {
-          // TODO delete old articles that are too old and are not saved by anyone
-          console.log("delete me", article.url);
-          // article.destroy();
+        if (daysPassed > day_limit) {
+          const articleJoins = await ArticleJoin.findAll({
+            where: { articleId: article.id, saved: true },
+          });
+          if (articleJoins.length == 0) {
+            article.destroy();
+            console.log("\ndeleted", article.pubDate, article.url);
+          }
         }
       }
     }
@@ -101,8 +107,8 @@ router.post(
 async function addArticle(article) {
   // skip if article is too old
   daysPassed = await getDaysPassed(article.pubDate);
-  if (daysPassed > 30) {
-    console.log(article.pubDate);
+  if (daysPassed > day_limit) {
+    console.log("Skipping Article from", article.pubDate);
     return;
   }
   // checks if the article is not in the db
