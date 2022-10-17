@@ -1,10 +1,10 @@
 "use strict";
 
 const seedData = [
-  // gaming
   {
     title: "Arcane Wins an Emmy as Riot Games Releases Making Of Documentary",
     websiteName: "Gizmodo",
+    pubDate: "2021-06-12T21:37:15+00:00",
     image:
       "https://i.kinja-img.com/gawker-media/image/upload/c_fit,f_auto,g_center,pg_1,q_60,w_965/d33248d97defac6601b812d64124c3a8.jpg",
     content:
@@ -16,6 +16,7 @@ const seedData = [
   {
     title: "Synergy is a new, ecology-themed, sci-fi settlement builder",
     websiteName: "Destructoid",
+    pubDate: "2021-06-12T21:37:15+00:00",
     image:
       "https://www.destructoid.com/wp-content/uploads/2022/06/synergy-pc-trailer-strategy.jpg?w=640",
     content:
@@ -27,6 +28,7 @@ const seedData = [
   {
     title: "World's Largest Four-Day Work Week Experiment Begins",
     websiteName: "Gizmodo",
+    pubDate: "2021-06-12T21:37:15+00:00",
     image:
       "https://i.kinja-img.com/gawker-media/image/upload/c_fit,f_auto,g_center,pg_1,q_60,w_965/9d8894e2cc1ca8c49f090ddf0f041a6e.jpg",
     content:
@@ -35,22 +37,19 @@ const seedData = [
       "Thousands of UK employees will work 80% of the traditional work week while maintaining 100% of their salaries.",
     url: "https://gizmodo.com/four-day-work-week-wfh-remote-work-return-to-office-1849022441",
   },
-  // {
-  //   title: "placeholder",
-  //   websiteName: "placeholder",
-  //   image: "placeholder",
-  //   content: "placeholder",
-  //   contentSnippet: "placeholder",
-  //   url: "placeholder",
-  // },
-  // {
-  //   title: "placeholder",
-  //   websiteName: "placeholder",
-  //   image: "placeholder",
-  //   content: "placeholder",
-  //   contentSnippet: "placeholder",
-  //   url: "placeholder",
-  // },
+  {
+    title:
+      "Show what you know with the new ChromeOS administrator certification",
+    websiteName: "Google",
+    pubDate: "2021-06-12T21:37:15+00:00",
+    image:
+      "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/EDU___ChromeOS_Admin_Certification_-_Blog_.max-1000x1000.png",
+    content:
+      "Around the world, ChromeOS admins are hard at work, collectively managing 50 million students and educators using Chromebooks and other ChromeOS devices. Some of them are looking after huge fleets across entire school districts, and others are just starting out.",
+    contentSnippet:
+      "Around the world, ChromeOS admins are hard at work, collectively managing 50 million students and educators using Chromebooks and other ChromeOS devices.",
+    url: "https://blog.google/outreach-initiatives/education/chromeos-admin-certification/",
+  },
 ];
 
 let articles = [];
@@ -63,7 +62,6 @@ for (const entry of seedData) {
     content: entry.content,
     contentSnippet: entry.contentSnippet,
     url: entry.url,
-
     createdAt: new Date(),
     updatedAt: new Date(),
   };

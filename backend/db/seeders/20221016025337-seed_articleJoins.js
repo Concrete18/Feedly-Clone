@@ -1,7 +1,6 @@
 "use strict";
 
 const seedData = [
-  // gaming
   {
     userId: 1,
     feedId: 1,
@@ -29,7 +28,6 @@ for (const entry of seedData) {
     feedId: entry.feedId,
     sourceId: entry.sourceId,
     articleId: entry.articleId,
-
     read: true,
     saved: true,
     savedAt: "2021-06-12T21:37:15+00:00",
