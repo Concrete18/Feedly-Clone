@@ -54,7 +54,6 @@ function EntryBox({ article }) {
         )}
         {!article.Article.image && (
           <img
-            // TODO standardize image size
             className="article_image"
             src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"}
             alt="placeholder in case data is missing"

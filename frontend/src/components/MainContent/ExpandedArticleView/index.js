@@ -42,7 +42,6 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
     })();
   }, [dispatch, article.id, sessionUser.id]);
 
-  // TODO test this
   let articleContent;
   if (article.content.includes("<")) {
     articleContent = article.contentSnippet;
