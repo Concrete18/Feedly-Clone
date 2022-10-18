@@ -25,8 +25,6 @@ function timeSince(date) {
   return Math.floor(seconds) + "s";
 }
 
-// TODO add read later button to each entry
-
 function EntryBox({ article }) {
   const [showModal, setShowModal] = useState(false);
 
