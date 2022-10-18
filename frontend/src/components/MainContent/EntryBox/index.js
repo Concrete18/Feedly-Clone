@@ -60,9 +60,9 @@ function EntryBox({ article }) {
           />
         )}
         <div className="article article_title">{article?.Article.title}</div>
-        <div className="article article_pub_date">{timeSinceCreation}</div>
         <div className="article article_website_name">
-          {article?.Article.websiteName}
+          {/* TODO add Read later button here */}
+          {article?.Article.websiteName} / {timeSinceCreation}
         </div>
         <div className="article article_snippet">
           {article?.Article.contentSnippet}
