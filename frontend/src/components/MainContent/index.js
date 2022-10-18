@@ -35,6 +35,11 @@ function MainContent() {
     })();
   }, [dispatch, sessionUser]);
 
+  const markVisibleAsRead = async (e) => {
+    e.preventDefault();
+    console.log("PH Marked all as read");
+  };
+
   return (
     <div className="main_content">
       <div className="content_container">
@@ -49,6 +54,12 @@ function MainContent() {
             ))}
         </div>
       </div>
+      {/* TODO finish MARK ALL AS READ button*/}
+      {/* {isLoaded && (
+        <div className="mark_all_as_read" onClick={markVisibleAsRead}>
+          MARK ALL AS READ
+        </div>
+      )} */}
     </div>
   );
 }

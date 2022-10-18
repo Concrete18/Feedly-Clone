@@ -42,6 +42,14 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
     })();
   }, [dispatch, article.id, sessionUser.id]);
 
+  // TODO test this
+  let articleContent;
+  if (article.content.includes("<")) {
+    articleContent = article.contentSnippet;
+  } else {
+    articleContent = article.content;
+  }
+
   return (
     <div className="expanded_article">
       <div className="article article_title">{article.title}</div>
@@ -93,7 +101,7 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
           alt="placeholder in case data is missing"
         />
       )}
-      <div className="article article_content">{article.contentSnippet}</div>
+      <div className="article article_content">{articleContent}</div>
       <a href={article.url} target="_blank" rel="noreferrer">
         <button className="article_link">Visit Website</button>
       </a>

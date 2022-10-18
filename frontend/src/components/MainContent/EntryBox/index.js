@@ -25,15 +25,12 @@ function timeSince(date) {
   return Math.floor(seconds) + "s";
 }
 
+// TODO add read later button to each entry
+
 function EntryBox({ article }) {
   const [showModal, setShowModal] = useState(false);
 
   const timeSinceCreation = timeSince(new Date(article?.Article.pubDate));
-
-  let snippet = article?.Article.contentSnippet;
-  if (snippet.length > 200) {
-    snippet = `${snippet.slice(0, 200)}...`;
-  }
 
   return (
     <>
@@ -57,6 +54,7 @@ function EntryBox({ article }) {
         )}
         {!article.Article.image && (
           <img
+            // TODO standardize image size
             className="article_image"
             src={process.env.PUBLIC_URL + "/assets/placeholder_image.jpg"}
             alt="placeholder in case data is missing"
@@ -67,7 +65,9 @@ function EntryBox({ article }) {
         <div className="article article_website_name">
           {article?.Article.websiteName}
         </div>
-        <div className="article article_snippet">{snippet}</div>
+        <div className="article article_snippet">
+          {article?.Article.contentSnippet}
+        </div>
       </div>
     </>
   );
