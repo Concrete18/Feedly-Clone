@@ -9,7 +9,7 @@ const feeds = [
   },
   {
     userId: 1,
-    name: "News",
+    name: "Movies",
     createdAt: new Date(),
     updatedAt: new Date(),
   },

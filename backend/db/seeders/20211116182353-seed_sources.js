@@ -14,10 +14,10 @@ const seedData = [
     feedId: 1,
     userId: 1,
   },
-  // news
+  // movies
   {
-    name: "UN News",
-    url: "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+    name: "Movie Web",
+    url: "https://movieweb.com/feed/",
     feedId: 2,
     userId: 1,
   },
