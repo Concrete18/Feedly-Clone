@@ -114,7 +114,7 @@ function SingleFeed({ feed }) {
               ))}
             </ul>
             <input
-              className="edit_feed_inputs feed_name"
+              className="edit_text_input feed_name"
               type="text"
               onBlur={handleFocusLoss}
               onChange={(e) => {

@@ -32,7 +32,7 @@ async function getMetaData(url) {
       'meta[name="twitter:image"]',
       'meta[name="twitter:image:src"]',
     ],
-    siteName: ['meta[property="og:site_name"]', 'meta[name="twitter:site"]'],
+    siteName: ['meta[property="og:site_name"]'],
     pubDate: [
       'meta[property="article:modified_time"]',
       'meta[property="article:published_time"]',
@@ -80,7 +80,7 @@ async function getDaysPassed(date) {
   return Math.floor(msBetweenDates / (24 * 60 * 60 * 1000));
 }
 
-let day_limit = 30;
+const DayLimit = 30;
 
 router.post(
   "/clean",
@@ -90,7 +90,7 @@ router.post(
       if (article.pubDate) {
         // deletes articles if they are over a month old
         daysPassed = await getDaysPassed(article.pubDate);
-        if (daysPassed > day_limit) {
+        if (daysPassed > DayLimit) {
           const articleJoins = await ArticleJoin.findAll({
             where: { articleId: article.id, saved: true },
           });
@@ -107,7 +107,7 @@ router.post(
 async function addArticle(article) {
   // skip if article is too old
   daysPassed = await getDaysPassed(article.pubDate);
-  if (daysPassed > day_limit) {
+  if (daysPassed > DayLimit) {
     console.log("Skipping Article from", article.pubDate);
     return;
   }
@@ -198,7 +198,7 @@ router.get(
         read: false,
       },
       order: [["Article", "pubDate", "DESC"]],
-      limit: 30,
+      limit: 32,
       include: Article,
     });
     return res.json(articles);

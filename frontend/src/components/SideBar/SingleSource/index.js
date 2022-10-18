@@ -58,7 +58,7 @@ function SingleSource({ source }) {
             ))}
           </ul>
           <input
-            className="edit_source_inputs source_name"
+            className="edit_text_input source_name"
             type="text"
             onBlur={handleFocusLoss}
             onChange={(e) => {
