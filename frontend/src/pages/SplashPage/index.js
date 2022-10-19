@@ -54,19 +54,19 @@ function SplashPage() {
           Follow all of the websites that you enjoy without having to visit each
           one
         </div>
-        <p className="splash_text">
-          Organize all your trusted sources in one place
-        </p>
-        <img
-          className="feed_image"
-          src={process.env.PUBLIC_URL + "/assets/Feeds.png"}
-          alt="screenshot of feeds"
-        />
         <p className="splash_text">Enjoy a grid view of all of your articles</p>
         <img
           className="articles_image"
           src={process.env.PUBLIC_URL + "/assets/Articles.png"}
           alt="Screenshot of articles"
+        />
+        <p className="splash_text">
+          View expanded article with additional information and site links
+        </p>
+        <img
+          className="expanded_article_view"
+          src={process.env.PUBLIC_URL + "/assets/Expanded_Article.png"}
+          alt="screenshot of feeds"
         />
       </div>
       <div className="footer">

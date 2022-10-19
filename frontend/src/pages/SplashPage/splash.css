@@ -110,11 +110,12 @@
   margin-top: 2rem;
   margin-bottom: 0.8rem;
 }
-.feed_image {
-  width: 20rem;
-}
 .articles_image {
   width: 90rem;
+  max-width: 1107px;
+}
+.expanded_article_view {
+    max-height: 826px;
 }
 .about_logo {
   max-width: 4rem;

@@ -30,13 +30,17 @@ function EntryBox({ article }) {
 
   const timeSinceCreation = timeSince(new Date(article?.Article.pubDate));
 
+  // sets up info line
+  // TODO color green and separate from divider
+  let readLater = article.saved ? "Read Later // " : "";
+  let entryMetaData = `${readLater}${article?.Article.websiteName} // ${timeSinceCreation}`;
+
   return (
     <>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <ExpandedArticle
             article={article.Article}
-            timeSinceCreation={timeSinceCreation}
             saved={article.saved}
             read={article.read}
           />
@@ -58,10 +62,7 @@ function EntryBox({ article }) {
           />
         )}
         <div className="article article_title">{article?.Article.title}</div>
-        <div className="article article_website_name">
-          {/* TODO add Read later button here */}
-          {article?.Article.websiteName} / {timeSinceCreation}
-        </div>
+        <div className="article entry_metadata">{entryMetaData}</div>
         <div className="article article_snippet">
           {article?.Article.contentSnippet}
         </div>

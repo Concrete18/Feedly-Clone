@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // stores
@@ -11,30 +11,13 @@ import {
 
 import "./ExpandedArticleView.css";
 
-function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
+function ExpandedArticle({ article, saved, read }) {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector((state) => state.session.user);
 
-  const handleSave = async (e) => {
-    e.preventDefault();
-    await dispatch(saveArticle(article.id, sessionUser.id));
-  };
-
-  const handleUnSave = async (e) => {
-    e.preventDefault();
-    await dispatch(unSaveArticle(article.id, sessionUser.id));
-  };
-
-  const handleSetRead = async (e) => {
-    e.preventDefault();
-    await dispatch(setRead(article.id, sessionUser.id));
-  };
-
-  const handleSetUnread = async (e) => {
-    e.preventDefault();
-    await dispatch(setUnread(article.id, sessionUser.id));
-  };
+  const [isSaved, setAsSaved] = useState(saved);
+  const [isRead, setAsRead] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -49,43 +32,59 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
     articleContent = article.content;
   }
 
+  // sets up entry metadata
+  const saveButtonAction = async (e) => {
+    e.preventDefault();
+    if (isSaved) {
+      await dispatch(unSaveArticle(article.id, sessionUser.id));
+      await setAsSaved(false);
+    } else {
+      await dispatch(saveArticle(article.id, sessionUser.id));
+      await setAsSaved(true);
+    }
+  };
+
+  const readButtonAction = async (e) => {
+    e.preventDefault();
+    if (isRead) {
+      await dispatch(setUnread(article.id, sessionUser.id));
+      await setAsRead(false);
+    } else {
+      await dispatch(setRead(article.id, sessionUser.id));
+      await setAsRead(true);
+    }
+  };
+
+  // mark as read button
+  let readButton = (
+    <div className="article_button" onClick={readButtonAction}>
+      {isRead ? "Keep Unread " : "Mark as Read "}
+    </div>
+  );
+
+  // saving button
+  let saveButton = (
+    <div className="article_button" onClick={saveButtonAction}>
+      {!isSaved ? "Save" : "Unsave"}
+    </div>
+  );
+
+  // TODO set datetime to this format: October 19, 2022 at 01:05AM
+  let formattedDate = new Date(article.pubDate).toLocaleString();
+  let entryMetaData = (
+    <div className="entry_metadata">
+      {`${article.websiteName} / ${formattedDate}`}
+      <span className="metadata_divider">{"//"}</span>
+      {readButton}
+      <span className="metadata_divider">//</span>
+      {saveButton}
+    </div>
+  );
+
   return (
     <div className="expanded_article">
-      <div className="article article_title">{article.title}</div>
-      <div className="article_info">
-        <div className="article article_website_name article_entry">
-          {article.websiteName}
-        </div>
-        <div className="article_entry"> | </div>
-        <div className="article_pub_date article_entry">
-          {timeSinceCreation}
-        </div>
-        <div className="article_entry"> || </div>
-        {read && (
-          <div
-            className="article_entry article_button"
-            onClick={handleSetUnread}
-          >
-            Keep Unread
-          </div>
-        )}
-        {!read && (
-          <div className="article_entry article_button" onClick={handleSetRead}>
-            Mark as Read
-          </div>
-        )}
-        <div className="article_entry"> || </div>
-        {saved && (
-          <div className="article_entry article_button" onClick={handleUnSave}>
-            Remove from Read Later
-          </div>
-        )}
-        {!saved && (
-          <div className="article_entry article_button" onClick={handleSave}>
-            Read Later
-          </div>
-        )}
-      </div>
+      <div className="article expanded_article_title">{article.title}</div>
+      {entryMetaData}
       {article.image && (
         <img
           className="expanded_article_image"
@@ -100,7 +99,7 @@ function ExpandedArticle({ article, timeSinceCreation, saved, read }) {
           alt="placeholder in case data is missing"
         />
       )}
-      <div className="article article_content">{articleContent}</div>
+      <div className="article expanded_article_content">{articleContent}</div>
       <a href={article.url} target="_blank" rel="noreferrer">
         <button className="article_link">Visit Website</button>
       </a>
