@@ -40,7 +40,6 @@ async function getMetaData(url) {
       'meta[name="publish-date"]',
       'meta[name="pub_date"]',
     ],
-    // TODO add modDate for when it was modified
     description: ['meta[property="og:description"]'],
   };
   let foundMetaData = {};
