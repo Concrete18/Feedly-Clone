@@ -9,7 +9,7 @@ const seedData = [
     userId: 1,
   },
   {
-    name: "Playstation Blog",
+    name: "PlayStation Blog",
     url: "https://blog.playstation.com/feed/",
     feedId: 1,
     userId: 1,
