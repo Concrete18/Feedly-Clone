@@ -30,10 +30,22 @@ function EntryBox({ article }) {
 
   const timeSinceCreation = timeSince(new Date(article?.Article.pubDate));
 
-  // sets up info line
-  // TODO color green and separate from divider
-  let readLater = article.saved ? "Read Later // " : "";
-  let entryMetaData = `${readLater}${article?.Article.websiteName} // ${timeSinceCreation}`;
+  // read later status on article view
+  let readLater = (
+    <>
+      <span className="saved_to_read ">Read Later</span>
+      <span className="dot_divider">•</span>
+    </>
+  );
+  // sets up metadata
+  let entryMetaData = (
+    <>
+      {article.saved ? readLater : ""}
+      <span>
+        {article?.Article.websiteName} / {timeSinceCreation}
+      </span>
+    </>
+  );
 
   return (
     <>

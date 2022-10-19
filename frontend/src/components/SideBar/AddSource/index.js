@@ -65,6 +65,7 @@ function AddSource({ feedId, userId }) {
               <li key={idx}>{error}</li>
             ))}
           </ul>
+          {/* TODO make hiding easier and fix spacing */}
           <div className="add_source_inputs">
             <div className="source_name_add">
               <label className="form_label">Source Name</label>

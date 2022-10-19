@@ -57,6 +57,13 @@
     justify-content: flex-start;
     flex-direction: row;
 }
+.saved_to_read{
+    color: #2bb24c;
+    margin-right: 5px;
+}
+.dot_divider {
+    margin-right: 5px;
+}
 .expanded_article > .entry_metadata {
     margin-top: .4rem;
     margin-bottom: 2.8rem;

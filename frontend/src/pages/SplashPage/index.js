@@ -31,8 +31,6 @@ function SplashPage() {
 
   if (sessionUser) return <Redirect to="/collection" />;
 
-  // TODO add more into middle of splash page so one part is not so narrow
-
   return (
     <>
       <div className="splash_nav">
@@ -44,7 +42,7 @@ function SplashPage() {
         <div className="nav_right">
           <LoginFormModal />
           <button className="login_button" onClick={() => demoLogin()}>
-            Demo User
+            Demo Login
           </button>
           <SignupFormModal />
         </div>
