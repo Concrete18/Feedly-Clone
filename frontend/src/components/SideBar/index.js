@@ -65,7 +65,7 @@ function SideBar() {
           </div>
           {showAddFeed && (
             <form onSubmit={handleSubmit} className="add_feed_form">
-              <div className="edit_text_input">
+              <div className="add_feed_input">
                 <label className="form_label">Feed Name</label>
                 <input
                   type="text"

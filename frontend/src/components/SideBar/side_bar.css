@@ -98,24 +98,26 @@
     background: transparent;
     border: 1px solid #2bb24c;
 }
-
+.add_feed_input {
+    font-size: 16px;
+	color: white;
+    background: transparent;
+    margin-bottom: 1rem;
+}
 input:focus {
     outline-offset: 0px !important;
     outline: none !important;
 }
 
 /* forms */
-
 form {
 	/* margin: .5rem; */
 	font-size: 13px;
 }
-
 .form_label {
 	padding-right: .8rem;
 	color: rgba(255,255,255,.68);
 }
-
 .add_source_button {
 	margin-top: .5rem;
 	background-color: #4CAF50; /* Green */
