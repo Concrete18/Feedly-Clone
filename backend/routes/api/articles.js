@@ -105,17 +105,11 @@ router.post(
 );
 
 async function addArticle(article) {
-  // skip if article is too old
-  daysPassed = await getDaysPassed(article.pubDate);
-  if (daysPassed > DayLimit) {
-    console.log("Skipping Article from", article.pubDate);
-    return;
-  }
   // checks if the article is not in the db
   const currentArticle = await Article.findOne({
     where: { url: article.link },
   });
-  // // sets data needed for ArticleJoin if article already exists
+  // sets data needed for ArticleJoin if article already exists
   let curPubDate = false;
   let curArticleId = false;
   if (currentArticle) {
@@ -141,6 +135,11 @@ async function addArticle(article) {
     };
     // sets data needed for ArticleJoin if it does not exist
     curPubDate = metaData.pubDate ? metaData.pubDate : null;
+    // skip if article is too old
+    daysPassed = await getDaysPassed(curPubDate);
+    if (daysPassed > DayLimit) {
+      return;
+    }
     let newArticle = await Article.create(articleObj);
     curArticleId = newArticle.id;
   }
