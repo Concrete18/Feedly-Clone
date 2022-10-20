@@ -100,6 +100,7 @@ router.post(
         }
       }
     }
+    return res.json({ message: "success" });
   })
 );
 
@@ -180,8 +181,8 @@ router.post(
     }
     // creates new articles in database
     const promises = articleData.map((article) => addArticle(article));
-    let data = await Promise.all(promises);
-    return res.json(data);
+    await Promise.all(promises);
+    return res.json({ message: "success" });
   })
 );
 
@@ -213,6 +214,7 @@ router.get(
         feedId,
         read: false,
       },
+      limit: 32,
       include: Article,
     });
     return res.json(articles);
@@ -229,6 +231,7 @@ router.get(
         sourceId,
         read: false,
       },
+      limit: 32,
       include: Article,
     });
     return res.json(articles);
@@ -245,6 +248,7 @@ router.get(
         userId,
         saved: true,
       },
+      limit: 32,
       include: Article,
     });
     return res.json(articles);
