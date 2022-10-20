@@ -5,7 +5,7 @@ const fakeUsers = [
   {
     email: "DougD@demo.dome",
     username: "Doug_DemoDome",
-    hashedPassword: bcrypt.hashSync("password"),
+    hashedPassword: bcrypt.hashSync("UfCL882`%Pu8`i;zLvu?"),
     createdAt: new Date(),
     updatedAt: new Date(),
   },
