@@ -28,10 +28,10 @@ function MainContent() {
 
   useEffect(() => {
     (async () => {
+      await dispatch(cleanArticles());
       await dispatch(updateUserArticles(sessionUser.id));
       await dispatch(getUserArticles(sessionUser.id));
       await setIsLoaded(true);
-      await dispatch(cleanArticles());
     })();
   }, [dispatch, sessionUser]);
 
@@ -39,6 +39,10 @@ function MainContent() {
     e.preventDefault();
     console.log("PH Marked all as read");
   };
+
+  // TODO add article hover over effect
+
+  // TODO make read articles grey
 
   return (
     <div className="main_content">
