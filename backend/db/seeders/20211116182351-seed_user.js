@@ -1,22 +1,22 @@
-'use strict';
+"use strict";
 const bcrypt = require("bcryptjs");
 
 const fakeUsers = [
   {
-    email: 'DougD@demo.dome',
-    username: 'Doug_DemoDome',
-    hashedPassword: bcrypt.hashSync('password'),
+    email: "DougD@demo.dome",
+    username: "Doug_DemoDome",
+    hashedPassword: bcrypt.hashSync("password"),
     createdAt: new Date(),
-    updatedAt: new Date()
-  }
-]
+    updatedAt: new Date(),
+  },
+];
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', fakeUsers, {});
+    return queryInterface.bulkInsert("Users", fakeUsers, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Users', null, {});
-  }
+    await queryInterface.bulkDelete("Users", null, {});
+  },
 };

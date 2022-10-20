@@ -1,50 +1,50 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ArticleJoins', {
+    await queryInterface.createTable("ArticleJoins", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Users' }
+        references: { model: "Users" },
       },
       feedId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Feeds' }
+        references: { model: "Feeds" },
       },
       sourceId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Sources' }
+        references: { model: "Sources" },
       },
       articleId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Articles' }
+        references: { model: "Articles" },
       },
       read: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       saved: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       savedAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       createdAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ArticleJoins');
-  }
+    await queryInterface.dropTable("ArticleJoins");
+  },
 };

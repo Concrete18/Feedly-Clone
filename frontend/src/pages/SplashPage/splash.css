@@ -1,168 +1,171 @@
 .splash_nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .splash_logo {
-    max-width:15rem;
-    height:auto;
+  padding: .5rem;
+  max-width: 15rem;
+  height: auto;
 }
 .nav_right {
-    padding: 1rem;
+  padding: 1rem;
 }
 .login_button {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2bb24c;
-    border: 1px solid #2bb24c;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 12px;
-    line-height: 1rem;
-    margin-top: 0;
-    margin-right: 0.5rem;
-    margin-bottom: 0;
-    padding-top: 12px;
-    padding-bottom: 10px;
-    padding-left: 17px;
-    padding-right: 17px;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: top;
-    min-width: 50px;
-    box-sizing: border-box;
-    letter-spacing: 0;
-    box-shadow: none;
-    outline: 0;
-    transition: background-color .2s linear,color .2s linear;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  background: #181818;
+  border: 1px solid #2bb24c;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 1rem;
+  margin-top: 0;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-left: 17px;
+  padding-right: 17px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: top;
+  min-width: 50px;
+  box-sizing: border-box;
+  letter-spacing: 0;
+  box-shadow: none;
+  outline: 0;
+  transition: background-color 0.2s linear, color 0.2s linear;
 }
 .login_button:hover {
-    color: #25a345;
-    border: 1px solid #25a345;
+  color: #ffffff;
+  border: 1px solid #2aac4a;
+  background: #2c2c2c;
 }
 .sign_up_button {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #2bb24c;
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 12px;
-    line-height: 1rem;
-    margin-top: 0;
-    margin-right: 0.5rem;
-    margin-bottom: 0;
-    padding-top: 12px;
-    padding-bottom: 10px;
-    padding-left: 17px;
-    padding-right: 17px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: top;
-    min-width: 50px;
-    box-sizing: border-box;
-    letter-spacing: 0;
-    box-shadow: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #2bb24c;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 1rem;
+  margin-top: 0;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-left: 17px;
+  padding-right: 17px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: top;
+  min-width: 50px;
+  box-sizing: border-box;
+  letter-spacing: 0;
+  box-shadow: none;
 }
 .sign_up_button:hover {
-    background-color: #25a345;
+  background-color: #25a345;
 }
 .splash_container {
-    margin: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .splash_desc {
-    color: #333;
-    font-family: sans-serif;
-    font-size: 2.125rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.25em;
-    margin-bottom: 3rem;
-    margin-top: 3rem;
-    text-align: left;
-    text-transform: none;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 2.125rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.25em;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  text-align: left;
+  text-transform: none;
 }
 .splash_text {
-    -webkit-font-smoothing: antialiased;
-    color: #757575;
-    font-family: sans-serif;
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 1.4em;
-    margin-top: 0.5rem;
-    max-width: 624px;
-    text-transform: none;
-    margin-top: 2rem;
-    margin-bottom: .8rem;
-}
-.feed_image {
-    width: 20rem;
+  -webkit-font-smoothing: antialiased;
+  color: #a8a8a8;
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4em;
+  margin-top: 0.5rem;
+  max-width: 624px;
+  text-transform: none;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
 }
 .articles_image {
-    width: 40rem;
+  width: 90rem;
+  max-width: 1107px;
+}
+.expanded_article_view {
+    max-height: 826px;
 }
 .about_logo {
-    max-width:8rem;
-    height:auto;
-    padding: 1.3rem;
+  max-width: 4rem;
+  height: auto;
+  padding: 1.3rem;
 }
 .footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .sign_in_modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2rem;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2rem;
+  align-items: center;
 }
 .user_form_entry {
-    font-size: 1.2rem;
-    margin: .4rem;
+  font-size: 1.2rem;
+  margin: 0.4rem;
 }
 .log_sign_button {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #2bb24c;
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 12px;
-    line-height: 1rem;
-    margin-top: 1rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 17px;
-    padding-right: 17px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: top;
-    min-width: 50px;
-    box-sizing: border-box;
-    letter-spacing: 0;
-    box-shadow: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #2bb24c;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 1rem;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 17px;
+  padding-right: 17px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: top;
+  min-width: 50px;
+  box-sizing: border-box;
+  letter-spacing: 0;
+  box-shadow: none;
 }
 .log_sign_button:hover {
-    background-color: #25a345;
+  background-color: #25a345;
 }

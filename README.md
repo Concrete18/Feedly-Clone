@@ -9,8 +9,6 @@ Here is my [Live Site](https://feedler-rss.herokuapp.com/).
 
 ![Articles Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Articles.png)
 
-![Feeds Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feeds.png)
-
 ---
 
 ## Features

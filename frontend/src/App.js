@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 // components
-import SplashPage from './pages/SplashPage';
-import Main from './pages/Main';
+import SplashPage from "./pages/SplashPage";
+import Main from "./pages/Main";
 // store
-import * as sessionActions from './store/session';
+import * as sessionActions from "./store/session";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,10 +19,10 @@ function App() {
     <>
       {isLoaded && (
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <SplashPage />
           </Route>
-          <Route path='/collection'>
+          <Route path="/collection">
             <Main />
           </Route>
         </Switch>
