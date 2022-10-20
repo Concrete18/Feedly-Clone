@@ -2,28 +2,29 @@
 
 ![Feedler Logo](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feedler_Logo.png)
 
-
 This is an RSS Reader website based on [Feedly](https://feedly.com/). It allows you to set up feeds for whatever you want with many sources in each.
 With Feedler you can view all your articles easily and get to them with just a single click from the expanded view.
 
-Here is my [Live Site](https://feedly-clone.herokuapp.com/).
+Here is my [Live Site](https://feedler-rss.herokuapp.com/).
 
 ![Full Page Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feedler_full_page.png)
 
+
 ![Articles Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Articles.png)
 
-![Feeds Screenshot](https://raw.githubusercontent.com/Concrete18/Feedly-Clone/main/frontend/public/assets/Feeds.png)
 
 ---
+
 ## Features
 
-* Feeds with full CRUD
-* Sources with full CRUD
-* Auto populated articles based on sources
-* View articles by feed, source, or all at once.
-* Full Sign up and login with a quick to access Demo user.
+- Feeds with full CRUD
+- Sources with full CRUD
+- Auto populated articles based on sources
+- View articles by feed, source, or all at once.
+- Full Sign up and login with a quick to access Demo user.
 
 ---
+
 ## How To
 
 ### Create Feeds
@@ -53,20 +54,22 @@ All articles are shown by default. You can click any feed or source in order to 
 
 ## Future Features
 
-* Read Status
-* Saved for Later
-* Search
+- Read Status
+- Saved for Later
+- Search
 
 ---
+
 ## Stack
 
-* JavaScript
-* React & Redux
-* PostgreSQL
-* Sequelize 
-* Express
+- JavaScript
+- React & Redux
+- PostgreSQL
+- Sequelize
+- Express
 
 ---
+
 ## Example RSS Feeds
 
 ```

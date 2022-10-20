@@ -23,9 +23,11 @@ if (!isProduction) {
   app.use(cors());
 }
 // helmet helps set a variety of headers to better secure your app
-app.use(helmet({
-  contentSecurityPolicy: false
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // Set the _csrf token and create req.csrfToken method
 app.use(
@@ -54,7 +56,7 @@ app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
   if (err instanceof ValidationError) {
     err.errors = err.errors.map((e) => e.message);
-    err.title = 'Validation error';
+    err.title = "Validation error";
   }
   next(err);
 });
@@ -64,7 +66,7 @@ app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
   console.error(err);
   res.json({
-    title: err.title || 'Server Error',
+    title: err.title || "Server Error",
     message: err.message,
     errors: err.errors,
     stack: isProduction ? null : err.stack,
