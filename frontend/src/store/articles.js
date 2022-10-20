@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = "articles/LOAD";
 const ADD = "articles/ADD";
-const REMOVE = "articles/REMOVE";
+const RESET = "articles/RESET";
 
 const load = (list) => ({
   type: LOAD,
@@ -12,6 +12,10 @@ const load = (list) => ({
 const add = (article) => ({
   type: ADD,
   article,
+});
+
+const reset = () => ({
+  type: RESET,
 });
 
 export const updateUserArticles = (userId) => async () => {
@@ -133,6 +137,11 @@ export const unSaveArticle = (articleId, userId) => async (dispatch) => {
   }
 };
 
+// TODO finish function
+export const clearArticles = () => async (dispatch) => {
+  dispatch(reset());
+};
+
 const articleReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD:
@@ -143,9 +152,8 @@ const articleReducer = (state = {}, action) => {
       return newState;
     case ADD:
       return { ...state, [action.article.id]: action.article };
-    case REMOVE:
-      const newArticles = { ...state };
-      delete newArticles[action.articleId];
+    case RESET:
+      const newArticles = {};
       return newArticles;
     default:
       return state;
