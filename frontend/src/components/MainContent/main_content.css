@@ -17,7 +17,7 @@
   height: 100%;
   position: relative;
   right: 0;
-  width: 70rem;
+  width: 1104px;
 }
 .top_container {
   height: 5rem;
@@ -35,6 +35,21 @@
   width: 100%;
   height: 100%;
   margin-top: 2em;
+}
+@media screen and (max-width: 1800px) {
+    .content_container {
+        width: 828px;
+    }
+}
+@media screen and (max-width: 1400px) {
+    .content_container {
+        width: 552px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .content_container {
+        width: 250px;
+    }
 }
 .single_article {
   align-content: center;
