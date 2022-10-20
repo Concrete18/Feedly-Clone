@@ -1,4 +1,4 @@
-import { csrfFetch } from './csrf';
+import { csrfFetch } from "./csrf";
 
 const LOAD = "feeds/LOAD";
 const ADD = "feeds/ADD";
@@ -21,42 +21,42 @@ const remove = (feedId) => ({
 
 export const getFeeds = (userId) => async (dispatch) => {
   const response = await fetch(`/api/feeds/user/${userId}`, {
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'}
-  })
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
   if (response.ok) {
     const feeds = await response.json();
     dispatch(load(feeds));
-    return feeds
+    return feeds;
   }
-}
+};
 
 export const addFeed = (feed) => async (dispatch) => {
   const { name, userId } = feed;
   const response = await csrfFetch("/api/feeds/new", {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       name,
-      userId
+      userId,
     }),
   });
   const data = await response.json();
   dispatch(add(data));
   return data;
-}
+};
 
 export const deleteFeed = (feedId) => async (dispatch) => {
   const response = await csrfFetch(`/api/feeds/delete/${feedId}`, {
-    method: 'DELETE'
+    method: "DELETE",
   });
   if (response.ok) {
     dispatch(remove(feedId));
     return feedId;
   }
-}
+};
 
 export const editFeed = (formData) => async (dispatch) => {
   const response = await csrfFetch(`/api/feeds/update/${formData.id}`, {
@@ -70,7 +70,7 @@ export const editFeed = (formData) => async (dispatch) => {
     const feed = await response.json();
     dispatch(add(feed));
   }
-}
+};
 
 const feedReducer = (state = {}, action) => {
   switch (action.type) {
