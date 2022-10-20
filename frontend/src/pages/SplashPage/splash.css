@@ -130,9 +130,16 @@
 .sign_in_modal {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   margin: 2rem;
   align-items: center;
+}
+.user_login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 2rem;
+    align-items: center;
 }
 .user_form_entry {
   font-size: 1.2rem;

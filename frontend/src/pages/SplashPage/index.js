@@ -15,7 +15,7 @@ function SplashPage() {
 
   const demoLogin = async () => {
     const username = "Doug_DemoDome";
-    const password = "password";
+    const password = "UfCL882`%Pu8`i;zLvu?";
     return dispatch(login({ credential: username, password: password }));
   };
 
