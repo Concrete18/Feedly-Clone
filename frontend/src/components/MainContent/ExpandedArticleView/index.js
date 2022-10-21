@@ -76,7 +76,7 @@ function ExpandedArticle({ article, saved, read }) {
       {`${article.websiteName} / ${formattedDate}`}
       <span className="metadata_divider">{"//"}</span>
       {readButton}
-      <span className="metadata_divider">//</span>
+      <span className="metadata_divider">{"//"}</span>
       {saveButton}
     </div>
   );

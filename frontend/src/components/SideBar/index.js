@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // stores
 import { addFeed } from "../../store/feeds";
-import { getSavedArticles } from "../../store/articles";
+import { getSavedArticles, clearArticles } from "../../store/articles";
 // import { getUserArticles } from '../../store/articles';
 import * as sessionActions from "../../store/session";
 
@@ -38,6 +38,7 @@ function SideBar() {
 
   const logout = (e) => {
     e.preventDefault();
+    dispatch(clearArticles());
     dispatch(sessionActions.logout());
   };
 

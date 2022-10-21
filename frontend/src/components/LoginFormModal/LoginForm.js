@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import "./LoginForm.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
+  if (sessionUser) return <Redirect to="/collection" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,32 +27,32 @@ function LoginForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="sign_in_modal">
+        <div className="auth_modal">
           <h1>Log In</h1>
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
             ))}
           </ul>
-          <div className="user_login_form">
-            <label className="user_form_entry">Username or Email</label>
+          <div className="user_auth_form">
             <input
               type="text"
+              placeholder="Username or Email Address"
+              className=" auth_input"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
               required
             />
-          </div>
-          <div>
-            <label className="user_form_entry">Password</label>
             <input
               type="password"
+              placeholder="Password"
+              className=" auth_input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button className="log_sign_button" type="submit">
+          <button className="auth_submit_button" type="submit">
             Log In
           </button>
         </div>

@@ -30,52 +30,56 @@ function SignupFormPage() {
     ]);
   };
 
+  // TODO finish CSS for login
+
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="sign_in_modal">
+        <div className="auth_modal">
           <h1>Sign Up</h1>
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
             ))}
           </ul>
-          <div className="user_login_form">
-            <label className="user_form_entry">Email</label>
+          <div className="user_auth_form">
             <input
               type="text"
+              placeholder="Email Address"
+              className=" auth_input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label className="user_form_entry">Username</label>
             <input
               type="text"
+              placeholder="Username"
+              className=" auth_input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-
-            <label className="user_form_entry">Password</label>
             <input
               type="password"
+              placeholder="Password"
+              className=" auth_input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
-            <label className="user_form_entry">Confirm Password</label>
             <input
               type="password"
+              placeholder="Confirm Password"
+              className=" auth_input"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
+          <button className="auth_submit_button" type="submit">
+            Sign Up
+          </button>
         </div>
-        <button className="log_sign_button" type="submit">
-          Sign Up
-        </button>
       </form>
     </>
   );

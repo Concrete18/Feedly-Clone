@@ -35,10 +35,10 @@ function MainContent() {
     })();
   }, [dispatch, sessionUser]);
 
-  const markVisibleAsRead = async (e) => {
-    e.preventDefault();
-    console.log("PH Marked all as read");
-  };
+  // const markVisibleAsRead = async (e) => {
+  //   e.preventDefault();
+  //   console.log("PH Marked all as read");
+  // };
 
   // TODO add article hover over effect
 
