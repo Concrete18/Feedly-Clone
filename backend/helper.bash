@@ -15,6 +15,9 @@ elif [ $1 == 'migrate' ]; then
     npx dotenv sequelize db:migrate:undo:all
     npx dotenv sequelize db:migrate
     npx dotenv sequelize db:seed:all
+elif [ $1 == 'clear' ]; then
+    clear
+    npm start
 elif [ $1 == 'reset' ]; then
     reset_db
 elif [ $1 == 'restart' ]; then
