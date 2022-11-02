@@ -30,8 +30,6 @@ function SignupFormPage() {
     ]);
   };
 
-  // TODO finish CSS for login
-
   return (
     <>
       <form onSubmit={handleSubmit}>

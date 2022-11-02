@@ -60,7 +60,6 @@ function SideBar() {
             }}
           >
             Create New Feed
-            {/* TODO Give unique class for css */}
           </div>
           {showAddFeed && (
             <form onSubmit={handleSubmit} className="add_feed_form">

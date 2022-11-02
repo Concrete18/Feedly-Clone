@@ -137,7 +137,6 @@ export const unSaveArticle = (articleId, userId) => async (dispatch) => {
   }
 };
 
-// TODO finish function
 export const clearArticles = () => async (dispatch) => {
   dispatch(reset());
 };
