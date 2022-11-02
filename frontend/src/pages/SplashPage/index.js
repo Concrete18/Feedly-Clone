@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 // store
 import { login } from "../../store/session";
+import { updateUserArticles } from "../../store/articles";
+
 // components
 import LoginFormModal from "../../components/LoginFormModal";
 import SignupFormModal from "../../components/SignupFormModal";
@@ -19,15 +22,13 @@ function SplashPage() {
     return dispatch(login({ credential: username, password: password }));
   };
 
-  // TODO load demo user data on page load during specific times
-  // useEffect(() => {
-  //   (async () => {
-  //     await dispatch(updateUserArticles(sessionUser.id));
-  //     await dispatch(getUserArticles(sessionUser.id));
-  //     await setIsLoaded(true);
-  //     await dispatch(cleanArticles());
-  //   })();
-  // }, [dispatch, sessionUser]);
+  // loads demo user data on page load
+  useEffect(() => {
+    (async () => {
+      // TODO stop from running on refresh if possible
+      await dispatch(updateUserArticles(1));
+    })();
+  }, [dispatch]);
 
   if (sessionUser) return <Redirect to="/collection" />;
 
