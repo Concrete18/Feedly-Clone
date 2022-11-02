@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 // stores
 import { addFeed } from "../../store/feeds";
 import { getSavedArticles, clearArticles } from "../../store/articles";
-// import { getUserArticles } from '../../store/articles';
 import * as sessionActions from "../../store/session";
 
 // components
@@ -45,7 +44,6 @@ function SideBar() {
   return (
     <div className="side_bar">
       <div className="side_bar_contents">
-        {/* <div className='read_later_button side_bar_text_button bottom_padding' onClick={showSaved} >Read Later</div> */}
         <div
           className="bottom_padding side_bar_text_button"
           onClick={showSaved}
@@ -79,6 +77,8 @@ function SideBar() {
               {/* <button className='button add_feed_button' type="submit">Add Feed</button> */}
             </form>
           )}
+          {/* TODO finish help */}
+          <div className="side_bar_text_button">Help</div>
           <div className="log_out_button side_bar_text_button" onClick={logout}>
             Logout
           </div>
