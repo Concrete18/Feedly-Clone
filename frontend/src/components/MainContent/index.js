@@ -19,6 +19,7 @@ function MainContent() {
   const sessionUser = useSelector((state) => state.session.user);
 
   let articles = useSelector((state) => Object.values(state.articles));
+
   // TODO change to order by savedAt if it is the read later view
   articles = articles.sort(function (a, b) {
     return new Date(b.Article.pubDate) - new Date(a.Article.pubDate);
@@ -29,11 +30,18 @@ function MainContent() {
   useEffect(() => {
     (async () => {
       await dispatch(cleanArticles());
-      await dispatch(updateUserArticles(sessionUser.id));
+      // await dispatch(updateUserArticles(sessionUser.id));
       await dispatch(getUserArticles(sessionUser.id));
       await setIsLoaded(true);
     })();
   }, [dispatch, sessionUser]);
+
+  const refreshArticles = async (e) => {
+    e.preventDefault();
+    await setIsLoaded(false);
+    await dispatch(updateUserArticles(sessionUser.id));
+    await setIsLoaded(true);
+  };
 
   // const markVisibleAsRead = async (e) => {
   //   e.preventDefault();
@@ -50,6 +58,15 @@ function MainContent() {
         {!isLoaded && <div className="loading_text">Loading Feeds...</div>}
         {isLoaded && !articles.length && (
           <div className="loading_text">There are no Articles to Show.</div>
+        )}
+        {isLoaded && articles.length && (
+          <div className="articles_header">
+            <div className="article_header_text">Articles</div>
+            <div className="article_header_buttons">
+              <div onClick={refreshArticles}>Refresh Articles</div>
+              {/* <div>Mark All as Read</div> */}
+            </div>
+          </div>
         )}
         <div className="entry_list">
           {articles &&
