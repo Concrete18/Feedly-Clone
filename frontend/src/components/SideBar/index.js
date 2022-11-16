@@ -81,6 +81,7 @@ function SideBar() {
           <div className="log_out_button side_bar_text_button" onClick={logout}>
             Logout
           </div>
+          {/* TODO Add my social media stuff to the bottom of the side bar */}
         </div>
       </div>
     </div>
